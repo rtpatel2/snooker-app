@@ -45,4 +45,28 @@ glm::vec2 Ball::ComputeVelocityAfterCollision(const Ball& other) const {
   }
 }
 
+const glm::vec2& Ball::GetPosition() const {
+  return position_;
+}
+
+const glm::vec2& Ball::GetVelocity() const {
+  return velocity_;
+}
+
+void Ball::SetVelocity(const glm::vec2& velocity) {
+  velocity_ = velocity;
+}
+
+const ci::Color& Ball::GetColor() const {
+  return color_;
+}
+
+float Ball::GetRadius() const {
+  return radius_;
+}
+
+float Ball::GetMass() const {
+  return mass_;
+}
+
 }  // namespace snooker

@@ -47,6 +47,13 @@ class Ball {
    */
   glm::vec2 ComputeVelocityAfterCollision(const Ball& other) const;
 
+  const glm::vec2& GetPosition() const;
+  const glm::vec2& GetVelocity() const;
+  void SetVelocity(const glm::vec2& velocity);
+  const ci::Color& GetColor() const;
+  float GetRadius() const;
+  float GetMass() const;
+
  public:
   glm::vec2 position_;
   glm::vec2 velocity_;
