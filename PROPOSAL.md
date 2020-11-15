@@ -10,14 +10,16 @@ Snooker is a cue sport, a category including games like 8-ball pool; however, th
 Week 1:
 - Implement physics governing ball movement (e.g., friction with table, slightly inelastic collisions)
 - Implement the table, and the physics governing collisions with the sides of the table (e.g., straight edges, curved sections near pockets, pockets)
-- Implement a cue, and allow it to exert force upon a cue ball depending on some sort of changeable "strength".
+- Design basic GUI displaying table/balls to demonstrate collisions
 
 Week 2:
+- Implement a cue, and allow it to exert force upon a cue ball depending on some sort of changeable "strength".
 - Implement game rules (e.g., order in which balls must be pocketed, replacing balls, points, scratching)
-- Implement basic AI player, perhaps one that just tries to pocket the nearest correct-colored ball.
+- Modify GUI to display cue movement
 
 Week 3:
-- Design a GUI in Cinder to display game components (e.g., drawing a table, cue, colored balls)
+- Implement basic AI player, perhaps one that just tries to pocket the nearest correct-colored ball.
+- Modify GUI to display player vs AI
 - Design win/loss screens
 - Maintain game/score history for the player
 
