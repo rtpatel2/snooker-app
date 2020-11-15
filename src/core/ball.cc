@@ -33,14 +33,14 @@ void Ball::CollideWithTableWalls(const ci::Rectf& walls) {
        (abs(walls.x1 - position_.x) <= radius_ || position_.x < walls.x1)) ||
       (velocity_.x > 0 &&
        (abs(walls.x2 - position_.x) <= radius_ || position_.x > walls.x2))) {
-    velocity_.x *= -1;
+    velocity_.x *= -kRestitutionCoefficient;
   }
 
   if ((velocity_.y < 0 &&
        (abs(walls.y1 - position_.y) <= radius_ || position_.y < walls.y1)) ||
       (velocity_.y > 0 &&
        (abs(walls.y2 - position_.y) <= radius_ || position_.y > walls.y2))) {
-    velocity_.y *= -1;
+    velocity_.y *= -kRestitutionCoefficient;
   }
 }
 
