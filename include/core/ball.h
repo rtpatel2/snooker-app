@@ -8,7 +8,7 @@
 
 namespace snooker {
 
-/** Maintains functionality of a snooker Ball. */
+/** Maintains functionality of a snooker ball. */
 class Ball {
  public:
   /**
