@@ -3,6 +3,8 @@
  */
 
 #include "visualizer/snooker_app.h"
+#include "core/ball.h"
+#include "core/table.h"
 
 namespace snooker {
 
@@ -15,6 +17,20 @@ SnookerApp::SnookerApp() : table_(ci::Rectf(kHorizontalMargin, kVerticalMargin,
                          static_cast<int>(kWindowHeight));
 }
 
+void SnookerApp::update() {
+  table_.IncrementTime();
+}
+
+void SnookerApp::draw() {
+  ci::gl::clear(kBlack);
+  ci::gl::color(kWhite);
+  ci::gl::drawStrokedRect(table_.GetWalls());
+
+  for (const Ball& ball : table_.GetBalls()) {
+    ci::gl::color(ball.GetColor());
+    ci::gl::drawSolidCircle(ball.GetPosition(), ball.GetRadius());
+  }
+}
 
 }  // namespace visualizer
 

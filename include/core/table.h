@@ -38,6 +38,9 @@ class Table {
   /** Removes all Balls from this Table. */
   void ClearTable();
 
+  const ci::Rectf& GetWalls() const;
+  const std::vector<Ball>& GetBalls() const;
+
  private:
   ci::Rectf walls_;
   std::vector<Ball> balls_;

@@ -34,4 +34,12 @@ void Table::ClearTable() {
   balls_.clear();
 }
 
+const ci::Rectf& Table::GetWalls() const {
+  return walls_;
+}
+
+const std::vector<Ball>& Table::GetBalls() const {
+  return balls_;
+}
+
 }  // namespace snooker
