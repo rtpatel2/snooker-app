@@ -29,6 +29,11 @@ class Table {
    */
   void AddBall(const Ball& ball);
 
+  /**
+   * Updates the velocities and positions of all Balls, simulating the
+   * passage of one unit of time.
+   */
+  void IncrementTime();
 
  private:
   ci::Rectf walls_;
