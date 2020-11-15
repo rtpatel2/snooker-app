@@ -38,6 +38,15 @@ class Ball {
    */
   void CollideWithTableWalls(const ci::Rectf& walls);
 
+  /**
+   * Computes the velocity of this Ball after colliding elastically with the
+   * given Ball.
+   *
+   * @param other Ball with which this Ball is colliding.
+   * @return velocity of this Ball after collision.
+   */
+  glm::vec2 ComputeVelocityAfterCollision(const Ball& other) const;
+
  public:
   glm::vec2 position_;
   glm::vec2 velocity_;

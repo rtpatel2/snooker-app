@@ -31,4 +31,18 @@ void Ball::CollideWithTableWalls(const ci::Rectf& walls) {
   }
 }
 
+glm::vec2 Ball::ComputeVelocityAfterCollision(const Ball& other) const {
+  if (glm::distance(position_, other.position_) <= (radius_ + other.radius_) &&
+      glm::dot(velocity_ - other.velocity_, position_ - other.position_) < 0) {
+    glm::vec2 velocity_change = velocity_ - other.velocity_;
+    glm::vec2 position_change = position_ - other.position_;
+    return (velocity_ - ((2 * other.mass_) / (mass_ + other.mass_)) *
+                            (glm::dot(velocity_change, position_change) /
+                             pow(glm::length(position_change), 2)) *
+                            (position_change));
+  } else {
+    return velocity_;
+  }
+}
+
 }  // namespace snooker
