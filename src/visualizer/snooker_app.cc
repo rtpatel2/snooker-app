@@ -15,7 +15,8 @@ SnookerApp::SnookerApp() : table_(ci::Rectf(kHorizontalMargin, kVerticalMargin,
                                           kVerticalMargin + kTableHeight)) {
   ci::app::setWindowSize(static_cast<int>(kWindowWidth),
                          static_cast<int>(kWindowHeight));
-  table_.AddBall(Ball(glm::vec2(400, 200), glm::vec2(2, 3), kRed, 1, 5));
+  table_.AddBall(
+      Ball(glm::vec2(400, 200), glm::vec2(2, 3), kRed, kBallRadius, kBallMass));
 }
 
 void SnookerApp::update() {

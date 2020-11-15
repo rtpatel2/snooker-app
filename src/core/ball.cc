@@ -8,12 +8,13 @@
 namespace snooker {
 
 Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
-           const ci::Color& color, float mass, float radius)
+           const ci::Color& color, float radius, float mass)
     : position_(initial_position),
       velocity_(initial_velocity),
       color_(color),
-      mass_(mass),
-      radius_(radius) {}
+      radius_(radius),
+      mass_(mass) {
+}
 
 void Ball::UpdatePosition() {
   position_ += velocity_;

@@ -40,6 +40,10 @@ class SnookerApp : public ci::app::App {
   const float kWindowWidth = 2 * kHorizontalMargin + kTableWidth;
   const float kWindowHeight = 2 * kVerticalMargin + kTableHeight;
 
+  /** Ball specifications. */
+  const float kBallRadius = 2.625f * kScalingFactor;
+  const float kBallMass = 3.0f * kScalingFactor;
+
  private:
   const ci::Color kWhite = ci::Color("white");
   const ci::Color kBlack = ci::Color("black");
