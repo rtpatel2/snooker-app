@@ -13,7 +13,7 @@ namespace snooker {
 class TableComponent {
  public:
   /**
-   * Creates a new TableComponent.
+   * Creates a new TableComponent at the specified position.
    *
    * @param position position of this TableComponent.
    */
@@ -27,9 +27,16 @@ class TableComponent {
 class StraightEdge : public TableComponent {
  public:
   /**
+   * Creates a new StraightEdge at the specified position.
+   *
+   * @param position position of this StraightEdge.
+   */
+  StraightEdge(const glm::vec2& position);
+
+  /**
    * Computes the velocity of a Ball after collision with a straight edge of
    * a table.
-   * 
+   *
    * @param ball snooker Ball colliding with table.
    * @return velocity of the Ball after collision.
    */
