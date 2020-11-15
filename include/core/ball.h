@@ -24,6 +24,12 @@ class Ball {
   Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
        const ci::Color& color, float mass, float radius);
 
+  /**
+   * Updates the position of the Ball, simulating the passage of one unit of
+   * time.
+   */
+  void UpdatePosition();
+
  public:
   glm::vec2 position_;
   glm::vec2 velocity_;

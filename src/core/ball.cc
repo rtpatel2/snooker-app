@@ -15,4 +15,8 @@ Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
       mass_(mass),
       radius_(radius) {}
 
+void Ball::UpdatePosition() {
+  position_ += velocity_;
+}
+
 }  // namespace snooker
