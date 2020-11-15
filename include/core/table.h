@@ -4,7 +4,10 @@
 
 #pragma once
 
+#include "ball.h"
 #include "cinder/gl/gl.h"
+
+#include <vector>
 
 namespace snooker {
 
@@ -18,8 +21,18 @@ class Table {
    */
   Table(const ci::Rectf& walls);
 
+  /**
+   * Adds the specified Ball to this Table if the Ball is within the Table's
+   * walls.
+   *
+   * @param ball ball to add.
+   */
+  void AddBall(const Ball& ball);
+
+
  private:
   ci::Rectf walls_;
+  std::vector<Ball> balls_;
 };
 
 }  // namespace snooker

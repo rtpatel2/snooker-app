@@ -9,4 +9,10 @@ namespace snooker {
 
 Table::Table(const ci::Rectf& walls) : walls_(walls) {}
 
+void Table::AddBall(const Ball& ball) {
+  if (walls_.contains(ball.GetPosition())) {
+    balls_.push_back(ball);
+  }
+}
+
 }  // namespace snooker
