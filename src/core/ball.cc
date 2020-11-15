@@ -17,6 +17,13 @@ Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
 }
 
 void Ball::UpdatePosition() {
+  float velocity_change = kFrictionWithTable * kGravityAcceleration;
+  velocity_.x = (abs(velocity_.x) - velocity_change <= 0) ? 0
+                : (velocity_.x > 0) ? velocity_.x - velocity_change
+                                    : velocity_.x + velocity_change;
+  velocity_.y = (abs(velocity_.y) - velocity_change <= 0) ? 0
+                : (velocity_.y > 0) ? velocity_.y - velocity_change
+                                    : velocity_.y + velocity_change;
   position_ += velocity_;
 }
 
