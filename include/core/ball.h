@@ -54,10 +54,10 @@ class Ball {
   float GetRadius() const;
   float GetMass() const;
 
-  const float kGravityAcceleration = 980.0f;
-  const float kFrictionWithTable = 0.005f;
-  const float kRestitutionCoefficient = 0.95f;
-  const float kTimeScaleFactor = 0.01f;
+  static constexpr float kGravityAcceleration = 980.0f;
+  static constexpr float kFrictionWithTable = 0.005f;
+  static constexpr float kRestitutionCoefficient = 0.95f;
+  static constexpr float kTimeScaleFactor = 0.01f;
 
  public:
   glm::vec2 position_;
