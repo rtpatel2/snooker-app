@@ -5,6 +5,7 @@
 #pragma once
 
 #include "ball.h"
+#include "table_component.h"
 #include "cinder/gl/gl.h"
 
 #include <vector>
@@ -15,15 +16,15 @@ namespace snooker {
 class Table {
  public:
   /**
-   * Creates a new Table with the specified rectangular walls.
+   * Creates a new Table with the specified TableComponents.
    *
-   * @param walls Cinder rectangle specifying the walls of the Table.
+   * @param components components of the Table edge.
    */
-  explicit Table(const ci::Rectf& walls);
+  explicit Table(const std::vector<TableComponent>& components);
 
   /**
    * Adds the specified Ball to this Table if the Ball is within the Table's
-   * walls.
+   * bounds.
    *
    * @param ball ball to add.
    */
@@ -38,10 +39,12 @@ class Table {
   /** Removes all Balls from this Table. */
   void ClearTable();
 
+  //TODO: Sort out what to do with this
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
 
  private:
+  std::vector<TableComponent> components_;
   ci::Rectf walls_;
   std::vector<Ball> balls_;
 };
