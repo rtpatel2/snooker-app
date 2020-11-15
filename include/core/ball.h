@@ -57,7 +57,7 @@ class Ball {
   const float kGravityAcceleration = 980.0f;
   const float kFrictionWithTable = 0.005f;
   const float kRestitutionCoefficient = 0.95f;
-  const float kTimeScaleFactor = 0.025f;
+  const float kTimeScaleFactor = 0.01f;
 
  public:
   glm::vec2 position_;
