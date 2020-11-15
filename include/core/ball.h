@@ -25,10 +25,18 @@ class Ball {
        const ci::Color& color, float mass, float radius);
 
   /**
-   * Updates the position of the Ball, simulating the passage of one unit of
+   * Updates the position of this Ball, simulating the passage of one unit of
    * time.
    */
   void UpdatePosition();
+
+  /**
+   * Modifies the velocity of this Ball after collision with the provided
+   * rectangular bounds.
+   *
+   * @param walls walls with which the Ball is colliding.
+   */
+  void CollideWithTableWalls(const ci::Rectf& walls);
 
  public:
   glm::vec2 position_;
