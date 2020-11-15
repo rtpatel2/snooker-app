@@ -19,7 +19,7 @@ class Table {
    *
    * @param walls Cinder rectangle specifying the walls of the Table.
    */
-  Table(const ci::Rectf& walls);
+  explicit Table(const ci::Rectf& walls);
 
   /**
    * Adds the specified Ball to this Table if the Ball is within the Table's
