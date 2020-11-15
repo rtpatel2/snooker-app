@@ -35,6 +35,9 @@ class SnookerApp : public ci::app::App {
   /** Dimensions of the table. */
   const float kTableWidth = 356.9f * kScalingFactor;
   const float kTableHeight = 177.8f * kScalingFactor;
+  const float kBaulkLinePosition = 74 * kScalingFactor;
+  const float kSemicircleRadius = 29 * kScalingFactor;
+  const float kTableEdgeWidth = 5 * kScalingFactor;
 
   /** Dimensions of the window -- margins on each side, plus central area. */
   const float kWindowWidth = 2 * kHorizontalMargin + kTableWidth;
@@ -42,12 +45,15 @@ class SnookerApp : public ci::app::App {
 
   /** Ball specifications. */
   const float kBallRadius = 2.625f * kScalingFactor;
-  const float kBallMass = 3.0f * kScalingFactor;
+  const float kBallMass = 3.0f;
 
  private:
   const ci::Color kWhite = ci::Color("white");
   const ci::Color kBlack = ci::Color("black");
+  const ci::Color kTableCloth = ci::Color(0.227f, 0.71f, 0.0118f); // green
+  const ci::Color kTableEdge = ci::Color(0.333f, 0.204f, 0.169f); // dark brown
   const ci::Color kRed = ci::Color("red");
+  const ci::Color kBrown = ci::Color("brown");
 
   Table table_;
 };

@@ -15,8 +15,14 @@ SnookerApp::SnookerApp() : table_(ci::Rectf(kHorizontalMargin, kVerticalMargin,
                                           kVerticalMargin + kTableHeight)) {
   ci::app::setWindowSize(static_cast<int>(kWindowWidth),
                          static_cast<int>(kWindowHeight));
-  table_.AddBall(
-      Ball(glm::vec2(400, 200), glm::vec2(2, 3), kRed, kBallRadius, kBallMass));
+  float left_wall = table_.GetWalls().x1;
+  float right_wall = table_.GetWalls().x2;
+  float top_wall = table_.GetWalls().y1;
+  float bottom_wall = table_.GetWalls().y2;
+
+  table_.AddBall(Ball(glm::vec2(left_wall + kBaulkLinePosition,
+                                top_wall + (bottom_wall - top_wall) / 2),
+                      glm::vec2(0, 0), kBrown, kBallRadius, kBallMass));
 }
 
 void SnookerApp::update() {
@@ -25,8 +31,10 @@ void SnookerApp::update() {
 
 void SnookerApp::draw() {
   ci::gl::clear(kBlack);
-  ci::gl::color(kWhite);
-  ci::gl::drawStrokedRect(table_.GetWalls());
+  ci::gl::color(kTableCloth);
+  ci::gl::drawSolidRect(table_.GetWalls());
+  ci::gl::color(kTableEdge);
+  ci::gl::drawStrokedRect(table_.GetWalls(), kTableEdgeWidth);
 
   for (const Ball& ball : table_.GetBalls()) {
     ci::gl::color(ball.GetColor());
