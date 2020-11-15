@@ -10,14 +10,15 @@ namespace snooker {
 Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
            const ci::Color& color, float radius, float mass)
     : position_(initial_position),
-      velocity_(initial_velocity),
+      velocity_(initial_velocity * kTimeScaleFactor),
       color_(color),
       radius_(radius),
       mass_(mass) {
 }
 
 void Ball::UpdatePosition() {
-  float velocity_change = kFrictionWithTable * kGravityAcceleration;
+  float velocity_change =
+      kFrictionWithTable * kGravityAcceleration * kTimeScaleFactor;
   velocity_.x = (abs(velocity_.x) - velocity_change <= 0) ? 0
                 : (velocity_.x > 0) ? velocity_.x - velocity_change
                                     : velocity_.x + velocity_change;

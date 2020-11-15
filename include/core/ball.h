@@ -55,7 +55,9 @@ class Ball {
   float GetMass() const;
 
   const float kGravityAcceleration = 980.0f;
-  const float kFrictionWithTable = 0.001f;
+  const float kFrictionWithTable = 0.005f;
+
+  const float kTimeScaleFactor = 0.025f;
 
  public:
   glm::vec2 position_;

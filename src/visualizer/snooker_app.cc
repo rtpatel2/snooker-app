@@ -20,9 +20,9 @@ SnookerApp::SnookerApp() : table_(ci::Rectf(kHorizontalMargin, kVerticalMargin,
   float top_wall = table_.GetWalls().y1;
   float bottom_wall = table_.GetWalls().y2;
 
-  table_.AddBall(Ball(glm::vec2(left_wall + kBaulkLinePosition + 700,
+  table_.AddBall(Ball(glm::vec2(left_wall + kBaulkLinePosition + 400,
                                 top_wall + (bottom_wall - top_wall) / 2),
-                      glm::vec2(-130, 0), kWhite, kBallRadius, kBallMass));
+                      glm::vec2(-1300, 0), kWhite, kBallRadius, kBallMass));
 //  table_.AddBall(Ball(glm::vec2(left_wall + kBaulkLinePosition,
 //                                top_wall + (bottom_wall - top_wall) / 2),
 //                      glm::vec2(0, 0), kBrown, kBallRadius, kBallMass));
