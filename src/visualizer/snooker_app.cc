@@ -22,10 +22,10 @@ SnookerApp::SnookerApp() : table_(ci::Rectf(kHorizontalMargin, kVerticalMargin,
 
   table_.AddBall(Ball(glm::vec2(left_wall + kBaulkLinePosition + 700,
                                 top_wall + (bottom_wall - top_wall) / 2),
-                      glm::vec2(-4, 0), kWhite, kBallRadius, kBallMass));
-  table_.AddBall(Ball(glm::vec2(left_wall + kBaulkLinePosition,
-                                top_wall + (bottom_wall - top_wall) / 2),
-                      glm::vec2(0, 0), kBrown, kBallRadius, kBallMass));
+                      glm::vec2(-130, 0), kWhite, kBallRadius, kBallMass));
+//  table_.AddBall(Ball(glm::vec2(left_wall + kBaulkLinePosition,
+//                                top_wall + (bottom_wall - top_wall) / 2),
+//                      glm::vec2(0, 0), kBrown, kBallRadius, kBallMass));
 }
 
 void SnookerApp::update() {
