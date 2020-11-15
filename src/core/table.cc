@@ -30,4 +30,8 @@ void Table::IncrementTime() {
   }
 }
 
+void Table::ClearTable() {
+  balls_.clear();
+}
+
 }  // namespace snooker

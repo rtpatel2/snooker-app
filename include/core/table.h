@@ -35,6 +35,9 @@ class Table {
    */
   void IncrementTime();
 
+  /** Removes all Balls from this Table. */
+  void ClearTable();
+
  private:
   ci::Rectf walls_;
   std::vector<Ball> balls_;
