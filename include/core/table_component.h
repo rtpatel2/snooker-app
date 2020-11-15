@@ -13,25 +13,25 @@ namespace snooker {
 class TableComponent {
  public:
   /**
-   * Creates a new TableComponent at the specified position.
+   * Creates a new TableComponent with the specified bounds.
    *
-   * @param position position of this TableComponent.
+   * @param bounds bounds of this TableComponent.
    */
-  TableComponent(const glm::vec2& position);
+  TableComponent(const ci::Rectf& bounds);
 
- private:
-  glm::vec2 position_;
+ protected:
+  ci::Rectf bounds_;
 };
 
 /** Maintains functionality of a straight edge of the snooker table. */
 class StraightEdge : public TableComponent {
  public:
   /**
-   * Creates a new StraightEdge at the specified position.
+   * Creates a new StraightEdge with the specified bounds.
    *
-   * @param position position of this StraightEdge.
+   * @param bounds bounds of this StraightEdge.
    */
-  StraightEdge(const glm::vec2& position);
+  StraightEdge(const ci::Rectf& bounds);
 
   /**
    * Computes the velocity of a Ball after collision with a straight edge of
