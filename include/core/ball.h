@@ -59,7 +59,7 @@ class Ball {
   static constexpr float kRestitutionCoefficient = 0.95f;
   static constexpr float kTimeScaleFactor = 0.01f;
 
- public:
+ private:
   glm::vec2 position_;
   glm::vec2 velocity_;
   ci::Color color_;
