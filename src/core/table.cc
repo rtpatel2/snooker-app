@@ -15,9 +15,9 @@ Table::Table(const ci::Rectf& walls,
 }
 
 void Table::AddBall(const Ball& ball) {
-  //if (walls_.contains(ball.GetPosition())) {
+  if (walls_.contains(ball.GetPosition())) {
     balls_.push_back(ball);
-  //}
+  }
 }
 
 void Table::AddComponent(const StraightEdge& component) {

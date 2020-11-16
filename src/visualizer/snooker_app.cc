@@ -13,9 +13,13 @@ namespace snooker {
 namespace visualizer {
 
 SnookerApp::SnookerApp() {
-  std::vector<StraightEdge> edges{StraightEdge(ci::Rectf(
-      kHorizontalMargin, kVerticalMargin, kHorizontalMargin + kTableEdgeWidth,
-      kVerticalMargin + kTableHeight))};
+  std::vector<StraightEdge> edges {
+      StraightEdge(ci::Rectf(kHorizontalMargin, kVerticalMargin,
+                             kHorizontalMargin + kTableEdgeWidth,
+                             kVerticalMargin + kTableHeight)),
+      StraightEdge(ci::Rectf(kHorizontalMargin + kTableWidth, kVerticalMargin,
+                             kHorizontalMargin + kTableWidth + kTableEdgeWidth,
+                             kVerticalMargin + kTableHeight))};
   table_ = Table(ci::Rectf(kHorizontalMargin, kVerticalMargin,
                            kHorizontalMargin + kTableWidth,
                            kVerticalMargin + kTableHeight),

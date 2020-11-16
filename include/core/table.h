@@ -49,7 +49,6 @@ class Table {
   /** Removes all Balls from this Table. */
   void ClearTable();
 
-  //TODO: Sort out what to do with this
   const std::vector<StraightEdge>& GetComponents() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
