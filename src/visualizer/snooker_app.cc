@@ -84,7 +84,7 @@ void SnookerApp::draw() {
                                          kCornerPocketWidth),
       kCushionWidth, kCornerPocketWidth);
 
-  ci::gl::color(kBlack);
+  ci::gl::color(kRailColor);
   ci::Rectf rails(kHorizontalMargin - kCushionWidth / 2,
                   kVerticalMargin - kCushionWidth / 2,
                   kHorizontalMargin + kTableWidth + kCushionWidth / 2,

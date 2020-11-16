@@ -54,7 +54,7 @@ class SnookerApp : public ci::app::App {
   const ci::Color kBlack = ci::Color("black");
   const ci::Color kTableColor = ci::Color(0.227f, 0.71f, 0.0118f); // green
   const ci::Color kCushionColor = ci::Color(0.0392f, 0.424f, 0.0118f);
-  const ci::Color kRailColor = ci::Color(0.333f, 0.204f, 0.169f); // dark brown
+  const ci::Color kRailColor = ci::Color(0.502f, 0.251f, 0); // dark brown
   const ci::Color kRed = ci::Color("red");
   const ci::Color kBrown = ci::Color("brown");
 
