@@ -15,20 +15,30 @@ namespace snooker {
 /** Maintains functionality of a snooker table. */
 class Table {
  public:
+  Table();
+
   /**
    * Creates a new Table with the specified TableComponents.
    *
+   * @param walls walls of the Table.
    * @param components components of the Table edge.
    */
-  explicit Table(const std::vector<TableComponent>& components);
+  Table(const ci::Rectf& walls, const std::vector<StraightEdge>& components);
 
   /**
    * Adds the specified Ball to this Table if the Ball is within the Table's
    * bounds.
    *
-   * @param ball ball to add.
+   * @param ball Ball to add.
    */
   void AddBall(const Ball& ball);
+
+  /**
+   * Adds the specified TableComponent to this Table.
+   *
+   * @param component TableComponent to add.
+   */
+  void AddComponent(const StraightEdge& component);
 
   /**
    * Updates the velocities and positions of all Balls, simulating the
@@ -40,11 +50,12 @@ class Table {
   void ClearTable();
 
   //TODO: Sort out what to do with this
+  const std::vector<StraightEdge>& GetComponents() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
 
  private:
-  std::vector<TableComponent> components_;
+  std::vector<StraightEdge> components_;
   ci::Rectf walls_;
   std::vector<Ball> balls_;
 };

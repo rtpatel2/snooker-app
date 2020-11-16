@@ -27,6 +27,8 @@ class TableComponent {
    */
   virtual glm::vec2 ComputeVelocityAfterCollision(const Ball& ball) const = 0;
 
+  const ci::Rectf& GetBounds() const;
+
  protected:
   ci::Rectf bounds_;
 };

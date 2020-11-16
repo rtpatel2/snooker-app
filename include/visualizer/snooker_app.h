@@ -37,7 +37,7 @@ class SnookerApp : public ci::app::App {
   const float kTableHeight = 177.8f * kScalingFactor;
   const float kBaulkLinePosition = 74 * kScalingFactor;
   const float kSemicircleRadius = 29 * kScalingFactor;
-  const float kTableEdgeWidth = 5 * kScalingFactor;
+  const float kTableEdgeWidth = 6 * kScalingFactor;
 
   /** Dimensions of the window -- margins on each side, plus central area. */
   const float kWindowWidth = 2 * kHorizontalMargin + kTableWidth;
