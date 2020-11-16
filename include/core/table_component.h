@@ -66,6 +66,8 @@ class CurvedEdge : public TableComponent {
    */
   glm::vec2 ComputeVelocityAfterCollision(const Ball& ball) const override;
 
+  const ci::svg::Circle& GetBounds() const;
+
  private:
   ci::svg::Circle bounds_;
 };

@@ -64,4 +64,8 @@ glm::vec2 CurvedEdge::ComputeVelocityAfterCollision(const Ball& ball) const {
   }
 }
 
+const ci::svg::Circle& CurvedEdge::GetBounds() const {
+  return bounds_;
+}
+
 }  // namespace snooker
