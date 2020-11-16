@@ -57,10 +57,6 @@ void SnookerApp::draw() {
                               curved_cushion->GetRadius());
     }
   }
-//  ci::gl::drawSolidCircle(glm::vec2(kHorizontalMargin,
-//                                       kVerticalMargin + kCushionWidth +
-//                                         kCornerPocketWidth),
-//      kCushionWidth);
 
   ci::gl::color(kRailColor);
   ci::Rectf rails(kHorizontalMargin - kCushionWidth / 2,
