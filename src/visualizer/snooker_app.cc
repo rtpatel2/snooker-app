@@ -16,7 +16,9 @@ namespace visualizer {
 SnookerApp::SnookerApp() {
   std::vector<TableComponent*> edges(
       {&kLeftCushion, &kRightCushion, &kTopLeftCushion, &kTopRightCushion,
-       &kBottomLeftCushion, &kBottomRightCushion});
+       &kBottomLeftCushion, &kBottomRightCushion,
+          &kTopLeftPocketBottomCushion, &kTopLeftPocketTopCushion,
+          &kBottomLeftPocketTopCushion, &kBottomLeftPocketBottomCushion});
   table_ = Table(ci::Rectf(kHorizontalMargin, kVerticalMargin,
                            kHorizontalMargin + kTableWidth,
                            kVerticalMargin + kTableHeight),

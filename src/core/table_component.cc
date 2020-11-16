@@ -54,7 +54,9 @@ glm::vec2 CurvedEdge::ComputeVelocityAfterCollision(const Ball& ball) const {
   if (glm::distance(ball_position, position_) <= (ball.GetRadius() + radius_) &&
       glm::dot(velocity, ball_position - position_) < 0) {
     glm::vec2 position_change = ball_position - position_;
-    return (velocity - 2 * (glm::dot(velocity, position_change) /
+    return Ball::kRestitutionCoefficient *
+           (velocity - 2 *
+                           (glm::dot(velocity, position_change) /
                             pow(glm::length(position_change), 2)) *
                            (position_change));
   } else {

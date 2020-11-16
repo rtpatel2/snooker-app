@@ -38,7 +38,7 @@ class SnookerApp : public ci::app::App {
   const float kTableHeight = 177.8f * kScalingFactor;
   const float kBaulkLinePosition = 74 * kScalingFactor;
   const float kSemicircleRadius = 29 * kScalingFactor;
-  const float kCushionWidth = 6 * kScalingFactor;
+  const float kCushionWidth = 5 * kScalingFactor;
   const float kCornerPocketWidth = 8.13f * kScalingFactor;
   const float kSidePocketWidth = 13 * kScalingFactor;
 
@@ -83,6 +83,26 @@ class SnookerApp : public ci::app::App {
       kVerticalMargin + kTableHeight - kCushionWidth,
       kHorizontalMargin + kTableWidth - kCushionWidth - kCornerPocketWidth,
       kVerticalMargin + kTableHeight));
+
+  CurvedEdge kTopLeftPocketBottomCushion =
+      CurvedEdge(glm::vec2(kHorizontalMargin, kVerticalMargin + kCushionWidth +
+                                                  kCornerPocketWidth),
+                 kCushionWidth);
+
+  CurvedEdge kTopLeftPocketTopCushion = CurvedEdge(
+      glm::vec2(kHorizontalMargin + kCushionWidth + kCornerPocketWidth,
+                kVerticalMargin),
+      kCushionWidth);
+
+  CurvedEdge kBottomLeftPocketTopCushion = CurvedEdge(
+      glm::vec2(kHorizontalMargin, kVerticalMargin + kTableHeight -
+                                       kCushionWidth - kCornerPocketWidth),
+      kCushionWidth);
+
+  CurvedEdge kBottomLeftPocketBottomCushion = CurvedEdge(
+      glm::vec2(kHorizontalMargin + kCushionWidth + kCornerPocketWidth,
+                kVerticalMargin + kTableHeight),
+      kCushionWidth);
 
  private:
   const ci::Color kWhite = ci::Color("white");
