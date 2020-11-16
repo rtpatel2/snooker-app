@@ -26,23 +26,18 @@ glm::vec2 StraightEdge::ComputeVelocityAfterCollision(const Ball& ball) const {
       return final_velocity;
     }
   }
+
+  if (bounds_.x1 <= position.x && position.x <= bounds_.x2) {
+    if ((velocity.y < 0 && bounds_.y2 <= position.y &&
+         abs(bounds_.y2 - position.y) <= ball.GetRadius()) ||
+        (velocity.y > 0 && bounds_.y1 >= position.y &&
+         abs(bounds_.y1 - position.y) <= ball.GetRadius())) {
+      glm::vec2 final_velocity = velocity;
+      final_velocity.y *= -Ball::kRestitutionCoefficient;
+      return final_velocity;
+    }
+  }
   return velocity;
-//  if (bounds_.y1 )
-//  if ((velocity.x < 0 &&
-//       (abs(bounds_.x - position.x) <= ball.GetRadius() || position.x < bounds_.x)) ||
-//      (velocity.x > 0 &&
-//       (abs(walls.x2 - position.x) <= ball.GetRadius() || position.x > walls.x2))) {
-//    glm::vec2 final_velocity = velocity;
-//    final_velocity.x *= -Ball::kRestitutionCoefficient;
-//    return final_velocity;
-//  }
-//
-//  if ((velocity.y < 0 &&
-//       (abs(walls.y1 - position.y) <= radius_ || position.y < walls.y1)) ||
-//      (velocity.y > 0 &&
-//       (abs(walls.y2 - position.y) <= radius_ || position.y > walls.y2))) {
-//    velocity_.y *= -kRestitutionCoefficient;
-//  }
 }
 
 const ci::Rectf& TableComponent::GetBounds() const {
