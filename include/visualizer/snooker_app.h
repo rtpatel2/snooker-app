@@ -39,8 +39,8 @@ class SnookerApp : public ci::app::App {
   const float kBaulkLinePosition = 74 * kScalingFactor;
   const float kSemicircleRadius = 29 * kScalingFactor;
   const float kCushionWidth = 5 * kScalingFactor;
-  const float kCornerPocketWidth = 8.13f * kScalingFactor;
-  const float kSidePocketWidth = 13 * kScalingFactor;
+  const float kCornerPocketWidth = 11 * kScalingFactor;
+  const float kSidePocketWidth = 10.5f * kScalingFactor;
 
   /** Dimensions of the window -- margins on each side, plus central area. */
   const float kWindowWidth = 2 * kHorizontalMargin + kTableWidth;
@@ -63,11 +63,11 @@ class SnookerApp : public ci::app::App {
 
   StraightCushion kTopLeftCushion = StraightCushion(ci::Rectf(
       kHorizontalMargin + kCushionWidth + kCornerPocketWidth, kVerticalMargin,
-      kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth / 2,
+      kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth,
       kVerticalMargin + kCushionWidth));
 
   StraightCushion kTopRightCushion = StraightCushion(ci::Rectf(
-      kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth / 2,
+      kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth,
       kVerticalMargin,
       kHorizontalMargin + kTableWidth - kCushionWidth - kCornerPocketWidth,
       kVerticalMargin + kCushionWidth));
@@ -75,23 +75,23 @@ class SnookerApp : public ci::app::App {
   StraightCushion kBottomLeftCushion = StraightCushion(
       ci::Rectf(kHorizontalMargin + kCushionWidth + kCornerPocketWidth,
                 kVerticalMargin + kTableHeight - kCushionWidth,
-                kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth / 2,
+                kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth,
                 kVerticalMargin + kTableHeight));
 
   StraightCushion kBottomRightCushion = StraightCushion(ci::Rectf(
-      kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth / 2,
+      kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth,
       kVerticalMargin + kTableHeight - kCushionWidth,
       kHorizontalMargin + kTableWidth - kCushionWidth - kCornerPocketWidth,
       kVerticalMargin + kTableHeight));
 
-  CurvedCushion kTopLeftPocketBottomCushion = CurvedCushion(
-      glm::vec2(kHorizontalMargin,
-                kVerticalMargin + kCushionWidth + kCornerPocketWidth),
-      kCushionWidth);
-
   CurvedCushion kTopLeftPocketTopCushion = CurvedCushion(
       glm::vec2(kHorizontalMargin + kCushionWidth + kCornerPocketWidth,
                 kVerticalMargin),
+      kCushionWidth);
+
+  CurvedCushion kTopLeftPocketBottomCushion = CurvedCushion(
+      glm::vec2(kHorizontalMargin,
+                kVerticalMargin + kCushionWidth + kCornerPocketWidth),
       kCushionWidth);
 
   CurvedCushion kBottomLeftPocketTopCushion = CurvedCushion(
@@ -101,6 +101,49 @@ class SnookerApp : public ci::app::App {
 
   CurvedCushion kBottomLeftPocketBottomCushion = CurvedCushion(
       glm::vec2(kHorizontalMargin + kCushionWidth + kCornerPocketWidth,
+                kVerticalMargin + kTableHeight),
+      kCushionWidth);
+
+  CurvedCushion kTopPocketLeftCushion = CurvedCushion(
+      glm::vec2(kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth,
+                kVerticalMargin),
+      kCushionWidth);
+
+  CurvedCushion kTopPocketRightCushion = CurvedCushion(
+      glm::vec2(kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth,
+                kVerticalMargin),
+      kCushionWidth);
+
+  CurvedCushion kBottomPocketLeftCushion = CurvedCushion(
+      glm::vec2(kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth,
+                kVerticalMargin + kTableHeight),
+      kCushionWidth);
+
+  CurvedCushion kBottomPocketRightCushion = CurvedCushion(
+      glm::vec2(kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth,
+                kVerticalMargin + kTableHeight),
+      kCushionWidth);
+
+  CurvedCushion kTopRightPocketTopCushion =
+      CurvedCushion(glm::vec2(kHorizontalMargin + kTableWidth - kCushionWidth -
+                                  kCornerPocketWidth,
+                              kVerticalMargin),
+                    kCushionWidth);
+
+  CurvedCushion kTopRightPocketBottomCushion = CurvedCushion(
+      glm::vec2(kHorizontalMargin + kTableWidth,
+                kVerticalMargin + kCushionWidth + kCornerPocketWidth),
+      kCushionWidth);
+
+  CurvedCushion kBottomRightPocketTopCushion =
+      CurvedCushion(glm::vec2(kHorizontalMargin + kTableWidth,
+                              kVerticalMargin + kTableHeight - kCushionWidth -
+                                  kCornerPocketWidth),
+                    kCushionWidth);
+
+  CurvedCushion kBottomRightPocketBottomCushion = CurvedCushion(
+      glm::vec2(kHorizontalMargin + kTableWidth - kCushionWidth -
+                kCornerPocketWidth,
                 kVerticalMargin + kTableHeight),
       kCushionWidth);
 

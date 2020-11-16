@@ -16,9 +16,13 @@ namespace visualizer {
 SnookerApp::SnookerApp() {
   std::vector<TableCushion*> cushions(
       {&kLeftCushion, &kRightCushion, &kTopLeftCushion, &kTopRightCushion,
-       &kBottomLeftCushion, &kBottomRightCushion,
-          &kTopLeftPocketBottomCushion, &kTopLeftPocketTopCushion,
-          &kBottomLeftPocketTopCushion, &kBottomLeftPocketBottomCushion});
+       &kBottomLeftCushion, &kBottomRightCushion, &kTopLeftPocketBottomCushion,
+       &kTopLeftPocketTopCushion, &kBottomLeftPocketTopCushion,
+       &kBottomLeftPocketBottomCushion, &kTopPocketLeftCushion,
+       &kTopPocketRightCushion, &kBottomPocketLeftCushion,
+       &kBottomPocketRightCushion, &kTopRightPocketTopCushion,
+       &kTopRightPocketBottomCushion, &kBottomRightPocketTopCushion,
+       &kBottomRightPocketBottomCushion});
   table_ = Table(ci::Rectf(kHorizontalMargin, kVerticalMargin,
                            kHorizontalMargin + kTableWidth,
                            kVerticalMargin + kTableHeight),
