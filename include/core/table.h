@@ -7,7 +7,6 @@
 #include "ball.h"
 #include "table_component.h"
 #include "cinder/gl/gl.h"
-#include "cinder/svg/Svg.h"
 
 #include <vector>
 

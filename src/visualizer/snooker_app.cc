@@ -6,7 +6,6 @@
 #include "core/ball.h"
 #include "core/table.h"
 #include "cinder/gl/gl.h"
-#include "cinder/svg/Svg.h"
 
 #include <vector>
 
@@ -81,7 +80,13 @@ void SnookerApp::draw() {
   ci::gl::drawSolidRect(table_.GetWalls());
   ci::gl::color(kCushionColor);
   for (TableComponent* component : table_.GetComponents()) {
-    ci::gl::drawSolid(component->GetBounds().getShape());
+    if (dynamic_cast<StraightEdge*>(component)) {
+      ci::gl::drawSolidRect(
+          dynamic_cast<StraightEdge*>(component)->GetBounds());
+    } else if (dynamic_cast<CurvedEdge*>(component)) {
+      CurvedEdge* edge = dynamic_cast<CurvedEdge*>(component);
+      ci::gl::drawSolidCircle(edge->GetPosition(), edge->GetRadius());
+    }
   }
 //  ci::gl::drawSolidCircle(glm::vec2(kHorizontalMargin,
 //                                       kVerticalMargin + kCushionWidth +

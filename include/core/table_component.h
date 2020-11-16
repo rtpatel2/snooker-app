@@ -6,7 +6,6 @@
 
 #include "core/ball.h"
 #include "cinder/gl/gl.h"
-#include "cinder/svg/Svg.h"
 
 namespace snooker {
 
@@ -22,8 +21,6 @@ class TableComponent {
    * @return velocity of the Ball after collision.
    */
   virtual glm::vec2 ComputeVelocityAfterCollision(const Ball& ball) const = 0;
-
-  virtual const ci::svg::Node& GetBounds() const = 0;
 };
 
 /** Maintains functionality of a straight edge of the snooker table. */
@@ -34,7 +31,7 @@ class StraightEdge : public TableComponent {
    *
    * @param bounds bounds of this StraightEdge.
    */
-  explicit StraightEdge(const ci::svg::Rect& bounds);
+  explicit StraightEdge(const ci::Rectf& bounds);
 
   /**
    * Computes the velocity of a Ball after collision with this StraightEdge.
@@ -44,10 +41,10 @@ class StraightEdge : public TableComponent {
    */
   glm::vec2 ComputeVelocityAfterCollision(const Ball& ball) const override;
 
-  const ci::svg::Rect& GetBounds() const;
+  const ci::Rectf& GetBounds() const;
 
  private:
-  ci::svg::Rect bounds_;
+  ci::Rectf bounds_;
 };
 
 /** Maintains functionality of a curved edge of the snooker table. */
@@ -56,9 +53,10 @@ class CurvedEdge : public TableComponent {
   /**
    * Creates a new CurvedEdge with the specified bounds.
    *
-   * @param bounds bounds of this StraightEdge.
+   * @param position position of this CurvedEdge.
+   * @param radius radius of this CurvedEdge.
    */
-  CurvedEdge(const ci::svg::Circle& bounds);
+  CurvedEdge(const glm::vec2& position, float radius);
 
   /**
    * Computes the velocity of a Ball after collision with this CurvedEdge.
@@ -68,10 +66,12 @@ class CurvedEdge : public TableComponent {
    */
   glm::vec2 ComputeVelocityAfterCollision(const Ball& ball) const override;
 
-  const ci::svg::Circle& GetBounds() const;
+  const glm::vec2& GetPosition() const;
+  float GetRadius() const;
 
  private:
-  ci::svg::Circle bounds_;
+  glm::vec2 position_;
+  float radius_;
 };
 
 }  // namespace snooker
