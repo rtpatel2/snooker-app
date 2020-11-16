@@ -6,18 +6,14 @@
 
 #include "core/ball.h"
 #include "cinder/gl/gl.h"
+#include "cinder/svg/Svg.h"
 
 namespace snooker {
 
 /** Maintains functionality of a single component of a snooker table. */
 class TableComponent {
  public:
-  /**
-   * Creates a new TableComponent with the specified bounds.
-   *
-   * @param bounds bounds of this TableComponent.
-   */
-  explicit TableComponent(const ci::Rectf& bounds);
+  TableComponent();
 
   /**
    * Computes the velocity of a Ball after collision with this TableComponent.
@@ -26,11 +22,6 @@ class TableComponent {
    * @return velocity of the Ball after collision.
    */
   virtual glm::vec2 ComputeVelocityAfterCollision(const Ball& ball) const = 0;
-
-  const ci::Rectf& GetBounds() const;
-
- protected:
-  ci::Rectf bounds_;
 };
 
 /** Maintains functionality of a straight edge of the snooker table. */
@@ -44,13 +35,39 @@ class StraightEdge : public TableComponent {
   StraightEdge(const ci::Rectf& bounds);
 
   /**
-   * Computes the velocity of a Ball after collision with a straight edge of
-   * a table.
+   * Computes the velocity of a Ball after collision with this StraightEdge.
    *
-   * @param ball snooker Ball colliding with table.
+   * @param ball snooker Ball colliding with edge.
    * @return velocity of the Ball after collision.
    */
   glm::vec2 ComputeVelocityAfterCollision(const Ball& ball) const override;
+
+  const ci::Rectf& GetBounds() const;
+
+ private:
+  ci::Rectf bounds_;
+};
+
+/** Maintains functionality of a curved edge of the snooker table. */
+class CurvedEdge : public TableComponent {
+ public:
+  /**
+   * Creates a new CurvedEdge with the specified bounds.
+   *
+   * @param bounds bounds of this StraightEdge.
+   */
+  CurvedEdge(const ci::svg::Circle& bounds);
+
+  /**
+   * Computes the velocity of a Ball after collision with this CurvedEdge.
+   *
+   * @param ball snooker Ball colliding with edge.
+   * @return velocity of the Ball after collision.
+   */
+  glm::vec2 ComputeVelocityAfterCollision(const Ball& ball) const override;
+
+ private:
+  ci::svg::Circle bounds_;
 };
 
 }  // namespace snooker

@@ -7,11 +7,10 @@
 
 namespace snooker {
 
-TableComponent::TableComponent(const ci::Rectf& bounds)
-    : bounds_(bounds) {}
+TableComponent::TableComponent() = default;
 
 StraightEdge::StraightEdge(const ci::Rectf& bounds)
-    : TableComponent(bounds) {}
+    : bounds_(bounds) {}
 
 glm::vec2 StraightEdge::ComputeVelocityAfterCollision(const Ball& ball) const {
   glm::vec2 velocity = ball.GetVelocity();
@@ -40,8 +39,29 @@ glm::vec2 StraightEdge::ComputeVelocityAfterCollision(const Ball& ball) const {
   return velocity;
 }
 
-const ci::Rectf& TableComponent::GetBounds() const {
+const ci::Rectf& StraightEdge::GetBounds() const {
   return bounds_;
+}
+
+CurvedEdge::CurvedEdge(const ci::svg::Circle& bounds) : bounds_(bounds) {}
+
+glm::vec2 CurvedEdge::ComputeVelocityAfterCollision(const Ball& ball) const {
+  // Mathematically, this is identical to a collision between two Balls, but
+  // the CurvedEdge has infinite mass (i.e., cannot be moved).
+  glm::vec2 ball_position = ball.GetPosition();
+  glm::vec2 edge_position = bounds_.getCenter();
+  glm::vec2 velocity = ball.GetVelocity();
+  if (glm::distance(ball_position, edge_position) <=
+          (ball.GetRadius() + bounds_.getRadius()) &&
+      glm::dot(velocity, ball_position - edge_position) < 0) {
+    glm::vec2 position_change = ball_position - edge_position;
+    return (velocity - 2 *
+                           (glm::dot(velocity, position_change) /
+                            pow(glm::length(position_change), 2)) *
+                           (position_change));
+  } else {
+    return velocity;
+  }
 }
 
 }  // namespace snooker
