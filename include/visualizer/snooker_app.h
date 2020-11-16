@@ -5,6 +5,7 @@
 #pragma once
 
 #include "core/table.h"
+#include "core/table_component.h"
 #include "cinder/gl/gl.h"
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
@@ -48,6 +49,40 @@ class SnookerApp : public ci::app::App {
   /** Ball specifications. */
   const float kBallRadius = 2.625f * kScalingFactor;
   const float kBallMass = 3.0f;
+
+  StraightEdge kLeftCushion = StraightEdge(ci::Rectf(
+      kHorizontalMargin, kVerticalMargin + kCushionWidth + kCornerPocketWidth,
+      kHorizontalMargin + kCushionWidth,
+      kVerticalMargin + kTableHeight - kCushionWidth - kCornerPocketWidth));
+
+  StraightEdge kRightCushion = StraightEdge(ci::Rectf(
+      kHorizontalMargin + kTableWidth - kCushionWidth,
+      kVerticalMargin + kCushionWidth + kCornerPocketWidth,
+      kHorizontalMargin + kTableWidth,
+      kVerticalMargin + kTableHeight - kCushionWidth - kCornerPocketWidth));
+
+  StraightEdge kTopLeftCushion = StraightEdge(ci::Rectf(
+      kHorizontalMargin + kCushionWidth + kCornerPocketWidth, kVerticalMargin,
+      kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth / 2,
+      kVerticalMargin + kCushionWidth));
+
+  StraightEdge kTopRightCushion = StraightEdge(ci::Rectf(
+      kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth / 2,
+      kVerticalMargin,
+      kHorizontalMargin + kTableWidth - kCushionWidth - kCornerPocketWidth,
+      kVerticalMargin + kCushionWidth));
+
+  StraightEdge kBottomLeftCushion = StraightEdge(
+      ci::Rectf(kHorizontalMargin + kCushionWidth + kCornerPocketWidth,
+                kVerticalMargin + kTableHeight - kCushionWidth,
+                kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth / 2,
+                kVerticalMargin + kTableHeight));
+
+  StraightEdge kBottomRightCushion = StraightEdge(ci::Rectf(
+      kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth / 2,
+      kVerticalMargin + kTableHeight - kCushionWidth,
+      kHorizontalMargin + kTableWidth - kCushionWidth - kCornerPocketWidth,
+      kVerticalMargin + kTableHeight));
 
  private:
   const ci::Color kWhite = ci::Color("white");
