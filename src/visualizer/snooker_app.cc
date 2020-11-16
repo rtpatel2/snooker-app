@@ -14,13 +14,40 @@ namespace visualizer {
 
 SnookerApp::SnookerApp() {
   std::vector<StraightEdge> edges {
-      StraightEdge(ci::Rectf(kHorizontalMargin, kVerticalMargin + kPocketWidth,
-                             kHorizontalMargin + kTableEdgeWidth,
-                             kVerticalMargin + kPocketWidth + kTableHeight)),
-      StraightEdge(ci::Rectf(kHorizontalMargin + kTableWidth,
-                             kVerticalMargin + kPocketWidth,
-                             kHorizontalMargin + kTableWidth + kTableEdgeWidth,
-                             kVerticalMargin + kPocketWidth + kTableHeight))};
+      StraightEdge( // left wall
+          ci::Rectf(kHorizontalMargin,
+                    kVerticalMargin + kTableEdgeWidth + kCornerPocketWidth,
+                    kHorizontalMargin + kTableEdgeWidth,
+                    kVerticalMargin + kTableHeight - kTableEdgeWidth -
+                        kCornerPocketWidth)),
+      StraightEdge( // right wall
+          ci::Rectf(kHorizontalMargin + kTableWidth - kTableEdgeWidth,
+                    kVerticalMargin + kTableEdgeWidth + kCornerPocketWidth,
+                    kHorizontalMargin + kTableWidth,
+                    kVerticalMargin + kTableHeight - kTableEdgeWidth -
+                        kCornerPocketWidth)),
+      StraightEdge( // top-left wall
+          ci::Rectf(kHorizontalMargin + kTableEdgeWidth + kCornerPocketWidth,
+                    kVerticalMargin,
+                    kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth / 2,
+                    kVerticalMargin + kTableEdgeWidth)),
+      StraightEdge( // top-right wall
+          ci::Rectf(kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth / 2,
+                    kVerticalMargin,
+                    kHorizontalMargin + kTableWidth - kTableEdgeWidth -
+                        kCornerPocketWidth,
+                    kVerticalMargin + kTableEdgeWidth)),
+      StraightEdge( // bottom-left wall
+          ci::Rectf(kHorizontalMargin + kTableEdgeWidth + kCornerPocketWidth,
+                    kVerticalMargin + kTableHeight - kTableEdgeWidth,
+                    kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth / 2,
+                    kVerticalMargin + kTableHeight)),
+      StraightEdge( //bottom-right wall
+          ci::Rectf(kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth / 2,
+                    kVerticalMargin + kTableHeight - kTableEdgeWidth,
+                    kHorizontalMargin + kTableWidth - kTableEdgeWidth -
+                    kCornerPocketWidth,
+                    kVerticalMargin + kTableHeight))};
   table_ = Table(ci::Rectf(kHorizontalMargin, kVerticalMargin,
                            kHorizontalMargin + kTableWidth,
                            kVerticalMargin + kTableHeight),
