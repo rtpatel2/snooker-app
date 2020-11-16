@@ -10,8 +10,8 @@ namespace snooker {
 Table::Table() = default;
 
 Table::Table(const ci::Rectf& walls,
-             const std::vector<TableComponent*>& components)
-    : walls_(walls), components_(components) {
+             const std::vector<TableCushion*>& cushions)
+    : walls_(walls), cushions_(cushions) {
 }
 
 void Table::AddBall(const Ball& ball) {
@@ -20,8 +20,8 @@ void Table::AddBall(const Ball& ball) {
   }
 }
 
-void Table::AddComponent(TableComponent* component) {
-  components_.push_back(component);
+void Table::AddCushion(TableCushion* cushion) {
+  cushions_.push_back(cushion);
 }
 
 void Table::IncrementTime() {
@@ -35,9 +35,8 @@ void Table::IncrementTime() {
       balls_[j].SetVelocity(particle2_new_velocity);
     }
 
-    for (const TableComponent* component : components_) {
-      balls_[i].SetVelocity(
-          component->ComputeVelocityAfterCollision(balls_[i]));
+    for (const TableCushion* cushion : cushions_) {
+      balls_[i].SetVelocity(cushion->ComputeVelocityAfterCollision(balls_[i]));
     }
     balls_[i].UpdatePosition();
   }
@@ -47,8 +46,8 @@ void Table::ClearTable() {
   balls_.clear();
 }
 
-const std::vector<TableComponent*>& Table::GetComponents() const {
-  return components_;
+const std::vector<TableCushion*>& Table::GetCushions() const {
+  return cushions_;
 }
 
 const ci::Rectf& Table::GetWalls() const {

@@ -14,7 +14,7 @@ namespace snooker {
 namespace visualizer {
 
 SnookerApp::SnookerApp() {
-  std::vector<TableComponent*> edges(
+  std::vector<TableCushion*> cushions(
       {&kLeftCushion, &kRightCushion, &kTopLeftCushion, &kTopRightCushion,
        &kBottomLeftCushion, &kBottomRightCushion,
           &kTopLeftPocketBottomCushion, &kTopLeftPocketTopCushion,
@@ -22,7 +22,7 @@ SnookerApp::SnookerApp() {
   table_ = Table(ci::Rectf(kHorizontalMargin, kVerticalMargin,
                            kHorizontalMargin + kTableWidth,
                            kVerticalMargin + kTableHeight),
-                 edges);
+                 cushions);
   ci::app::setWindowSize(static_cast<int>(kWindowWidth),
                          static_cast<int>(kWindowHeight));
   float left_wall = table_.GetWalls().x1;
@@ -47,13 +47,14 @@ void SnookerApp::draw() {
   ci::gl::color(kTableColor);
   ci::gl::drawSolidRect(table_.GetWalls());
   ci::gl::color(kCushionColor);
-  for (TableComponent* component : table_.GetComponents()) {
-    if (dynamic_cast<StraightEdge*>(component)) {
+  for (TableCushion* cushion : table_.GetCushions()) {
+    if (dynamic_cast<StraightCushion*>(cushion)) {
       ci::gl::drawSolidRect(
-          dynamic_cast<StraightEdge*>(component)->GetBounds());
-    } else if (dynamic_cast<CurvedEdge*>(component)) {
-      CurvedEdge* edge = dynamic_cast<CurvedEdge*>(component);
-      ci::gl::drawSolidCircle(edge->GetPosition(), edge->GetRadius());
+          dynamic_cast<StraightCushion*>(cushion)->GetBounds());
+    } else if (dynamic_cast<CurvedCushion*>(cushion)) {
+      CurvedCushion* curved_cushion = dynamic_cast<CurvedCushion*>(cushion);
+      ci::gl::drawSolidCircle(curved_cushion->GetPosition(),
+                              curved_cushion->GetRadius());
     }
   }
 //  ci::gl::drawSolidCircle(glm::vec2(kHorizontalMargin,

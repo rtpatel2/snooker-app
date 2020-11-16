@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include "ball.h"
-#include "table_component.h"
-#include "cinder/gl/gl.h"
-
 #include <vector>
+
+#include "ball.h"
+#include "cinder/gl/gl.h"
+#include "table_cushion.h"
 
 namespace snooker {
 
@@ -18,13 +18,13 @@ class Table {
   Table();
 
   /**
-   * Creates a new Table with the specified TableComponents.
+   * Creates a new Table with the specified TableCushions.
    *
    * @param walls walls of the Table.
-   * @param components components of the Table edge.
+   * @param cushions cushions of the Table edge.
    */
   Table(const ci::Rectf& walls,
-        const std::vector<TableComponent*>& components);
+        const std::vector<TableCushion*>& cushions);
 
   /**
    * Adds the specified Ball to this Table if the Ball is within the Table's
@@ -35,11 +35,11 @@ class Table {
   void AddBall(const Ball& ball);
 
   /**
-   * Adds the specified TableComponent to this Table.
+   * Adds the specified TableCushion to this Table.
    *
-   * @param component TableComponent to add.
+   * @param cushion TableCushion to add.
    */
-  void AddComponent(TableComponent* component);
+  void AddCushion(TableCushion* cushion);
 
   /**
    * Updates the velocities and positions of all Balls, simulating the
@@ -50,12 +50,12 @@ class Table {
   /** Removes all Balls from this Table. */
   void ClearTable();
 
-  const std::vector<TableComponent*>& GetComponents() const;
+  const std::vector<TableCushion*>& GetCushions() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
 
  private:
-  std::vector<TableComponent*> components_;
+  std::vector<TableCushion*> cushions_;
   ci::Rectf walls_;
   std::vector<Ball> balls_;
 };

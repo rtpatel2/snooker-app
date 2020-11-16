@@ -51,7 +51,7 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
 list(APPEND CORE_SOURCE_FILES src/core/ball.cc)
 list(APPEND CORE_SOURCE_FILES src/core/table.cc)
-list(APPEND CORE_SOURCE_FILES src/core/table_component.cc)
+list(APPEND CORE_SOURCE_FILES src/core/table_cushion.cc)
 
 list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
                             src/visualizer/snooker_app.cc)

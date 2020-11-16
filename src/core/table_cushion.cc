@@ -2,17 +2,18 @@
  * Created by Rishi Patel on 11/15/2020.
  */
 
-#include "core/table_component.h"
+#include "core/table_cushion.h"
+
 #include "cinder/gl/gl.h"
 
 namespace snooker {
 
-TableComponent::TableComponent() = default;
+TableCushion::TableCushion() = default;
 
-StraightEdge::StraightEdge(const ci::Rectf& bounds)
+StraightCushion::StraightCushion(const ci::Rectf& bounds)
     : bounds_(bounds) {}
 
-glm::vec2 StraightEdge::ComputeVelocityAfterCollision(const Ball& ball) const {
+glm::vec2 StraightCushion::ComputeVelocityAfterCollision(const Ball& ball) const {
   glm::vec2 velocity = ball.GetVelocity();
   glm::vec2 position = ball.GetPosition();
   if (bounds_.y1 <= position.y && position.y <= bounds_.y2) {
@@ -39,16 +40,16 @@ glm::vec2 StraightEdge::ComputeVelocityAfterCollision(const Ball& ball) const {
   return velocity;
 }
 
-const ci::Rectf& StraightEdge::GetBounds() const {
+const ci::Rectf& StraightCushion::GetBounds() const {
   return bounds_;
 }
 
-CurvedEdge::CurvedEdge(const glm::vec2& position, float radius)
+CurvedCushion::CurvedCushion(const glm::vec2& position, float radius)
     : position_(position), radius_(radius) {}
 
-glm::vec2 CurvedEdge::ComputeVelocityAfterCollision(const Ball& ball) const {
+glm::vec2 CurvedCushion::ComputeVelocityAfterCollision(const Ball& ball) const {
   // Mathematically, this is identical to a collision between two Balls, but
-  // the CurvedEdge has infinite mass (i.e., cannot be moved).
+  // the CurvedCushion has infinite mass (i.e., cannot be moved).
   glm::vec2 ball_position = ball.GetPosition();
   glm::vec2 velocity = ball.GetVelocity();
   if (glm::distance(ball_position, position_) <= (ball.GetRadius() + radius_) &&
@@ -64,11 +65,11 @@ glm::vec2 CurvedEdge::ComputeVelocityAfterCollision(const Ball& ball) const {
   }
 }
 
-const glm::vec2& CurvedEdge::GetPosition() const {
+const glm::vec2& CurvedCushion::GetPosition() const {
   return position_;
 }
 
-float CurvedEdge::GetRadius() const {
+float CurvedCushion::GetRadius() const {
   return radius_;
 }
 
