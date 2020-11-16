@@ -9,28 +9,29 @@ namespace snooker {
 
 TableComponent::TableComponent() = default;
 
-StraightEdge::StraightEdge(const ci::Rectf& bounds)
+StraightEdge::StraightEdge(const ci::svg::Rect& bounds)
     : bounds_(bounds) {}
 
 glm::vec2 StraightEdge::ComputeVelocityAfterCollision(const Ball& ball) const {
   glm::vec2 velocity = ball.GetVelocity();
   glm::vec2 position = ball.GetPosition();
-  if (bounds_.y1 <= position.y && position.y <= bounds_.y2) {
-    if ((velocity.x < 0 && bounds_.x2 <= position.x &&
-         abs(bounds_.x2 - position.x) <= ball.GetRadius()) ||
-        (velocity.x > 0 && bounds_.x1 >= position.x &&
-         abs(bounds_.x1 - position.x) <= ball.GetRadius())) {
+  ci::Rectf bounds_rectangle = bounds_.getRect();
+  if (bounds_rectangle.y1 <= position.y && position.y <= bounds_rectangle.y2) {
+    if ((velocity.x < 0 && bounds_rectangle.x2 <= position.x &&
+         abs(bounds_rectangle.x2 - position.x) <= ball.GetRadius()) ||
+        (velocity.x > 0 && bounds_rectangle.x1 >= position.x &&
+         abs(bounds_rectangle.x1 - position.x) <= ball.GetRadius())) {
       glm::vec2 final_velocity = velocity;
       final_velocity.x *= -Ball::kRestitutionCoefficient;
       return final_velocity;
     }
   }
 
-  if (bounds_.x1 <= position.x && position.x <= bounds_.x2) {
-    if ((velocity.y < 0 && bounds_.y2 <= position.y &&
-         abs(bounds_.y2 - position.y) <= ball.GetRadius()) ||
-        (velocity.y > 0 && bounds_.y1 >= position.y &&
-         abs(bounds_.y1 - position.y) <= ball.GetRadius())) {
+  if (bounds_rectangle.x1 <= position.x && position.x <= bounds_rectangle.x2) {
+    if ((velocity.y < 0 && bounds_rectangle.y2 <= position.y &&
+         abs(bounds_rectangle.y2 - position.y) <= ball.GetRadius()) ||
+        (velocity.y > 0 && bounds_rectangle.y1 >= position.y &&
+         abs(bounds_rectangle.y1 - position.y) <= ball.GetRadius())) {
       glm::vec2 final_velocity = velocity;
       final_velocity.y *= -Ball::kRestitutionCoefficient;
       return final_velocity;
@@ -39,7 +40,7 @@ glm::vec2 StraightEdge::ComputeVelocityAfterCollision(const Ball& ball) const {
   return velocity;
 }
 
-const ci::Rectf& StraightEdge::GetBounds() const {
+const ci::svg::Rect& StraightEdge::GetBounds() const {
   return bounds_;
 }
 

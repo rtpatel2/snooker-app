@@ -10,7 +10,7 @@ namespace snooker {
 Table::Table() = default;
 
 Table::Table(const ci::Rectf& walls,
-             const std::vector<StraightEdge>& components)
+             const std::vector<TableComponent*>& components)
     : walls_(walls), components_(components) {
 }
 
@@ -20,7 +20,7 @@ void Table::AddBall(const Ball& ball) {
   }
 }
 
-void Table::AddComponent(const StraightEdge& component) {
+void Table::AddComponent(TableComponent* component) {
   components_.push_back(component);
 }
 
@@ -35,9 +35,9 @@ void Table::IncrementTime() {
       balls_[j].SetVelocity(particle2_new_velocity);
     }
 
-    for (const StraightEdge& component : components_) {
+    for (const TableComponent* component : components_) {
       balls_[i].SetVelocity(
-          component.ComputeVelocityAfterCollision(balls_[i]));
+          component->ComputeVelocityAfterCollision(balls_[i]));
     }
     balls_[i].UpdatePosition();
   }
@@ -47,7 +47,7 @@ void Table::ClearTable() {
   balls_.clear();
 }
 
-const std::vector<StraightEdge>& Table::GetComponents() const {
+const std::vector<TableComponent*>& Table::GetComponents() const {
   return components_;
 }
 

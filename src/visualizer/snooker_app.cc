@@ -15,42 +15,44 @@ namespace snooker {
 namespace visualizer {
 
 SnookerApp::SnookerApp() {
-  std::vector<StraightEdge> edges {
-      StraightEdge( // left wall
-          ci::Rectf(kHorizontalMargin,
-                    kVerticalMargin + kCushionWidth + kCornerPocketWidth,
-                    kHorizontalMargin + kCushionWidth,
-                    kVerticalMargin + kTableHeight - kCushionWidth -
-                        kCornerPocketWidth)),
-      StraightEdge( // right wall
+  StraightEdge left_cushion(
+      ci::Rectf(kHorizontalMargin,
+                kVerticalMargin + kCushionWidth + kCornerPocketWidth,
+                kHorizontalMargin + kCushionWidth,
+                kVerticalMargin + kTableHeight - kCushionWidth -
+                kCornerPocketWidth));
+      StraightEdge right_cushion(
           ci::Rectf(kHorizontalMargin + kTableWidth - kCushionWidth,
                     kVerticalMargin + kCushionWidth + kCornerPocketWidth,
                     kHorizontalMargin + kTableWidth,
                     kVerticalMargin + kTableHeight - kCushionWidth -
-                        kCornerPocketWidth)),
-      StraightEdge( // top-left wall
+                    kCornerPocketWidth));
+      StraightEdge top_left_cushion(
           ci::Rectf(kHorizontalMargin + kCushionWidth + kCornerPocketWidth,
                     kVerticalMargin,
                     kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth / 2,
-                    kVerticalMargin + kCushionWidth)),
-      StraightEdge( // top-right wall
+                    kVerticalMargin + kCushionWidth));
+      StraightEdge top_right_cushion(
           ci::Rectf(kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth / 2,
                     kVerticalMargin,
                     kHorizontalMargin + kTableWidth - kCushionWidth -
-                        kCornerPocketWidth,
-                    kVerticalMargin + kCushionWidth)),
-      StraightEdge( // bottom-left wall
+                    kCornerPocketWidth,
+                    kVerticalMargin + kCushionWidth));
+      StraightEdge bottom_left_cushion(
           ci::Rectf(kHorizontalMargin + kCushionWidth + kCornerPocketWidth,
                     kVerticalMargin + kTableHeight - kCushionWidth,
                     kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth / 2,
-                    kVerticalMargin + kTableHeight)),
-      StraightEdge( //bottom-right wall
+                    kVerticalMargin + kTableHeight));
+      StraightEdge bottom_right_cushion(
           ci::Rectf(kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth / 2,
                     kVerticalMargin + kTableHeight - kCushionWidth,
                     kHorizontalMargin + kTableWidth - kCushionWidth -
                     kCornerPocketWidth,
-                    kVerticalMargin + kTableHeight))};
-  table_ = Table(ci::Rectf(kHorizontalMargin, kVerticalMargin,
+                    kVerticalMargin + kTableHeight));
+      std::vector<TableComponent*> edges{
+          &left_cushion,      &right_cushion,       &top_left_cushion,
+          &top_right_cushion, &bottom_left_cushion, &bottom_right_cushion};
+      table_ = Table(ci::Rectf(kHorizontalMargin, kVerticalMargin,
                            kHorizontalMargin + kTableWidth,
                            kVerticalMargin + kTableHeight),
                  edges);
@@ -78,13 +80,13 @@ void SnookerApp::draw() {
   ci::gl::color(kTableColor);
   ci::gl::drawSolidRect(table_.GetWalls());
   ci::gl::color(kCushionColor);
-  for (const StraightEdge& component : table_.GetComponents()) {
-    ci::gl::drawSolidRect(component.GetBounds());
+  for (TableComponent* component : table_.GetComponents()) {
+    ci::gl::drawSolid(component->GetBounds().getShape());
   }
-  ci::gl::drawSolidCircle(glm::vec2(kHorizontalMargin,
-                                       kVerticalMargin + kCushionWidth +
-                                         kCornerPocketWidth),
-      kCushionWidth);
+//  ci::gl::drawSolidCircle(glm::vec2(kHorizontalMargin,
+//                                       kVerticalMargin + kCushionWidth +
+//                                         kCornerPocketWidth),
+//      kCushionWidth);
 
   ci::gl::color(kRailColor);
   ci::Rectf rails(kHorizontalMargin - kCushionWidth / 2,

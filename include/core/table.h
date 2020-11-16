@@ -7,6 +7,7 @@
 #include "ball.h"
 #include "table_component.h"
 #include "cinder/gl/gl.h"
+#include "cinder/svg/Svg.h"
 
 #include <vector>
 
@@ -23,7 +24,8 @@ class Table {
    * @param walls walls of the Table.
    * @param components components of the Table edge.
    */
-  Table(const ci::Rectf& walls, const std::vector<StraightEdge>& components);
+  Table(const ci::Rectf& walls,
+        const std::vector<TableComponent*>& components);
 
   /**
    * Adds the specified Ball to this Table if the Ball is within the Table's
@@ -38,7 +40,7 @@ class Table {
    *
    * @param component TableComponent to add.
    */
-  void AddComponent(const StraightEdge& component);
+  void AddComponent(TableComponent* component);
 
   /**
    * Updates the velocities and positions of all Balls, simulating the
@@ -49,12 +51,12 @@ class Table {
   /** Removes all Balls from this Table. */
   void ClearTable();
 
-  const std::vector<StraightEdge>& GetComponents() const;
+  const std::vector<TableComponent*>& GetComponents() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
 
  private:
-  std::vector<StraightEdge> components_;
+  std::vector<TableComponent*> components_;
   ci::Rectf walls_;
   std::vector<Ball> balls_;
 };

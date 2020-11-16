@@ -22,6 +22,8 @@ class TableComponent {
    * @return velocity of the Ball after collision.
    */
   virtual glm::vec2 ComputeVelocityAfterCollision(const Ball& ball) const = 0;
+
+  virtual const ci::svg::Node& GetBounds() const = 0;
 };
 
 /** Maintains functionality of a straight edge of the snooker table. */
@@ -32,7 +34,7 @@ class StraightEdge : public TableComponent {
    *
    * @param bounds bounds of this StraightEdge.
    */
-  StraightEdge(const ci::Rectf& bounds);
+  explicit StraightEdge(const ci::svg::Rect& bounds);
 
   /**
    * Computes the velocity of a Ball after collision with this StraightEdge.
@@ -42,10 +44,10 @@ class StraightEdge : public TableComponent {
    */
   glm::vec2 ComputeVelocityAfterCollision(const Ball& ball) const override;
 
-  const ci::Rectf& GetBounds() const;
+  const ci::svg::Rect& GetBounds() const;
 
  private:
-  ci::Rectf bounds_;
+  ci::svg::Rect bounds_;
 };
 
 /** Maintains functionality of a curved edge of the snooker table. */

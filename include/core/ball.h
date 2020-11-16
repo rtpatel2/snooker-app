@@ -30,13 +30,13 @@ class Ball {
    */
   void UpdatePosition();
 
-  /**
-   * Modifies the velocity of this Ball after collision with the provided
-   * rectangular bounds.
-   *
-   * @param walls walls with which the Ball is colliding.
-   */
-  void CollideWithTableWalls(const ci::Rectf& walls);
+//  /**
+//   * Modifies the velocity of this Ball after collision with the provided
+//   * rectangular bounds.
+//   *
+//   * @param walls walls with which the Ball is colliding.
+//   */
+//  void CollideWithTableWall(const ci::svg::Rect& walls);
 
   /**
    * Computes the velocity of this Ball after colliding elastically with the
