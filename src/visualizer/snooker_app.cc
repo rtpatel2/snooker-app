@@ -5,6 +5,8 @@
 #include "visualizer/snooker_app.h"
 #include "core/ball.h"
 #include "core/table.h"
+#include "cinder/gl/gl.h"
+#include "cinder/svg/Svg.h"
 
 #include <vector>
 
@@ -79,10 +81,10 @@ void SnookerApp::draw() {
   for (const StraightEdge& component : table_.GetComponents()) {
     ci::gl::drawSolidRect(component.GetBounds());
   }
-  ci::gl::drawSolidEllipse(glm::vec2(kHorizontalMargin,
+  ci::gl::drawSolidCircle(glm::vec2(kHorizontalMargin,
                                        kVerticalMargin + kCushionWidth +
                                          kCornerPocketWidth),
-      kCushionWidth, kCornerPocketWidth);
+      kCushionWidth);
 
   ci::gl::color(kRailColor);
   ci::Rectf rails(kHorizontalMargin - kCushionWidth / 2,
