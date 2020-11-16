@@ -16,36 +16,36 @@ SnookerApp::SnookerApp() {
   std::vector<StraightEdge> edges {
       StraightEdge( // left wall
           ci::Rectf(kHorizontalMargin,
-                    kVerticalMargin + kTableEdgeWidth + kCornerPocketWidth,
-                    kHorizontalMargin + kTableEdgeWidth,
-                    kVerticalMargin + kTableHeight - kTableEdgeWidth -
+                    kVerticalMargin + kCushionWidth + kCornerPocketWidth,
+                    kHorizontalMargin + kCushionWidth,
+                    kVerticalMargin + kTableHeight - kCushionWidth -
                         kCornerPocketWidth)),
       StraightEdge( // right wall
-          ci::Rectf(kHorizontalMargin + kTableWidth - kTableEdgeWidth,
-                    kVerticalMargin + kTableEdgeWidth + kCornerPocketWidth,
+          ci::Rectf(kHorizontalMargin + kTableWidth - kCushionWidth,
+                    kVerticalMargin + kCushionWidth + kCornerPocketWidth,
                     kHorizontalMargin + kTableWidth,
-                    kVerticalMargin + kTableHeight - kTableEdgeWidth -
+                    kVerticalMargin + kTableHeight - kCushionWidth -
                         kCornerPocketWidth)),
       StraightEdge( // top-left wall
-          ci::Rectf(kHorizontalMargin + kTableEdgeWidth + kCornerPocketWidth,
+          ci::Rectf(kHorizontalMargin + kCushionWidth + kCornerPocketWidth,
                     kVerticalMargin,
                     kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth / 2,
-                    kVerticalMargin + kTableEdgeWidth)),
+                    kVerticalMargin + kCushionWidth)),
       StraightEdge( // top-right wall
           ci::Rectf(kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth / 2,
                     kVerticalMargin,
-                    kHorizontalMargin + kTableWidth - kTableEdgeWidth -
+                    kHorizontalMargin + kTableWidth - kCushionWidth -
                         kCornerPocketWidth,
-                    kVerticalMargin + kTableEdgeWidth)),
+                    kVerticalMargin + kCushionWidth)),
       StraightEdge( // bottom-left wall
-          ci::Rectf(kHorizontalMargin + kTableEdgeWidth + kCornerPocketWidth,
-                    kVerticalMargin + kTableHeight - kTableEdgeWidth,
+          ci::Rectf(kHorizontalMargin + kCushionWidth + kCornerPocketWidth,
+                    kVerticalMargin + kTableHeight - kCushionWidth,
                     kHorizontalMargin + kTableWidth / 2 - kSidePocketWidth / 2,
                     kVerticalMargin + kTableHeight)),
       StraightEdge( //bottom-right wall
           ci::Rectf(kHorizontalMargin + kTableWidth / 2 + kSidePocketWidth / 2,
-                    kVerticalMargin + kTableHeight - kTableEdgeWidth,
-                    kHorizontalMargin + kTableWidth - kTableEdgeWidth -
+                    kVerticalMargin + kTableHeight - kCushionWidth,
+                    kHorizontalMargin + kTableWidth - kCushionWidth -
                     kCornerPocketWidth,
                     kVerticalMargin + kTableHeight))};
   table_ = Table(ci::Rectf(kHorizontalMargin, kVerticalMargin,
@@ -73,14 +73,23 @@ void SnookerApp::update() {
 
 void SnookerApp::draw() {
   ci::gl::clear(kBlack);
-  ci::gl::color(kTableCloth);
+  ci::gl::color(kTableColor);
   ci::gl::drawSolidRect(table_.GetWalls());
-  ci::gl::color(kTableEdge);
+  ci::gl::color(kCushionColor);
   for (const StraightEdge& component : table_.GetComponents()) {
     ci::gl::drawSolidRect(component.GetBounds());
   }
+  ci::gl::drawSolidEllipse(glm::vec2(kHorizontalMargin,
+                                       kVerticalMargin + kCushionWidth +
+                                         kCornerPocketWidth),
+      kCushionWidth, kCornerPocketWidth);
 
-  //ci::gl::drawStrokedRect(table_.GetWalls(), kTableEdgeWidth);
+  ci::gl::color(kBlack);
+  ci::Rectf rails(kHorizontalMargin - kCushionWidth / 2,
+                  kVerticalMargin - kCushionWidth / 2,
+                  kHorizontalMargin + kTableWidth + kCushionWidth / 2,
+                  kVerticalMargin + kTableHeight + kCushionWidth / 2);
+  ci::gl::drawStrokedRect(rails, kCushionWidth);
 
   for (const Ball& ball : table_.GetBalls()) {
     ci::gl::color(ball.GetColor());

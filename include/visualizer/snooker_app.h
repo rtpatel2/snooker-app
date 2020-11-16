@@ -37,7 +37,7 @@ class SnookerApp : public ci::app::App {
   const float kTableHeight = 177.8f * kScalingFactor;
   const float kBaulkLinePosition = 74 * kScalingFactor;
   const float kSemicircleRadius = 29 * kScalingFactor;
-  const float kTableEdgeWidth = 6 * kScalingFactor;
+  const float kCushionWidth = 6 * kScalingFactor;
   const float kCornerPocketWidth = 8.13f * kScalingFactor;
   const float kSidePocketWidth = 13 * kScalingFactor;
 
@@ -52,8 +52,9 @@ class SnookerApp : public ci::app::App {
  private:
   const ci::Color kWhite = ci::Color("white");
   const ci::Color kBlack = ci::Color("black");
-  const ci::Color kTableCloth = ci::Color(0.227f, 0.71f, 0.0118f); // green
-  const ci::Color kTableEdge = ci::Color(0.333f, 0.204f, 0.169f); // dark brown
+  const ci::Color kTableColor = ci::Color(0.227f, 0.71f, 0.0118f); // green
+  const ci::Color kCushionColor = ci::Color(0.0392f, 0.424f, 0.0118f);
+  const ci::Color kRailColor = ci::Color(0.333f, 0.204f, 0.169f); // dark brown
   const ci::Color kRed = ci::Color("red");
   const ci::Color kBrown = ci::Color("brown");
 
