@@ -17,33 +17,21 @@ Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
 }
 
 void Ball::UpdatePosition() {
-  float velocity_change =
-      kFrictionWithTable * kGravityAcceleration * kTimeScaleFactor;
-  velocity_.x = (abs(velocity_.x) - velocity_change <= 0) ? 0
-                : (velocity_.x > 0) ? velocity_.x - velocity_change
-                                    : velocity_.x + velocity_change;
-  velocity_.y = (abs(velocity_.y) - velocity_change <= 0) ? 0
-                : (velocity_.y > 0) ? velocity_.y - velocity_change
-                                    : velocity_.y + velocity_change;
-  position_ += velocity_;
+  if (velocity_.y != 0 || velocity_.x != 0) {
+    float angle = glm::atan(abs(velocity_.y) / abs(velocity_.x));
+    float x_velocity_change = kFrictionWithTable * kGravityAcceleration *
+                              kTimeScaleFactor * glm::cos(angle);
+    float y_velocity_change = kFrictionWithTable * kGravityAcceleration *
+                              kTimeScaleFactor * glm::sin(angle);
+    velocity_.x = (abs(velocity_.x) - x_velocity_change <= 0) ? 0
+                  : (velocity_.x > 0) ? velocity_.x - x_velocity_change
+                                      : velocity_.x + x_velocity_change;
+    velocity_.y = (abs(velocity_.y) - y_velocity_change <= 0) ? 0
+                  : (velocity_.y > 0) ? velocity_.y - y_velocity_change
+                                      : velocity_.y + y_velocity_change;
+    position_ += velocity_;
+  }
 }
-
-//void Ball::CollideWithTableWall(const ci::svg::Rect& walls) {
-//  walls.getRect().
-//  if ((velocity_.x < 0 &&
-//       (abs(walls.x1 - position_.x) <= radius_ || position_.x < walls.x1)) ||
-//      (velocity_.x > 0 &&
-//       (abs(walls.x2 - position_.x) <= radius_ || position_.x > walls.x2))) {
-//    velocity_.x *= -kRestitutionCoefficient;
-//  }
-//
-//  if ((velocity_.y < 0 &&
-//       (abs(walls.y1 - position_.y) <= radius_ || position_.y < walls.y1)) ||
-//      (velocity_.y > 0 &&
-//       (abs(walls.y2 - position_.y) <= radius_ || position_.y > walls.y2))) {
-//    velocity_.y *= -kRestitutionCoefficient;
-//  }
-//}
 
 glm::vec2 Ball::ComputeVelocityAfterCollision(const Ball& other) const {
   if (glm::distance(position_, other.position_) <= (radius_ + other.radius_) &&
