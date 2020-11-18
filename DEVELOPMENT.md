@@ -37,3 +37,14 @@
      CurvedCushion data members must be maintained directly (i.e., a position
       and radius).
 - Implemented basic UI elements of TableCushion subclasses to SnookerApp.
+
+####November 17, 2020
+
+- Modified application of friction on Ball.
+    - Previously, friction would decrease the magnitude of both components of
+     velocity by a constant deceleration due to friction. In reality, 
+     however, the friction on a single component of the velocity is proportional to
+      the relevant magnitude of that component. Using sines and cosines of
+       the angle between the components allows for this.
+  
+- Implemented unit tests to validate functionality of each class.
