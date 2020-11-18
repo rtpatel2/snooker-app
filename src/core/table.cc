@@ -20,10 +20,6 @@ void Table::AddBall(const Ball& ball) {
   }
 }
 
-void Table::AddCushion(TableCushion* cushion) {
-  cushions_.push_back(cushion);
-}
-
 void Table::IncrementTime() {
   for (size_t i = 0; i < balls_.size(); ++i) {
     for (size_t j = i + 1; j < balls_.size(); ++j) {
@@ -40,10 +36,6 @@ void Table::IncrementTime() {
     }
     balls_[i].UpdatePosition();
   }
-}
-
-void Table::ClearTable() {
-  balls_.clear();
 }
 
 const std::vector<TableCushion*>& Table::GetCushions() const {

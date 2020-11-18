@@ -35,20 +35,10 @@ class Table {
   void AddBall(const Ball& ball);
 
   /**
-   * Adds the specified TableCushion to this Table.
-   *
-   * @param cushion TableCushion to add.
-   */
-  void AddCushion(TableCushion* cushion);
-
-  /**
    * Updates the velocities and positions of all Balls, simulating the
    * passage of one unit of time.
    */
   void IncrementTime();
-
-  /** Removes all Balls from this Table. */
-  void ClearTable();
 
   const std::vector<TableCushion*>& GetCushions() const;
   const ci::Rectf& GetWalls() const;
