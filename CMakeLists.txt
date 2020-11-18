@@ -57,6 +57,7 @@ list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
                             src/visualizer/snooker_app.cc)
 
 list(APPEND TEST_FILES tests/ball_test.cc)
+list(APPEND TEST_FILES tests/table_test.cc)
 
 ci_make_app(
         APP_NAME        snooker-visualizer
