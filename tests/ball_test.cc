@@ -68,5 +68,106 @@ TEST_CASE("Validate updating a Ball's position.") {
 }
 
 TEST_CASE("Validate computing velocity after collision with another Ball.") {
-  SECTION("")
+  SECTION("Colliding a ball head-on with another ball.") {
+    Ball ball1(glm::vec2(565.3, 927.5), glm::vec2(-0.6, 0), ci::Color("white"),
+               5, 5);
+    Ball ball2(glm::vec2(564.8, 927.5), glm::vec2(0.6, 0), ci::Color("white"),
+               5, 5);
+
+    glm::vec2 ball1_new_velocity = ball1.ComputeVelocityAfterCollision(ball2);
+    glm::vec2 ball2_new_velocity = ball2.ComputeVelocityAfterCollision(ball1);
+    ball1.SetVelocity(ball1_new_velocity);
+    ball2.SetVelocity(ball2_new_velocity);
+    REQUIRE(0.006 == Approx(ball1.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(0 == Approx(ball1.GetVelocity().y).margin(kMarginOfError));
+    REQUIRE(-0.006 == Approx(ball2.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(0 == Approx(ball2.GetVelocity().y).margin(kMarginOfError));
+  }
+
+  SECTION("Colliding a ball off-center with another ball.") {
+    Ball ball1(glm::vec2(320.0, 620.0), glm::vec2(0.1, 0.0), ci::Color("white"),
+               2.34f, 1);
+    Ball ball2(glm::vec2(321.4, 621.4), glm::vec2(-0.1, 0.0),
+               ci::Color("white"), 3.4f, 1);
+
+    glm::vec2 ball1_new_velocity = ball1.ComputeVelocityAfterCollision(ball2);
+    glm::vec2 ball2_new_velocity = ball2.ComputeVelocityAfterCollision(ball1);
+    ball1.SetVelocity(ball1_new_velocity);
+    ball2.SetVelocity(ball2_new_velocity);
+    REQUIRE(0 == Approx(ball1.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(-0.001 == Approx(ball1.GetVelocity().y).margin(kMarginOfError));
+    REQUIRE(0 == Approx(ball2.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(0.001 == Approx(ball2.GetVelocity().y).margin(kMarginOfError));
+
+    ball1.UpdatePosition();
+    ball2.UpdatePosition();
+    REQUIRE(320 == Approx(ball1.GetPosition().x).margin(kMarginOfError));
+    REQUIRE(619.999 == Approx(ball1.GetPosition().y).margin(kMarginOfError));
+    REQUIRE(321.4 == Approx(ball2.GetPosition().x).margin(kMarginOfError));
+    REQUIRE(621.401 == Approx(ball2.GetPosition().y).margin(kMarginOfError));
+  }
+
+  SECTION("Colliding balls with different masses.") {
+    Ball ball1(glm::vec2(450.0, 450.0), glm::vec2(1.2, 0), ci::Color("white"),
+               2.0f, 3.4f);
+    Ball ball2(glm::vec2(453.0, 450.0), glm::vec2(-0.3, 0), ci::Color("red"),
+               1.4f, 5.3f);
+
+    glm::vec2 ball1_new_velocity = ball1.ComputeVelocityAfterCollision(ball2);
+    glm::vec2 ball2_new_velocity = ball2.ComputeVelocityAfterCollision(ball1);
+    ball1.SetVelocity(ball1_new_velocity);
+    ball2.SetVelocity(ball2_new_velocity);
+    REQUIRE(-0.006276 == Approx(ball1.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(0 == Approx(ball1.GetVelocity().y).margin(kMarginOfError));
+    REQUIRE(0.008724 == Approx(ball2.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(0 == Approx(ball2.GetVelocity().y).margin(kMarginOfError));
+  }
+
+  SECTION("No collision between balls overlapping but moving away.") {
+    Ball ball1(glm::vec2(450.0, 450.0), glm::vec2(-1.2, 0), ci::Color("white"),
+               2.0f, 3.4f);
+    Ball ball2(glm::vec2(453.0, 450.0), glm::vec2(0.3, 0), ci::Color("red"),
+               1.4f, 5.3f);
+
+    glm::vec2 ball1_new_velocity = ball1.ComputeVelocityAfterCollision(ball2);
+    glm::vec2 ball2_new_velocity = ball2.ComputeVelocityAfterCollision(ball1);
+    ball1.SetVelocity(ball1_new_velocity);
+    ball2.SetVelocity(ball2_new_velocity);
+    REQUIRE(-0.012 == Approx(ball1.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(0 == Approx(ball1.GetVelocity().y).margin(kMarginOfError));
+    REQUIRE(0.003 == Approx(ball2.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(0 == Approx(ball2.GetVelocity().y).margin(kMarginOfError));
+  }
+
+  SECTION("No collision between balls touching but moving away.") {
+    Ball ball1(glm::vec2(320.0, 620.0), glm::vec2(-0.1, 0.0),
+               ci::Color("white"), 3.45f, 5);
+    Ball ball2(glm::vec2(321.4, 621.4), glm::vec2(0.1, 0.0), ci::Color("white"),
+               3, 4);
+
+    glm::vec2 ball1_new_velocity = ball1.ComputeVelocityAfterCollision(ball2);
+    glm::vec2 ball2_new_velocity = ball2.ComputeVelocityAfterCollision(ball1);
+    ball1.SetVelocity(ball1_new_velocity);
+    ball2.SetVelocity(ball2_new_velocity);
+    REQUIRE(-0.001 == Approx(ball1.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(0 == Approx(ball1.GetVelocity().y).margin(kMarginOfError));
+    REQUIRE(0.001 == Approx(ball2.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(0 == Approx(ball2.GetVelocity().y).margin(kMarginOfError));
+  }
+
+  SECTION("No collision between balls not touching but moving closer.") {
+    Ball ball1(glm::vec2(320.0, 620.0), glm::vec2(0.1, 0.0), ci::Color("white"),
+               1, 1);
+    Ball ball2(glm::vec2(351.4, 621.4), glm::vec2(-0.1, 0.0),
+               ci::Color("white"), 1, 1);
+
+    glm::vec2 ball1_new_velocity = ball1.ComputeVelocityAfterCollision(ball2);
+    glm::vec2 ball2_new_velocity = ball2.ComputeVelocityAfterCollision(ball1);
+    ball1.SetVelocity(ball1_new_velocity);
+    ball2.SetVelocity(ball2_new_velocity);
+    REQUIRE(0.001 == Approx(ball1.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(0 == Approx(ball1.GetVelocity().y).margin(kMarginOfError));
+    REQUIRE(-0.001 == Approx(ball2.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(0 == Approx(ball2.GetVelocity().y).margin(kMarginOfError));
+  }
 }
