@@ -25,9 +25,16 @@ using snooker::CurvedCushion;
 static const double kMarginOfError = 0.001;
 
 TEST_CASE("Creating a Table.") {
-  // Sanity check -- nothing to check via require statements.
   SECTION("Calling default constructor.") {
     Table table;
+
+    REQUIRE(glm::vec2(100, 100) == table.GetWalls().getUpperLeft());
+    REQUIRE(18 == table.GetCushions().size());
+    REQUIRE(glm::vec2(100, 140) ==
+            dynamic_cast<StraightCushion*>(table.GetCushions()[0].get())
+                ->GetBounds().getUpperLeft());
+    REQUIRE(12.5 == dynamic_cast<CurvedCushion*>(table.GetCushions()[12].get())
+                        ->GetRadius());
   }
 
   SECTION("Calling overloaded constructor.") {
