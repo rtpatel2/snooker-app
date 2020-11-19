@@ -36,7 +36,7 @@ void Ball::UpdatePosition() {
 glm::vec2 Ball::ComputeVelocityAfterCollision(const Ball& other) const {
   // Formula sourced from:
   // https://wikimedia.org/api/rest_v1/media/math/render/svg
-  // /14d5feb68844edae9e31c9cb4a2197ee922e409c,
+  // /14d5feb68844edae9e31c9cb4a2197ee922e409c.
   if (glm::distance(position_, other.position_) <= (radius_ + other.radius_) &&
       glm::dot(velocity_ - other.velocity_, position_ - other.position_) < 0) {
     glm::vec2 velocity_change = velocity_ - other.velocity_;

@@ -140,29 +140,30 @@ TEST_CASE("Validate incrementing the time of a Table.") {
   }
 
   SECTION("Colliding only with Balls.") {
-    table.AddBall(Ball(glm::vec2(308, 300), glm::vec2(-130, 34),
-                       ci::Color("white"), 5, 6));
-    table.AddBall(
+    Table default_table;
+    default_table.AddBall(Ball(glm::vec2(308, 300), glm::vec2(-130, 34),
+                               ci::Color("white"), 5, 6));
+    default_table.AddBall(
         Ball(glm::vec2(300, 300), glm::vec2(66, 66), ci::Color("black"), 4, 5));
-    table.IncrementTime();
+    default_table.IncrementTime();
 
-    REQUIRE(308.442 == Approx(table.GetBalls()[0].GetPosition().x).margin
-        (kMarginOfError));
-    REQUIRE(300.312 == Approx(table.GetBalls()[0].GetPosition().y).margin
-        (kMarginOfError));
-    REQUIRE(0.442 == Approx(table.GetBalls()[0].GetVelocity().x).margin
-        (kMarginOfError));
-    REQUIRE(0.312 == Approx(table.GetBalls()[0].GetVelocity().y).margin
-        (kMarginOfError));
+    REQUIRE(308.442 == Approx(default_table.GetBalls()[0].GetPosition().x)
+                           .margin(kMarginOfError));
+    REQUIRE(300.312 == Approx(default_table.GetBalls()[0].GetPosition().y)
+                           .margin(kMarginOfError));
+    REQUIRE(0.442 == Approx(default_table.GetBalls()[0].GetVelocity().x)
+                         .margin(kMarginOfError));
+    REQUIRE(0.312 == Approx(default_table.GetBalls()[0].GetVelocity().y)
+                         .margin(kMarginOfError));
 
-    REQUIRE(298.567 == Approx(table.GetBalls()[1].GetPosition().x).margin
-        (kMarginOfError));
-    REQUIRE(300.640 == Approx(table.GetBalls()[1].GetPosition().y).margin
-        (kMarginOfError));
-    REQUIRE(-1.433 == Approx(table.GetBalls()[1].GetVelocity().x).margin
-        (kMarginOfError));
-    REQUIRE(0.640 == Approx(table.GetBalls()[1].GetVelocity().y).margin
-        (kMarginOfError));
+    REQUIRE(298.567 == Approx(default_table.GetBalls()[1].GetPosition().x)
+                           .margin(kMarginOfError));
+    REQUIRE(300.640 == Approx(default_table.GetBalls()[1].GetPosition().y)
+                           .margin(kMarginOfError));
+    REQUIRE(-1.433 == Approx(default_table.GetBalls()[1].GetVelocity().x)
+                          .margin(kMarginOfError));
+    REQUIRE(0.640 == Approx(default_table.GetBalls()[1].GetVelocity().y)
+                         .margin(kMarginOfError));
   }
 
   SECTION("Multiple types of collisions.") {
