@@ -44,6 +44,16 @@ TEST_CASE("Creating a Table.") {
                 ->GetBounds().getUpperRight());
     REQUIRE(12.5 == dynamic_cast<CurvedCushion*>(table.GetCushions()[12].get())
                         ->GetRadius());
+    REQUIRE(glm::vec2(285, 322.25) == table.GetBalls()[0].GetPosition());
+    REQUIRE(769.188 ==
+            Approx(table.GetBalls()[4].GetPosition().x).margin(kMarginOfError));
+    REQUIRE(322.25 ==
+            Approx(table.GetBalls()[4].GetPosition().y).margin(kMarginOfError));
+    REQUIRE(795.438 ==
+            Approx(table.GetBalls()[7].GetPosition().x).margin(kMarginOfError));
+    REQUIRE(328.813 ==
+            Approx(table.GetBalls()[7].GetPosition().y).margin(kMarginOfError));
+    REQUIRE(glm::vec2(248.75,  358.5) == table.GetBalls().back().GetPosition());
   }
 
   SECTION("Calling overloaded constructor.") {
