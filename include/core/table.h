@@ -64,8 +64,12 @@ class Table {
   static constexpr float kCornerPocketWidth = 11 * kScalingFactor;
   static constexpr float kSidePocketWidth = 10.5f * kScalingFactor;
 
+  /** Ball specifications. */
+  const float kBallRadius = 2.625f * Table::kScalingFactor;
+  const float kBallMass = 3.0f;
+
  private:
-  /** Creates cushions for this Table based on its position and dimensions. */
+  /** Creates standard cushions for this Table based on its dimensions. */
   void CreateCushions();
 
   /** Creates the left and right cushions for this Table. */
@@ -82,6 +86,9 @@ class Table {
 
   /** Creates the cushions lining the inside of the right rail pockets. */
   void CreateRightPocketCushions();
+
+  /** Creates and places all balls for a standard game of snooker. */
+  void CreateBalls();
 
   std::vector<TableCushionPtr> cushions_;
   ci::Rectf walls_;

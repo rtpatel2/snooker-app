@@ -12,6 +12,7 @@ Table::Table() {
                      kHorizontalMargin + kTableWidth,
                      kVerticalMargin + kTableHeight);
   CreateCushions();
+  CreateBalls();
 }
 
 Table::Table(const ci::Rectf& walls, std::vector<TableCushionPtr> cushions)
@@ -198,6 +199,30 @@ void Table::CreateRightPocketCushions() {
   cushions_.push_back(std::move(top_pocket_lower_cushion));
   cushions_.push_back(std::move(bottom_pocket_upper_cushion));
   cushions_.push_back(std::move(bottom_pocket_lower_cushion));
+}
+
+void Table::CreateBalls() {
+  ci::Color white = ci::Color("white");
+  ci::Color black = ci::Color("black");
+  ci::Color red = ci::Color("red");
+  ci::Color brown = ci::Color("brown");
+  ci::Color green = ci::Color("green");
+  ci::Color yellow = ci::Color("yellow");
+  ci::Color blue = ci::Color("blue");
+  float height = walls_.y2 - walls_.y1;
+  float width = walls_.x2 - walls_.x1;
+
+  AddBall(Ball(
+      glm::vec2(walls_.x1 + Table::kBaulkLinePosition, walls_.y1 + height / 2),
+      glm::vec2(0, 0), brown, kBallRadius, kBallMass));
+  AddBall(Ball(glm::vec2(walls_.x1 + Table::kBaulkLinePosition,
+                         walls_.y1 + height / 2 - kSemicircleRadius),
+               glm::vec2(0, 0), green, kBallRadius, kBallMass));
+  AddBall(Ball(glm::vec2(walls_.x1 + Table::kBaulkLinePosition,
+                         walls_.y1 + height / 2 + kSemicircleRadius),
+               glm::vec2(0, 0), yellow, kBallRadius, kBallMass));
+  AddBall(Ball(glm::vec2(walls_.x1 + width / 2, walls_.y1 + height / 2),
+               glm::vec2(0, 0), blue, kBallRadius, kBallMass));
 }
 
 }  // namespace snooker

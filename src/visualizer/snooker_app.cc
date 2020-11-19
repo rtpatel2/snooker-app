@@ -7,8 +7,6 @@
 #include "core/table.h"
 #include "cinder/gl/gl.h"
 
-#include <vector>
-
 namespace snooker {
 
 namespace visualizer {
@@ -16,17 +14,6 @@ namespace visualizer {
 SnookerApp::SnookerApp() {
   ci::app::setWindowSize(static_cast<int>(kWindowWidth),
                          static_cast<int>(kWindowHeight));
-  float left_wall = table_.GetWalls().x1;
-  float right_wall = table_.GetWalls().x2;
-  float top_wall = table_.GetWalls().y1;
-  float bottom_wall = table_.GetWalls().y2;
-
-  table_.AddBall(Ball(glm::vec2(left_wall + Table::kBaulkLinePosition + 400,
-                                top_wall + (bottom_wall - top_wall) / 2 + 8.5f),
-                      glm::vec2(-1300, 0), kWhite, kBallRadius, kBallMass));
-  table_.AddBall(Ball(glm::vec2(left_wall + Table::kBaulkLinePosition,
-                                top_wall + (bottom_wall - top_wall) / 2),
-                      glm::vec2(0, 0), kBrown, kBallRadius, kBallMass));
 }
 
 void SnookerApp::update() {
@@ -51,11 +38,6 @@ void SnookerApp::draw() {
   }
 
   ci::gl::color(kRailColor);
-//  ci::Rectf rails(kHorizontalMargin - kCushionWidth / 2,
-//                  kVerticalMargin - kCushionWidth / 2,
-//                  kHorizontalMargin + kTableWidth + kCushionWidth / 2,
-//                  kVerticalMargin + kTableHeight + kCushionWidth / 2);
-//  ci::gl::drawStrokedRect(rails, kCushionWidth);
   ci::Rectf rails(
       Table::kHorizontalMargin - Table::kCushionWidth / 2,
       Table::kVerticalMargin - Table::kCushionWidth / 2,
