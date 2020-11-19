@@ -8,6 +8,9 @@
 #include "cinder/gl/gl.h"
 #include "catch2/catch.hpp"
 
+#include <memory>
+#include <vector>
+
 using snooker::Ball;
 using snooker::Table;
 using snooker::TableCushion;
@@ -28,9 +31,11 @@ TEST_CASE("Creating a Table.") {
   }
 
   SECTION("Calling overloaded constructor.") {
-    StraightCushion cushion1(ci::Rectf(100, 110, 115, 300));
-    std::vector<TableCushion*> cushions{&cushion1};
-    Table table(ci::Rectf(100, 100, 500, 500), cushions);
+    StraightCushionPtr cushion =
+        std::make_unique<StraightCushion>(ci::Rectf(100, 110, 115, 300));
+    std::vector<TableCushionPtr> cushions;
+    cushions.push_back(std::move(cushion));
+    Table table(ci::Rectf(100, 100, 500, 500), std::move(cushions));
 
     REQUIRE(glm::vec2(100, 100) == table.GetWalls().getUpperLeft());
     REQUIRE(glm::vec2(500, 500) == table.GetWalls().getLowerRight());
@@ -39,9 +44,11 @@ TEST_CASE("Creating a Table.") {
 }
 
 TEST_CASE("Validate adding Balls to the Table.") {
-  StraightCushion cushion1(ci::Rectf(100, 110, 115, 300));
-  std::vector<TableCushion*> cushions{&cushion1};
-  Table table(ci::Rectf(100, 100, 500, 500), cushions);
+  StraightCushionPtr cushion =
+      std::make_unique<StraightCushion>(ci::Rectf(100, 110, 115, 300));
+  std::vector<TableCushionPtr> cushions;
+  cushions.push_back(std::move(cushion));
+  Table table(ci::Rectf(100, 100, 500, 500), std::move(cushions));
 
   SECTION("Adding one Ball to an empty Table.") {
     table.AddBall(
@@ -71,11 +78,18 @@ TEST_CASE("Validate adding Balls to the Table.") {
 }
 
 TEST_CASE("Validate incrementing the time of a Table.") {
-  StraightCushion cushion1(ci::Rectf(100, 110, 115, 300));
-  StraightCushion cushion2(ci::Rectf(130, 490, 330, 500));
-  CurvedCushion cushion3(glm::vec2(100, 110), 15);
-  std::vector<TableCushion*> cushions{&cushion1, &cushion2, &cushion3};
-  Table table(ci::Rectf(100, 100, 500, 500), cushions);
+  StraightCushionPtr cushion1 =
+      std::make_unique<StraightCushion>(ci::Rectf(100, 110, 115, 300));
+  StraightCushionPtr cushion2 =
+      std::make_unique<StraightCushion>(ci::Rectf(130, 490, 330, 500));
+  CurvedCushionPtr cushion3 =
+      std::make_unique<CurvedCushion>(glm::vec2(100, 110), 15.0f);
+  std::vector<TableCushionPtr> cushions;
+  cushions.push_back(std::move(cushion1));
+  cushions.push_back(std::move(cushion2));
+  cushions.push_back(std::move(cushion3));
+
+  Table table(ci::Rectf(100, 100, 500, 500), std::move(cushions));
 
   SECTION("No collisions.") {
     table.AddBall(
