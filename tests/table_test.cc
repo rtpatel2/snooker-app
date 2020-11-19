@@ -33,6 +33,15 @@ TEST_CASE("Creating a Table.") {
     REQUIRE(glm::vec2(100, 140) ==
             dynamic_cast<StraightCushion*>(table.GetCushions()[0].get())
                 ->GetBounds().getUpperLeft());
+    REQUIRE(glm::vec2(979.75, 140) ==
+            dynamic_cast<StraightCushion*>(table.GetCushions()[1].get())
+                ->GetBounds().getUpperLeft());
+    REQUIRE(glm::vec2(952.25, 100) ==
+            dynamic_cast<StraightCushion*>(table.GetCushions()[3].get())
+                ->GetBounds().getUpperRight());
+    REQUIRE(glm::vec2(952.25, 532) ==
+            dynamic_cast<StraightCushion*>(table.GetCushions()[5].get())
+                ->GetBounds().getUpperRight());
     REQUIRE(12.5 == dynamic_cast<CurvedCushion*>(table.GetCushions()[12].get())
                         ->GetRadius());
   }
@@ -140,29 +149,28 @@ TEST_CASE("Validate incrementing the time of a Table.") {
   }
 
   SECTION("Colliding only with Balls.") {
-    Table default_table;
-    default_table.AddBall(Ball(glm::vec2(308, 300), glm::vec2(-130, 34),
+    table.AddBall(Ball(glm::vec2(308, 300), glm::vec2(-130, 34),
                                ci::Color("white"), 5, 6));
-    default_table.AddBall(
+    table.AddBall(
         Ball(glm::vec2(300, 300), glm::vec2(66, 66), ci::Color("black"), 4, 5));
-    default_table.IncrementTime();
+    table.IncrementTime();
 
-    REQUIRE(308.442 == Approx(default_table.GetBalls()[0].GetPosition().x)
+    REQUIRE(308.442 == Approx(table.GetBalls()[0].GetPosition().x)
                            .margin(kMarginOfError));
-    REQUIRE(300.312 == Approx(default_table.GetBalls()[0].GetPosition().y)
+    REQUIRE(300.312 == Approx(table.GetBalls()[0].GetPosition().y)
                            .margin(kMarginOfError));
-    REQUIRE(0.442 == Approx(default_table.GetBalls()[0].GetVelocity().x)
+    REQUIRE(0.442 == Approx(table.GetBalls()[0].GetVelocity().x)
                          .margin(kMarginOfError));
-    REQUIRE(0.312 == Approx(default_table.GetBalls()[0].GetVelocity().y)
+    REQUIRE(0.312 == Approx(table.GetBalls()[0].GetVelocity().y)
                          .margin(kMarginOfError));
 
-    REQUIRE(298.567 == Approx(default_table.GetBalls()[1].GetPosition().x)
+    REQUIRE(298.567 == Approx(table.GetBalls()[1].GetPosition().x)
                            .margin(kMarginOfError));
-    REQUIRE(300.640 == Approx(default_table.GetBalls()[1].GetPosition().y)
+    REQUIRE(300.640 == Approx(table.GetBalls()[1].GetPosition().y)
                            .margin(kMarginOfError));
-    REQUIRE(-1.433 == Approx(default_table.GetBalls()[1].GetVelocity().x)
+    REQUIRE(-1.433 == Approx(table.GetBalls()[1].GetVelocity().x)
                           .margin(kMarginOfError));
-    REQUIRE(0.640 == Approx(default_table.GetBalls()[1].GetVelocity().y)
+    REQUIRE(0.640 == Approx(table.GetBalls()[1].GetVelocity().y)
                          .margin(kMarginOfError));
   }
 
