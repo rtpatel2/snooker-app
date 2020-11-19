@@ -32,12 +32,24 @@ TEST_CASE("Creating a StraightCushion.") {
 TEST_CASE("Validate computing velocity of Ball after collision with "
     "StraightCushion.") {
   StraightCushion cushion(ci::Rectf(130, 490, 330, 500));
-  Ball ball(Ball(glm::vec2(200, 489), glm::vec2(-23.3, 45), ci::Color("green"),
-                 4, 5));
-  glm::vec2 exit_velocity = cushion.ComputeVelocityAfterCollision(ball);
 
-  REQUIRE(-0.233 == Approx(exit_velocity.x).margin(kMarginOfError));
-  REQUIRE(-0.427 == Approx(exit_velocity.y).margin(kMarginOfError));
+  SECTION("Correctly computing new velocity when there is a collision.") {
+    Ball ball(Ball(glm::vec2(200, 489), glm::vec2(-23.3, 45),
+                   ci::Color("green"), 4, 5));
+    glm::vec2 exit_velocity = cushion.ComputeVelocityAfterCollision(ball);
+
+    REQUIRE(-0.233 == Approx(exit_velocity.x).margin(kMarginOfError));
+    REQUIRE(-0.427 == Approx(exit_velocity.y).margin(kMarginOfError));
+  }
+
+  SECTION("No change to velocity when there is no collision.") {
+    Ball ball(Ball(glm::vec2(200, 389), glm::vec2(-23.3, 45),
+                   ci::Color("green"), 4, 5));
+    glm::vec2 exit_velocity = cushion.ComputeVelocityAfterCollision(ball);
+
+    REQUIRE(-0.233 == Approx(exit_velocity.x).margin(kMarginOfError));
+    REQUIRE(0.450 == Approx(exit_velocity.y).margin(kMarginOfError));
+  }
 }
 
 TEST_CASE("Creating a CurvedCushion.") {
@@ -51,10 +63,22 @@ TEST_CASE("Creating a CurvedCushion.") {
 TEST_CASE("Validate computing velocity of Ball after collision with "
           "CurvedCushion.") {
   CurvedCushion cushion(glm::vec2(100, 110), 15);
-  Ball ball(glm::vec2(102, 112), glm::vec2(-130, -34),
-                     ci::Color("white"), 5, 6);
-  glm::vec2 exit_velocity = cushion.ComputeVelocityAfterCollision(ball);
 
-  REQUIRE(0.323 == Approx(exit_velocity.x).margin(kMarginOfError));
-  REQUIRE(1.235 == Approx(exit_velocity.y).margin(kMarginOfError));
+  SECTION("Correctly computing new velocity when there is a collision.") {
+    Ball ball(glm::vec2(102, 112), glm::vec2(-130, -34),
+              ci::Color("white"), 5, 6);
+    glm::vec2 exit_velocity = cushion.ComputeVelocityAfterCollision(ball);
+
+    REQUIRE(0.323 == Approx(exit_velocity.x).margin(kMarginOfError));
+    REQUIRE(1.235 == Approx(exit_velocity.y).margin(kMarginOfError));
+  }
+
+  SECTION("No change to velocity when there is no collision.") {
+    Ball ball(glm::vec2(152, 172), glm::vec2(-130, -34),
+              ci::Color("white"), 5, 6);
+    glm::vec2 exit_velocity = cushion.ComputeVelocityAfterCollision(ball);
+
+    REQUIRE(-1.300 == Approx(exit_velocity.x).margin(kMarginOfError));
+    REQUIRE(-0.340 == Approx(exit_velocity.y).margin(kMarginOfError));
+  }
 }
