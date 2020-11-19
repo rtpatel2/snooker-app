@@ -59,6 +59,7 @@ class Table {
   static constexpr float kTableWidth = 356.9f * kScalingFactor;
   static constexpr float kTableHeight = 177.8f * kScalingFactor;
   static constexpr float kBaulkLinePosition = 74 * kScalingFactor;
+  static constexpr float kBlackBallGap = 32.385f * kScalingFactor;
   static constexpr float kSemicircleRadius = 29 * kScalingFactor;
   static constexpr float kCushionWidth = 5 * kScalingFactor;
   static constexpr float kCornerPocketWidth = 11 * kScalingFactor;

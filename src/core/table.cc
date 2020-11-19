@@ -209,20 +209,38 @@ void Table::CreateBalls() {
   ci::Color green = ci::Color("green");
   ci::Color yellow = ci::Color("yellow");
   ci::Color blue = ci::Color("blue");
+  ci::Color pink = ci::Color("pink");
   float height = walls_.y2 - walls_.y1;
   float width = walls_.x2 - walls_.x1;
+  glm::vec2 zero(0, 0);
 
-  AddBall(Ball(
-      glm::vec2(walls_.x1 + Table::kBaulkLinePosition, walls_.y1 + height / 2),
-      glm::vec2(0, 0), brown, kBallRadius, kBallMass));
-  AddBall(Ball(glm::vec2(walls_.x1 + Table::kBaulkLinePosition,
+  AddBall(
+      Ball(glm::vec2(walls_.x1 + kBaulkLinePosition, walls_.y1 + height / 2),
+           zero, brown, kBallRadius, kBallMass));
+  AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition,
                          walls_.y1 + height / 2 - kSemicircleRadius),
-               glm::vec2(0, 0), green, kBallRadius, kBallMass));
-  AddBall(Ball(glm::vec2(walls_.x1 + Table::kBaulkLinePosition,
+               zero, green, kBallRadius, kBallMass));
+  AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition,
                          walls_.y1 + height / 2 + kSemicircleRadius),
-               glm::vec2(0, 0), yellow, kBallRadius, kBallMass));
-  AddBall(Ball(glm::vec2(walls_.x1 + width / 2, walls_.y1 + height / 2),
-               glm::vec2(0, 0), blue, kBallRadius, kBallMass));
+               zero, yellow, kBallRadius, kBallMass));
+  AddBall(Ball(glm::vec2(walls_.x1 + width / 2, walls_.y1 + height / 2), zero,
+               blue, kBallRadius, kBallMass));
+  AddBall(Ball(glm::vec2(walls_.x1 + 0.75 * width, walls_.y1 + height / 2),
+               zero, pink, kBallRadius, kBallMass));
+
+  for (size_t row = 1; row <= 5; ++row) {
+    glm::vec2 ball_position =
+        glm::vec2(walls_.x1 + 0.75 * width + 2 * row * kBallRadius,
+                  walls_.y1 + height / 2 - (row - 1) * kBallRadius);
+    for (size_t ball_count = 1; ball_count <= row; ++ball_count) {
+      AddBall(Ball(ball_position, zero, red, kBallRadius, kBallMass));
+      ball_position.y += 2 * kBallRadius;
+    }
+  }
+
+  AddBall(Ball(glm::vec2(walls_.x1 + kTableWidth - kBlackBallGap,
+                         walls_.y1 + height / 2),
+               zero, black, kBallRadius, kBallMass));
 }
 
 }  // namespace snooker
