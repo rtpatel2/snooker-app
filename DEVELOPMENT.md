@@ -1,6 +1,6 @@
-##Development Log
+## Development Log
 
-####November 14, 2020
+#### November 14, 2020
 
 - Implemented basic functionality of Ball class.
     - Ball maintains its position, velocity, color, mass, and radius. Mass
@@ -26,7 +26,7 @@
       both allows the visualization to move at a more natural speed and
       prevents tunneling issues.
       
-####November 15, 2020
+#### November 15, 2020
 
 - Designed TableCushion abstract class with StraightCushion and CurvedCushion
  subclasses, representing the different types of cushions on a snooker table.
@@ -38,7 +38,7 @@
       and radius).
 - Implemented basic UI elements of TableCushion subclasses to SnookerApp.
 
-####November 17, 2020
+#### November 17, 2020
 
 - Modified application of friction on Ball.
     - Previously, friction would decrease the magnitude of both components of
@@ -48,3 +48,29 @@
        the angle between the components allows for this.
   
 - Implemented unit tests to validate functionality of each class.
+
+#### November 18, 2020
+
+- Modified pointer usage to smart pointers.
+    - Smart pointers handle memory management for their respective objects
+    , simplifying the design and improving the flexibility (i.e., fewer snags
+     to fall into for someone extending this project.)
+     
+- Moved logic to set up standard snooker table into Table class.
+    - Reducing the amount of code in the SnookerApp class allows for more
+     comprehensive testing and better separation of front-end and back-end.
+     
+ - Added additional unit tests to tackle some edge cases not covered in the
+  initial batches of unit tests.
+  
+#### November 19, 2020
+
+- Implemented code to initially spot all standard snooker balls onto the
+ table at the beginning of the game.
+    - Currently, all balls are stationary except the cue ball, which moves
+      towards the pyramid of reds upon running the SnookerApp for
+      demonstration purposes.
+    - In games of snooker, the player to break has the ability to move the
+      cue ball so long as it stays behind the baulk line. The cue ball
+      in the SnookerApp currently cannot be moved (or stroked with varying
+      strength/angle), but these are features slated for week 2. 
