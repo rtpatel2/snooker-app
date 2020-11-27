@@ -47,6 +47,13 @@ class Table {
    */
   void IncrementTime();
 
+  /**
+   * Determines whether or not all Balls on this Table have stopped moving.
+   *
+   * @return true if no Balls are still moving, and false otherwise.
+   */
+  bool IsSteady() const;
+
   const std::vector<TableCushionPtr>& GetCushions() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;

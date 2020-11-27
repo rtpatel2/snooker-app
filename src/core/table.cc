@@ -42,6 +42,15 @@ void Table::IncrementTime() {
   }
 }
 
+bool Table::IsSteady() const {
+  for (const Ball& ball : balls_) {
+    if (glm::length(ball.GetVelocity()) != 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
 const std::vector<TableCushionPtr>& Table::GetCushions() const {
   return cushions_;
 }
