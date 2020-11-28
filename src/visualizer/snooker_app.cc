@@ -5,6 +5,7 @@
 #include "visualizer/snooker_app.h"
 #include "core/ball.h"
 #include "core/table.h"
+#include "core/cue.h"
 #include "cinder/gl/gl.h"
 
 namespace snooker {
@@ -50,8 +51,19 @@ void SnookerApp::draw() {
     ci::gl::drawSolidCircle(ball.GetPosition(), ball.GetRadius());
   }
 
-  if (stroke_started_) {
-    ci::gl::drawStringCentered("Strokin", glm::vec2(300, 150));
+  if (table_.IsSteady()) {
+    ci::gl::ScopedModelMatrix scoped_matrix;
+    ci::gl::translate(table_.GetBalls().back().GetPosition());
+
+    glm::vec2 mouse_position = getMousePos() - getWindowPos();
+    glm::vec2 cue_vector =
+        table_.GetBalls().back().GetPosition() - mouse_position;
+    float cue_angle = glm::atan(cue_vector.y / cue_vector.x);
+    cue_angle += (cue_vector.x < 0) ? static_cast<float>(M_PI) : 0;
+    ci::gl::rotate(cue_angle);
+    ci::gl::color(ci::Color("brown"));
+    ci::gl::drawSolidRect(ci::Rectf(-Cue::kCueLength, -Cue::kCueWidth,
+                                    -Table::kBallRadius, Cue::kCueWidth));
   }
 }
 
@@ -66,10 +78,7 @@ void SnookerApp::mouseUp(ci::app::MouseEvent event) {
 }
 
 void SnookerApp::mouseDown(ci::app::MouseEvent event) {
-  if (table_.IsSteady() &&
-      glm::length(static_cast<glm::vec2>(event.getPos()) -
-                  table_.GetBalls().back().GetPosition()) <=
-          table_.kBallRadius) {
+  if (table_.IsSteady()) {
     stroke_started_ = true;
     stroke_start_ = static_cast<glm::vec2>(event.getPos());
   }

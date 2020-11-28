@@ -1,8 +1,20 @@
-//
-// Created by infernus on 11/28/2020.
-//
+/**
+ * Created by Rishi Patel on 11/28/2020.
+ */
 
-#ifndef FINAL_CUE_H
-#define FINAL_CUE_H
+#pragma once
 
-#endif //FINAL_CUE_H
+#include "table.h"
+
+namespace snooker {
+
+/** Maintains functionality of a snooker cue. */
+class Cue {
+ public:
+  Cue();
+
+  static constexpr float kCueLength = 100 * Table::kScalingFactor;
+  static constexpr float kCueWidth = 1 * Table::kScalingFactor;
+};
+
+}  // namespace snooker

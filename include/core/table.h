@@ -81,8 +81,8 @@ class Table {
   static constexpr float kSidePocketWidth = 10.5f * kScalingFactor;
 
   /** Ball specifications. */
-  const float kBallRadius = 2.625f * Table::kScalingFactor;
-  const float kBallMass = 3.0f;
+  static constexpr float kBallRadius = 2.625f * Table::kScalingFactor;
+  static constexpr float kBallMass = 3.0f;
 
  private:
   /** Creates standard cushions for this Table based on its dimensions. */
