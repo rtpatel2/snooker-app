@@ -49,14 +49,30 @@ void SnookerApp::draw() {
     ci::gl::color(ball.GetColor());
     ci::gl::drawSolidCircle(ball.GetPosition(), ball.GetRadius());
   }
+
+  if (stroke_started_) {
+    ci::gl::drawStringCentered("Strokin", glm::vec2(300, 150));
+  }
 }
 
 void SnookerApp::mouseUp(ci::app::MouseEvent event) {
-
+  if (table_.IsSteady() && stroke_started_) {
+    glm::vec2 stroke_end = static_cast<glm::vec2>(event.getPos());
+    glm::vec2 velocity(stroke_start_ - stroke_end);
+    table_.SetCueBallVelocity(velocity * Table::kScalingFactor *
+                              Ball::kTimeScaleFactor * Table::kCueStrokeFactor);
+    stroke_started_ = false;
+  }
 }
 
 void SnookerApp::mouseDown(ci::app::MouseEvent event) {
-  //if (glm::distance(event.getPos())
+  if (table_.IsSteady() &&
+      glm::length(static_cast<glm::vec2>(event.getPos()) -
+                  table_.GetBalls().back().GetPosition()) <=
+          table_.kBallRadius) {
+    stroke_started_ = true;
+    stroke_start_ = static_cast<glm::vec2>(event.getPos());
+  }
 }
 
 }  // namespace visualizer

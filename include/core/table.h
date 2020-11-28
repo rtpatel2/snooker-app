@@ -54,6 +54,13 @@ class Table {
    */
   bool IsSteady() const;
 
+  /**
+   * Sets the velocity of the cue ball to the specified velocity.
+   *
+   * @param velocity velocity to which to set cue ball velocity.
+   */
+  void SetCueBallVelocity(const glm::vec2& velocity);
+
   const std::vector<TableCushionPtr>& GetCushions() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
@@ -62,6 +69,7 @@ class Table {
   static constexpr float kHorizontalMargin = 100.0f;
   static constexpr float kVerticalMargin = 100.0f;
   static constexpr float kScalingFactor = 2.5f;
+  static constexpr float kCueStrokeFactor = 6.0f;
 
   static constexpr float kTableWidth = 356.9f * kScalingFactor;
   static constexpr float kTableHeight = 177.8f * kScalingFactor;

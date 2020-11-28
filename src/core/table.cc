@@ -51,6 +51,10 @@ bool Table::IsSteady() const {
   return true;
 }
 
+void Table::SetCueBallVelocity(const glm::vec2& velocity) {
+  balls_.back().SetVelocity(velocity);
+}
+
 const std::vector<TableCushionPtr>& Table::GetCushions() const {
   return cushions_;
 }
@@ -244,6 +248,8 @@ void Table::CreateBalls() {
                          walls_.y1 + height / 2),
                zero, ci::Color("black"), kBallRadius, kBallMass));
 
+
+  //TODO: Make this velocity 0
   AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition - kSemicircleRadius / 2,
                          walls_.y1 + height / 2 + kSemicircleRadius / 2),
                glm::vec2(1200, -80), ci::Color("white"), kBallRadius,

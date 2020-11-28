@@ -45,6 +45,7 @@ class SnookerApp : public ci::app::App {
 
   Table table_;
   bool stroke_started_;
+  glm::vec2 stroke_start_;
 };
 
 }  // namespace visualizer
