@@ -26,6 +26,12 @@ class SnookerApp : public ci::app::App {
   /** Renders the current state of the snooker visualization. */
   void draw() override;
 
+  /** Receives and handles mouse-up events. */
+  void mouseUp(ci::app::MouseEvent event) override;
+
+  /** Receives and handles mouse-down events. */
+  void mouseDown(ci::app::MouseEvent event) override;
+
   /** Dimensions of the window -- margins on each side, plus central area. */
   const float kWindowWidth = 2 * Table::kHorizontalMargin + Table::kTableWidth;
   const float kWindowHeight = 2 * Table::kVerticalMargin + Table::kTableHeight;
@@ -38,6 +44,7 @@ class SnookerApp : public ci::app::App {
   const ci::Color kRailColor = ci::Color(0.502f, 0.251f, 0);
 
   Table table_;
+  bool stroke_started_;
 };
 
 }  // namespace visualizer

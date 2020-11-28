@@ -11,7 +11,7 @@ namespace snooker {
 
 namespace visualizer {
 
-SnookerApp::SnookerApp() {
+SnookerApp::SnookerApp() : stroke_started_(false) {
   ci::app::setWindowSize(static_cast<int>(kWindowWidth),
                          static_cast<int>(kWindowHeight));
 }
@@ -49,6 +49,14 @@ void SnookerApp::draw() {
     ci::gl::color(ball.GetColor());
     ci::gl::drawSolidCircle(ball.GetPosition(), ball.GetRadius());
   }
+}
+
+void SnookerApp::mouseUp(ci::app::MouseEvent event) {
+
+}
+
+void SnookerApp::mouseDown(ci::app::MouseEvent event) {
+  //if (glm::distance(event.getPos())
 }
 
 }  // namespace visualizer
