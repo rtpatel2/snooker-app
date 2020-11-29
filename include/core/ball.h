@@ -37,7 +37,7 @@ class Ball {
    * @param other Ball with which this Ball is colliding.
    * @return velocity of this Ball after collision.
    */
-  glm::vec2 ComputeVelocityAfterCollision(const Ball& other) const;
+  glm::vec2 ComputeVelocityAfterCollision(Ball& other);
 
   const glm::vec2& GetPosition() const;
   const glm::vec2& GetVelocity() const;
