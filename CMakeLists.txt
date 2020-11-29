@@ -54,6 +54,7 @@ list(APPEND CORE_SOURCE_FILES src/core/table.cc)
 list(APPEND CORE_SOURCE_FILES src/core/table_cushion.cc)
 list(APPEND CORE_SOURCE_FILES src/core/game_engine.cc)
 list(APPEND CORE_SOURCE_FILES src/core/player.cc)
+list(APPEND CORE_SOURCE_FILES src/core/pocket.cc)
 
 list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
                             src/visualizer/snooker_app.cc)
