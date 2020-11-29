@@ -293,6 +293,25 @@ void Table::CreatePockets() {
   pockets_.push_back(Pocket(glm::vec2(kHorizontalMargin + kCornerPocketRadius,
                                       kVerticalMargin + kCornerPocketRadius),
                             kCornerPocketRadius, kBlack));
+  pockets_.push_back(
+      Pocket(glm::vec2(kHorizontalMargin + kCornerPocketRadius,
+                       kVerticalMargin + kTableHeight - kCornerPocketRadius),
+             kCornerPocketRadius, kBlack));
+  pockets_.push_back(
+      Pocket(glm::vec2(kHorizontalMargin + kTableWidth - kCornerPocketRadius,
+                       kVerticalMargin + kCornerPocketRadius),
+             kCornerPocketRadius, kBlack));
+  pockets_.push_back(
+      Pocket(glm::vec2(kHorizontalMargin + kTableWidth - kCornerPocketRadius,
+                       kVerticalMargin + kTableHeight - kCornerPocketRadius),
+             kCornerPocketRadius, kBlack));
+  pockets_.push_back(Pocket(glm::vec2(kHorizontalMargin + kTableWidth / 2,
+                                      kVerticalMargin),
+                            kSidePocketRadius, kBlack));
+  pockets_.push_back(
+      Pocket(glm::vec2(kHorizontalMargin + kTableWidth / 2,
+                       kVerticalMargin + kTableHeight),
+             kSidePocketRadius, kBlack));
 }
 
 }  // namespace snooker
