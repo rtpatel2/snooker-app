@@ -17,7 +17,7 @@ void GameEngine::AssessTable(const Player& player) {
       is_red_on, table_->GetBalls().back().GetFirstContacted()->GetColor(),
       *table_);
   if (is_stroke_legal) {
-    
+
   } else {
 
   }

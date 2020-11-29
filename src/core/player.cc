@@ -24,7 +24,8 @@ bool Player::IsStrokeLegal(bool is_red_on,
                            const ci::Color& cue_color_first_contacted,
                            const Table& table) const {
   if (is_red_on) {
-    for (const ci::Color& color : colors_potted_last_stroke_) {
+    for (Ball* ball : balls_potted_last_stroke_) {
+      ci::Color color = ball->GetColor();
       if (color == Table::kWhite) {
         return false;
       }
@@ -36,12 +37,13 @@ bool Player::IsStrokeLegal(bool is_red_on,
       }
     }
   } else {
-    if (colors_potted_last_stroke_.size() > 1) {
+    if (balls_potted_last_stroke_.size() > 1) {
       return false;
     }
-    if (!colors_potted_last_stroke_.empty() &&
-        (colors_potted_last_stroke_.front() != cue_color_first_contacted ||
-        colors_potted_last_stroke_.front() == Table::kWhite)) {
+    if (!balls_potted_last_stroke_.empty() &&
+        (balls_potted_last_stroke_.front()->GetColor() !=
+             cue_color_first_contacted ||
+         balls_potted_last_stroke_.front()->GetColor() == Table::kWhite)) {
       return false;
     }
     if (table.GetRedBallCount() != 0 &&

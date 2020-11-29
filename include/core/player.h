@@ -39,7 +39,7 @@ class Player {
                      const Table& table) const;
 
  private:
-  std::vector<ci::Color> colors_potted_last_stroke_;
+  std::vector<Ball*> balls_potted_last_stroke_;
   size_t stroke_number_;
 
 };
