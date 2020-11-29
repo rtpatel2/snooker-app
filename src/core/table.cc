@@ -75,6 +75,10 @@ void Table::SetCueBallVelocity(const glm::vec2& velocity) {
   balls_.back().SetVelocity(velocity);
 }
 
+ci::Color Table::DetermineLeastPointsColor() const {
+  return balls_.front().GetColor();
+}
+
 const std::vector<TableCushionPtr>& Table::GetCushions() const {
   return cushions_;
 }

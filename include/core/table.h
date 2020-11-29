@@ -64,6 +64,13 @@ class Table {
   /** Resets the first contacted Ball pointer from all Balls on the Table. */
   void ResetFirstContacted();
 
+  /**
+   * Determines the color with lowest point value still on the Table.
+   *
+   * @return color of the lowest point value Ball.
+   */
+  ci::Color DetermineLeastPointsColor() const;
+
   const std::vector<TableCushionPtr>& GetCushions() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
