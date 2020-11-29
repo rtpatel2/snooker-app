@@ -29,6 +29,10 @@ class Pocket {
    */
   bool DetermineIfPocketed(const Ball& ball) const;
 
+  const glm::vec2& GetPosition() const;
+  float GetRadius() const;
+  const ci::Color& GetColor() const;
+
  private:
   glm::vec2 position_;
   float radius_;

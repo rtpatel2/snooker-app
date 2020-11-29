@@ -19,4 +19,16 @@ bool Pocket::DetermineIfPocketed(const Ball& ball) const {
   }
 }
 
+const glm::vec2& Pocket::GetPosition() const {
+  return position_;
+}
+
+float Pocket::GetRadius() const {
+  return radius_;
+}
+
+const ci::Color& Pocket::GetColor() const {
+  return color_;
+}
+
 }  // namespace snooker
