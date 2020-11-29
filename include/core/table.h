@@ -61,6 +61,9 @@ class Table {
    */
   void SetCueBallVelocity(const glm::vec2& velocity);
 
+  /** Resets the first contacted Ball pointer from all Balls on the Table. */
+  void ResetFirstContacted();
+
   const std::vector<TableCushionPtr>& GetCushions() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
@@ -83,6 +86,16 @@ class Table {
   /** Ball specifications. */
   static constexpr float kBallRadius = 2.625f * Table::kScalingFactor;
   static constexpr float kBallMass = 3.0f;
+
+  /** Ball colors. */
+  const ci::Color kRed = ci::Color("red");
+  const ci::Color kBlack = ci::Color("black");
+  const ci::Color kWhite = ci::Color("white");
+  const ci::Color kGreen = ci::Color("green");
+  const ci::Color kYellow = ci::Color("yellow");
+  const ci::Color kPink = ci::Color("pink");
+  const ci::Color kBrown = ci::Color("brown");
+  const ci::Color kBlue = ci::Color("blue");
 
  private:
   /** Creates standard cushions for this Table based on its dimensions. */

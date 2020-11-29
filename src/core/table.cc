@@ -31,6 +31,7 @@ void Table::IncrementTime() {
           balls_[i].ComputeVelocityAfterCollision(balls_[j]);
       glm::vec2 particle2_new_velocity =
           balls_[j].ComputeVelocityAfterCollision(balls_[i]);
+
       balls_[i].SetVelocity(particle1_new_velocity);
       balls_[j].SetVelocity(particle2_new_velocity);
     }
@@ -49,6 +50,12 @@ bool Table::IsSteady() const {
     }
   }
   return true;
+}
+
+void Table::ResetFirstContacted() {
+  for (Ball& ball : balls_) {
+    ball.SetFirstContacted(nullptr);
+  }
 }
 
 void Table::SetCueBallVelocity(const glm::vec2& velocity) {
@@ -221,39 +228,36 @@ void Table::CreateBalls() {
 
   AddBall(
       Ball(glm::vec2(walls_.x1 + kBaulkLinePosition, walls_.y1 + height / 2),
-           zero, ci::Color("brown"), kBallRadius, kBallMass));
+           zero, kBrown, kBallRadius, kBallMass));
   AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition,
                          walls_.y1 + height / 2 - kSemicircleRadius),
-               zero, ci::Color("green"), kBallRadius, kBallMass));
+               zero, kGreen, kBallRadius, kBallMass));
   AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition,
                          walls_.y1 + height / 2 + kSemicircleRadius),
-               zero, ci::Color("yellow"), kBallRadius, kBallMass));
+               zero, kYellow, kBallRadius, kBallMass));
   AddBall(Ball(glm::vec2(walls_.x1 + width / 2, walls_.y1 + height / 2), zero,
-               ci::Color("blue"), kBallRadius, kBallMass));
+               kBlue, kBallRadius, kBallMass));
   AddBall(Ball(glm::vec2(walls_.x1 + 0.75 * width, walls_.y1 + height / 2),
-               zero, ci::Color("pink"), kBallRadius, kBallMass));
+               zero, kPink, kBallRadius, kBallMass));
 
   for (size_t row = 1; row <= 5; ++row) {
     glm::vec2 ball_position =
         glm::vec2(walls_.x1 + 0.75 * width + 2 * row * kBallRadius,
                   walls_.y1 + height / 2 - (row - 1) * kBallRadius);
     for (size_t ball_count = 1; ball_count <= row; ++ball_count) {
-      AddBall(
-          Ball(ball_position, zero, ci::Color("red"), kBallRadius, kBallMass));
+      AddBall(Ball(ball_position, zero, kRed, kBallRadius, kBallMass));
       ball_position.y += 2 * kBallRadius;
     }
   }
 
   AddBall(Ball(glm::vec2(walls_.x1 + kTableWidth - kBlackBallGap,
                          walls_.y1 + height / 2),
-               zero, ci::Color("black"), kBallRadius, kBallMass));
+               zero, kBlack, kBallRadius, kBallMass));
 
-
-  //TODO: Make this velocity 0
+  // TODO: Make this velocity 0
   AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition - kSemicircleRadius / 2,
                          walls_.y1 + height / 2 + kSemicircleRadius / 2),
-               glm::vec2(1200, -80), ci::Color("white"), kBallRadius,
-               kBallMass));
+               glm::vec2(1200, -80), kWhite, kBallRadius, kBallMass));
 }
 
 }  // namespace snooker
