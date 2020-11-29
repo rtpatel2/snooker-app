@@ -12,6 +12,15 @@ GameEngine::GameEngine(Table* table, Cue* cue)
     : table_(table), cue_(cue) {}
 
 void GameEngine::AssessTable(const Player& player) {
+  bool is_red_on = player.IsBallOnRed(*table_);
+  bool is_stroke_legal = player.IsStrokeLegal(
+      is_red_on, table_->GetBalls().back().GetFirstContacted()->GetColor(),
+      *table_);
+  if (is_stroke_legal) {
+    
+  } else {
+
+  }
   /**
    *  decide which is ball is on for the first stroke:
    *    - if even stroke and reds up, red
