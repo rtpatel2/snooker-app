@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "core/ball.h"
 #include "cinder/gl/gl.h"
 
 namespace snooker {
@@ -13,10 +14,16 @@ class Player {
  public:
   Player();
 
-  ci::Color DetermineNextToContact();
+  /**
+   * Determines whether or not the "ball-on" for this Player is red (i.e.,
+   * whether or not the next ball the Player must contact and pot is red)
+   *
+   * @return true if the "ball-on" is red, and false otherwise.
+   */
+  bool IsBallOnRed();
 
  private:
-  ci::Color last_color_potted_;
+  Ball* last_ball_potted_;
 
 };
 
