@@ -45,6 +45,8 @@ class Ball {
   const ci::Color& GetColor() const;
   float GetRadius() const;
   float GetMass() const;
+  Ball* GetFirstContacted() const;
+  void SetFirstContacted(Ball* ball);
 
   static constexpr float kGravityAcceleration = 980.0f;
   static constexpr float kFrictionWithTable = 0.005f;
@@ -57,6 +59,7 @@ class Ball {
   ci::Color color_;
   float mass_;
   float radius_;
+  Ball* first_contacted_;
 };
 
 }  // namespace snooker

@@ -13,8 +13,8 @@ Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
       velocity_(initial_velocity * kTimeScaleFactor),
       color_(color),
       radius_(radius),
-      mass_(mass) {
-}
+      mass_(mass),
+      first_contacted_(nullptr) {}
 
 void Ball::UpdatePosition() {
   if (velocity_.y != 0 || velocity_.x != 0) {
@@ -72,6 +72,14 @@ float Ball::GetRadius() const {
 
 float Ball::GetMass() const {
   return mass_;
+}
+
+Ball* Ball::GetFirstContacted() const {
+  return first_contacted_;
+}
+
+void Ball::SetFirstContacted(Ball* ball) {
+  first_contacted_ = ball;
 }
 
 }  // namespace snooker
