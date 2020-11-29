@@ -32,6 +32,9 @@ class SnookerApp : public ci::app::App {
   /** Receives and handles mouse-down events. */
   void mouseDown(ci::app::MouseEvent event) override;
 
+  /** Handles cue movement while dragging the mouse. */
+  void mouseDrag(ci::app::MouseEvent event) override;
+
   /** Dimensions of the window -- margins on each side, plus central area. */
   const float kWindowWidth = 2 * Table::kHorizontalMargin + Table::kTableWidth;
   const float kWindowHeight = 2 * Table::kVerticalMargin + Table::kTableHeight;
@@ -46,6 +49,7 @@ class SnookerApp : public ci::app::App {
   Table table_;
   bool stroke_started_;
   glm::vec2 stroke_start_;
+  float cue_pull_back_;
 };
 
 }  // namespace visualizer

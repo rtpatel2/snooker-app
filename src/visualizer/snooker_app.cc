@@ -12,7 +12,7 @@ namespace snooker {
 
 namespace visualizer {
 
-SnookerApp::SnookerApp() : stroke_started_(false) {
+SnookerApp::SnookerApp() : stroke_started_(false), cue_pull_back_(0) {
   ci::app::setWindowSize(static_cast<int>(kWindowWidth),
                          static_cast<int>(kWindowHeight));
 }
@@ -62,8 +62,10 @@ void SnookerApp::draw() {
     cue_angle += (cue_vector.x < 0) ? static_cast<float>(M_PI) : 0;
     ci::gl::rotate(cue_angle);
     ci::gl::color(ci::Color("brown"));
-    ci::gl::drawSolidRect(ci::Rectf(-Cue::kCueLength, -Cue::kCueWidth,
-                                    -Table::kBallRadius, Cue::kCueWidth));
+
+    ci::gl::drawSolidRect(
+        ci::Rectf(-Cue::kCueLength - cue_pull_back_, -Cue::kCueWidth,
+                  -Table::kBallRadius - cue_pull_back_, Cue::kCueWidth));
   }
 }
 
@@ -74,6 +76,7 @@ void SnookerApp::mouseUp(ci::app::MouseEvent event) {
     table_.SetCueBallVelocity(velocity * Table::kScalingFactor *
                               Ball::kTimeScaleFactor * Table::kCueStrokeFactor);
     stroke_started_ = false;
+    cue_pull_back_ = 0;
   }
 }
 
@@ -81,6 +84,13 @@ void SnookerApp::mouseDown(ci::app::MouseEvent event) {
   if (table_.IsSteady()) {
     stroke_started_ = true;
     stroke_start_ = static_cast<glm::vec2>(event.getPos());
+  }
+}
+
+void SnookerApp::mouseDrag(ci::app::MouseEvent event) {
+  if (stroke_started_) {
+    cue_pull_back_ =
+        glm::length(static_cast<glm::vec2>(event.getPos()) - stroke_start_);
   }
 }
 
