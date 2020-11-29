@@ -8,11 +8,16 @@
 
 namespace snooker {
 
-GameEngine::GameEngine(const Table& table, const Cue& cue)
+GameEngine::GameEngine(Table* table, Cue* cue)
     : table_(table), cue_(cue) {}
 
 void GameEngine::AssessBoard() {
+  if (table_ != nullptr &&
+      table_->GetBalls().back().GetFirstContacted() != nullptr &&
+      table_->GetBalls().back().GetFirstContacted()->GetColor() !=
+          table_->kRed) {
 
+  }
 }
 
 }  // namespace snooker

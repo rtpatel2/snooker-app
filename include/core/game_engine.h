@@ -12,13 +12,13 @@ namespace snooker {
 /** Maintains game logic and control flow of a game of snooker. */
 class GameEngine {
  public:
-  GameEngine(const Table& table, const Cue& cue);
+  GameEngine(Table* table, Cue* cue);
 
   void AssessBoard();
 
  private:
-  Table table_;
-  Cue cue_;
+  Table* table_;
+  Cue* cue_;
 };
 
 }  // namespace snooker
