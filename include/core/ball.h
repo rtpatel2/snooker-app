@@ -25,6 +25,20 @@ class Ball {
        const ci::Color& color, float radius, float mass);
 
   /**
+   * Creates a new snooker Ball with the specified initial position, initial
+   * velocity, color, radius, and mass.
+   *
+   * @param initial_position initial position of the Ball.
+   * @param initial_velocity initial velocity of the Ball.
+   * @param color color of the Ball.
+   * @param radius radius of the Ball.
+   * @param mass mass of the Ball.
+   * @param points point value of the Ball.
+   */
+  Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
+       const ci::Color& color, float radius, float mass, size_t points);
+
+  /**
    * Updates the position of this Ball, simulating the passage of one unit of
    * time.
    */
@@ -47,6 +61,7 @@ class Ball {
   float GetMass() const;
   Ball* GetFirstContacted() const;
   void SetFirstContacted(Ball* ball);
+  size_t GetPoints() const;
 
   static constexpr float kGravityAcceleration = 980.0f;
   static constexpr float kFrictionWithTable = 0.005f;
@@ -60,6 +75,7 @@ class Ball {
   float mass_;
   float radius_;
   Ball* first_contacted_;
+  size_t points_;
 };
 
 }  // namespace snooker

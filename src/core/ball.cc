@@ -16,6 +16,12 @@ Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
       mass_(mass),
       first_contacted_(nullptr) {}
 
+Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
+           const ci::Color& color, float radius, float mass, size_t points)
+    : Ball(initial_position, initial_velocity, color, radius, mass) {
+  points_ = points;
+}
+
 void Ball::UpdatePosition() {
   if (velocity_.y != 0 || velocity_.x != 0) {
     float angle = glm::atan(abs(velocity_.y) / abs(velocity_.x));
@@ -83,6 +89,10 @@ Ball* Ball::GetFirstContacted() const {
 
 void Ball::SetFirstContacted(Ball* ball) {
   first_contacted_ = ball;
+}
+
+size_t Ball::GetPoints() const {
+  return points_;
 }
 
 }  // namespace snooker
