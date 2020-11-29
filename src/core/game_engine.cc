@@ -11,7 +11,7 @@ namespace snooker {
 GameEngine::GameEngine(Table* table, Cue* cue)
     : table_(table), cue_(cue) {}
 
-void GameEngine::AssessBoard() {
+void GameEngine::AssessTable() {
   if (table_ != nullptr &&
       table_->GetBalls().back().GetFirstContacted() != nullptr &&
       table_->GetBalls().back().GetFirstContacted()->GetColor() !=

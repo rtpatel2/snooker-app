@@ -14,7 +14,7 @@ class GameEngine {
  public:
   GameEngine(Table* table, Cue* cue);
 
-  void AssessBoard();
+  void AssessTable();
 
  private:
   Table* table_;
