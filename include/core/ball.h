@@ -53,6 +53,9 @@ class Ball {
    */
   glm::vec2 ComputeVelocityAfterCollision(Ball& other);
 
+  /** Returns this Ball to its initial position. */
+  void RespotBall();
+
   const glm::vec2& GetPosition() const;
   const glm::vec2& GetVelocity() const;
   void SetVelocity(const glm::vec2& velocity);
@@ -71,6 +74,7 @@ class Ball {
  private:
   glm::vec2 position_;
   glm::vec2 velocity_;
+  glm::vec2 initial_position_;
   ci::Color color_;
   float mass_;
   float radius_;

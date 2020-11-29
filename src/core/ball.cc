@@ -11,6 +11,7 @@ Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
            const ci::Color& color, float radius, float mass)
     : position_(initial_position),
       velocity_(initial_velocity * kTimeScaleFactor),
+      initial_position_(initial_position),
       color_(color),
       radius_(radius),
       mass_(mass),
@@ -57,6 +58,10 @@ glm::vec2 Ball::ComputeVelocityAfterCollision(Ball& other) {
   } else {
     return velocity_;
   }
+}
+
+void Ball::RespotBall() {
+  position_ = initial_position_;
 }
 
 const glm::vec2& Ball::GetPosition() const {
