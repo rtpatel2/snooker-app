@@ -6,6 +6,7 @@
 
 #include "table.h"
 #include "cue.h"
+#include "player.h"
 
 namespace snooker {
 
@@ -14,11 +15,18 @@ class GameEngine {
  public:
   GameEngine(Table* table, Cue* cue);
 
-  void AssessTable();
+  /**
+   * Assesses the state of the Table.
+   *
+   * @param player Player who just stroked.
+   */
+  void AssessTable(const Player& player);
 
  private:
   Table* table_;
   Cue* cue_;
+  Player player1_;
+  Player player2_;
 };
 
 }  // namespace snooker

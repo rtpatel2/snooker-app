@@ -11,8 +11,7 @@ namespace snooker {
 GameEngine::GameEngine(Table* table, Cue* cue)
     : table_(table), cue_(cue) {}
 
-void GameEngine::AssessTable() {
-
+void GameEngine::AssessTable(const Player& player) {
   /**
    *  decide which is ball is on for the first stroke:
    *    - if even stroke and reds up, red
