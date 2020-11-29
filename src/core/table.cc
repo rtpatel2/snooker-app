@@ -23,6 +23,7 @@ Table::Table() : red_ball_count_(0) {
                      kVerticalMargin + kTableHeight);
   CreateCushions();
   CreateBalls();
+  CreatePockets();
 }
 
 Table::Table(const ci::Rectf& walls, std::vector<TableCushionPtr> cushions)
@@ -279,6 +280,12 @@ void Table::CreateBalls() {
   AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition - kSemicircleRadius / 2,
                          walls_.y1 + height / 2 + kSemicircleRadius / 2),
                glm::vec2(1200, -80), kWhite, kBallRadius, kBallMass, 99));
+}
+
+void Table::CreatePockets() {
+  pockets_.push_back(Pocket(glm::vec2(kHorizontalMargin + kCornerPocketRadius,
+                                      kVerticalMargin + kCornerPocketRadius),
+                            kCornerPocketRadius, kBlack));
 }
 
 }  // namespace snooker

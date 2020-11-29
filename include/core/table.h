@@ -5,8 +5,9 @@
 #pragma once
 
 #include "ball.h"
-#include "cinder/gl/gl.h"
 #include "table_cushion.h"
+#include "pocket.h"
+#include "cinder/gl/gl.h"
 
 #include <memory>
 #include <vector>
@@ -90,6 +91,8 @@ class Table {
   static constexpr float kCushionWidth = 5 * kScalingFactor;
   static constexpr float kCornerPocketWidth = 11 * kScalingFactor;
   static constexpr float kSidePocketWidth = 10.5f * kScalingFactor;
+  static constexpr float kCornerPocketRadius = kCornerPocketWidth / 2;
+  static constexpr float kSidePocketRadius = kSidePocketWidth / 2;
 
   /** Ball specifications. */
   static constexpr float kBallRadius = 2.625f * Table::kScalingFactor;
@@ -127,10 +130,14 @@ class Table {
   /** Creates and places all balls for a standard game of snooker. */
   void CreateBalls();
 
+  /** Creates and places all pockets for a standard game of snooker. */
+  void CreatePockets();
+
   std::vector<TableCushionPtr> cushions_;
   ci::Rectf walls_;
   std::vector<Ball> balls_;
   size_t red_ball_count_;
+  std::vector<Pocket> pockets_;
 };
 
 }  // namespace snooker
