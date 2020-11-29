@@ -6,6 +6,7 @@
 #include "core/ball.h"
 #include "core/table.h"
 #include "core/cue.h"
+#include "core/pocket.h"
 #include "cinder/gl/gl.h"
 
 namespace snooker {
@@ -49,6 +50,11 @@ void SnookerApp::draw() {
   for (const Ball& ball : table_.GetBalls()) {
     ci::gl::color(ball.GetColor());
     ci::gl::drawSolidCircle(ball.GetPosition(), ball.GetRadius());
+  }
+
+  for (const Pocket& pocket : table_.GetPockets()) {
+    ci::gl::color(pocket.GetColor());
+    ci::gl::drawSolidCircle(pocket.GetPosition(), pocket.GetRadius());
   }
 
   if (table_.IsSteady()) {
