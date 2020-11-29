@@ -8,16 +8,18 @@
 
 namespace snooker {
 
-GameEngine::GameEngine(Table* table, Cue* cue)
-    : table_(table), cue_(cue) {}
+GameEngine::GameEngine(Table* table)
+    : table_(table) {}
 
 void GameEngine::AssessTable(const Player& player) {
   bool is_red_on = player.IsBallOnRed(*table_);
   bool is_stroke_legal = player.IsStrokeLegal(
       is_red_on, table_->GetBalls().back().GetFirstContacted()->GetColor(),
       *table_);
-  if (is_stroke_legal) {
-
+  if (!is_stroke_legal) {
+    for (Ball* ball : player.GetBallsPottedLastStroke()) {
+      ball->RespotBall();
+    }
   } else {
 
   }

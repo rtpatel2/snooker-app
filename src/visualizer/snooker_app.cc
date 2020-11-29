@@ -7,19 +7,32 @@
 #include "core/table.h"
 #include "core/cue.h"
 #include "core/pocket.h"
+#include "core/game_engine.h"
 #include "cinder/gl/gl.h"
 
 namespace snooker {
 
 namespace visualizer {
 
-SnookerApp::SnookerApp() : stroke_started_(false), cue_pull_back_(0) {
+SnookerApp::SnookerApp()
+    : stroke_started_(false), cue_pull_back_(0), engine_(&table_) {
   ci::app::setWindowSize(static_cast<int>(kWindowWidth),
                          static_cast<int>(kWindowHeight));
 }
 
 void SnookerApp::update() {
   table_.IncrementTime();
+  for (const Ball& ball : table_.GetBalls()) {
+    for (const Pocket& pocket : table_.GetPockets()) {
+      if (pocket.DetermineIfPocketed(ball)) {
+        player_.AddBallsPottedLastStroke(const_cast<Ball*>(&ball));
+      }
+    }
+
+    engine_.AssessTable(player_);
+    player_.ClearBallsPottedLastStroke();
+  }
+
 }
 
 void SnookerApp::draw() {

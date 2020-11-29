@@ -9,6 +9,8 @@
 #include "cinder/gl/gl.h"
 #include "core/table.h"
 #include "core/table_cushion.h"
+#include "core/player.h"
+#include "core/game_engine.h"
 
 namespace snooker {
 
@@ -47,6 +49,8 @@ class SnookerApp : public ci::app::App {
   const ci::Color kRailColor = ci::Color(0.502f, 0.251f, 0);
 
   Table table_;
+  GameEngine engine_;
+  Player player_;
   bool stroke_started_;
   glm::vec2 stroke_start_;
   float cue_pull_back_;

@@ -13,7 +13,7 @@ namespace snooker {
 /** Maintains game logic and control flow of a game of snooker. */
 class GameEngine {
  public:
-  GameEngine(Table* table, Cue* cue);
+  GameEngine(Table* table);
 
   /**
    * Assesses the state of the Table.
@@ -24,7 +24,6 @@ class GameEngine {
 
  private:
   Table* table_;
-  Cue* cue_;
   Player player1_;
   Player player2_;
 };
