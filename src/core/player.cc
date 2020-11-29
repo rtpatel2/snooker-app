@@ -53,7 +53,7 @@ bool Player::IsStrokeLegal(bool red_on,
       return false;
     }
   }
-  
+
   return true;
 }
 
