@@ -73,8 +73,10 @@ void SnookerApp::mouseUp(ci::app::MouseEvent event) {
   if (table_.IsSteady() && stroke_started_) {
     glm::vec2 stroke_end = static_cast<glm::vec2>(event.getPos());
     glm::vec2 velocity(stroke_start_ - stroke_end);
-    table_.SetCueBallVelocity(velocity * Table::kScalingFactor *
-                              Ball::kTimeScaleFactor * Table::kCueStrokeFactor);
+    float speed = std::fminf(Cue::kMaxPullBack, glm::length(velocity));
+    table_.SetCueBallVelocity(glm::normalize(velocity) * speed *
+                              Table::kScalingFactor * Ball::kTimeScaleFactor *
+                              Table::kCueStrokeFactor);
     stroke_started_ = false;
     cue_pull_back_ = 0;
   }
@@ -89,8 +91,9 @@ void SnookerApp::mouseDown(ci::app::MouseEvent event) {
 
 void SnookerApp::mouseDrag(ci::app::MouseEvent event) {
   if (stroke_started_) {
-    cue_pull_back_ =
-        glm::length(static_cast<glm::vec2>(event.getPos()) - stroke_start_);
+    cue_pull_back_ = std::fminf(
+        Cue::kMaxPullBack,
+        glm::length(static_cast<glm::vec2>(event.getPos()) - stroke_start_));
   }
 }
 
