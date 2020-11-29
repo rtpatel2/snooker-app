@@ -21,7 +21,8 @@ bool Player::IsBallOnRed(const Table& table) {
 }
 
 bool Player::IsStrokeLegal(bool red_on,
-                           const ci::Color& cue_color_first_contacted, size_t red_ball_count) {
+                           const ci::Color& cue_color_first_contacted,
+                           const Table& table) {
   if (red_on) {
     for (const ci::Color& color : colors_potted_last_stroke_) {
       if (color == Table::kWhite) {
@@ -34,29 +35,26 @@ bool Player::IsStrokeLegal(bool red_on,
         return false;
       }
     }
-    return true;
   } else {
     if (colors_potted_last_stroke_.size() > 1) {
       return false;
     }
     if (!colors_potted_last_stroke_.empty() &&
-        colors_potted_last_stroke_.front() != cue_color_first_contacted) {
+        (colors_potted_last_stroke_.front() != cue_color_first_contacted ||
+        colors_potted_last_stroke_.front() == Table::kWhite)) {
       return false;
     }
-    for (const ci::Color& color : colors_potted_last_stroke_) {
-      if (color == Table::kWhite) {
-        return false;
-      }
-      if (red_ball_count != 0 && cue_color_first_contacted == Table::kRed) {
-        return false;
-      }
-      if (red_ball_count == 0 && /* lowest color still on isn't contacted
-                                  * first */
-          true) {
-        return false;
-      }
+    if (table.GetRedBallCount() != 0 &&
+        cue_color_first_contacted == Table::kRed) {
+      return false;
+    }
+    if (table.GetRedBallCount() == 0 &&
+        cue_color_first_contacted != table.DetermineLeastPointsColor()) {
+      return false;
     }
   }
+  
+  return true;
 }
 
 }  // namespace snooker
