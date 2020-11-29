@@ -59,4 +59,16 @@ bool Player::IsStrokeLegal(bool is_red_on,
   return true;
 }
 
+void Player::AddBallsPottedLastStroke(Ball* ball) {
+  balls_potted_last_stroke_.push_back(ball);
+}
+
+void Player::ClearBallsPottedLastStroke() {
+  balls_potted_last_stroke_.clear();
+}
+
+const std::vector<Ball*>& Player::GetBallsPottedLastStroke() const {
+  return balls_potted_last_stroke_;
+}
+
 }  // namespace snooker

@@ -38,6 +38,19 @@ class Player {
   bool IsStrokeLegal(bool is_red_on, const ci::Color& cue_color_first_contacted,
                      const Table& table) const;
 
+  /**
+   * Adds any Balls potted by this Player on his/her previous stroke to the
+   * maintained list.
+   *
+   * @param ball pointer to a Ball potted by this Player.
+   */
+  void AddBallsPottedLastStroke(Ball* ball);
+
+  /** Clears all Balls from the list of Balls potted last stroke. */
+  void ClearBallsPottedLastStroke();
+
+  const std::vector<Ball*>& GetBallsPottedLastStroke() const;
+
  private:
   std::vector<Ball*> balls_potted_last_stroke_;
   size_t stroke_number_;
