@@ -7,7 +7,7 @@
 
 namespace snooker {
 
-Table::Table() {
+Table::Table() : red_ball_count_(0) {
   walls_ = ci::Rectf(kHorizontalMargin, kVerticalMargin,
                      kHorizontalMargin + kTableWidth,
                      kVerticalMargin + kTableHeight);
@@ -16,11 +16,14 @@ Table::Table() {
 }
 
 Table::Table(const ci::Rectf& walls, std::vector<TableCushionPtr> cushions)
-    : walls_(walls), cushions_(std::move(cushions)) {}
+    : walls_(walls), cushions_(std::move(cushions)), red_ball_count_(0) {}
 
 void Table::AddBall(const Ball& ball) {
   if (walls_.contains(ball.GetPosition())) {
     balls_.push_back(ball);
+    if (ball.GetColor() == kRed) {
+      ++red_ball_count_;
+    }
   }
 }
 
@@ -72,6 +75,10 @@ const ci::Rectf& Table::GetWalls() const {
 
 const std::vector<Ball>& Table::GetBalls() const {
   return balls_;
+}
+
+size_t Table::GetRedBallCount() const {
+  return red_ball_count_;
 }
 
 void Table::CreateCushions() {
@@ -246,6 +253,7 @@ void Table::CreateBalls() {
                   walls_.y1 + height / 2 - (row - 1) * kBallRadius);
     for (size_t ball_count = 1; ball_count <= row; ++ball_count) {
       AddBall(Ball(ball_position, zero, kRed, kBallRadius, kBallMass));
+      ++red_ball_count_;
       ball_position.y += 2 * kBallRadius;
     }
   }

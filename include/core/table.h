@@ -67,6 +67,7 @@ class Table {
   const std::vector<TableCushionPtr>& GetCushions() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
+  size_t GetRedBallCount() const;
 
   /** Constants relevant to creation of a default Table. */
   static constexpr float kHorizontalMargin = 100.0f;
@@ -122,6 +123,7 @@ class Table {
   std::vector<TableCushionPtr> cushions_;
   ci::Rectf walls_;
   std::vector<Ball> balls_;
+  size_t red_ball_count_;
 };
 
 }  // namespace snooker
