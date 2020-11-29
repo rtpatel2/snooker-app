@@ -3,7 +3,10 @@
  */
 
 #include "core/table.h"
+#include "core/pocket.h"
 #include "cinder/gl/gl.h"
+
+#include <vector>
 
 namespace snooker {
 
@@ -94,6 +97,10 @@ const std::vector<Ball>& Table::GetBalls() const {
 
 size_t Table::GetRedBallCount() const {
   return red_ball_count_;
+}
+
+const std::vector<Pocket>& Table::GetPockets() const {
+  return pockets_;
 }
 
 void Table::CreateCushions() {

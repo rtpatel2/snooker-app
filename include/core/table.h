@@ -76,6 +76,7 @@ class Table {
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
   size_t GetRedBallCount() const;
+  const std::vector<Pocket>& GetPockets() const;
 
   /** Constants relevant to creation of a default Table. */
   static constexpr float kHorizontalMargin = 100.0f;
