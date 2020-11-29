@@ -24,7 +24,14 @@ void GameEngine::AssessTable() {
    *        - white first contact w/ red
    *        - only reds potted, multiple ok
    *    - if color is up, a LEGAL shot must have:
-   *        -cd 
+   *        -bla bla bla
+   *
+   *  if it's a foul, other player gets cue
+   *
+   *  if it's not a foul, then if the current player potted one, then they
+   *  keep going; otherwise, other player gets cue
+   *
+   *  reset all the table things, make sure red count is maintained properly
    */
 
 
