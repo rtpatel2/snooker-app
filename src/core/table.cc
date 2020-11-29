@@ -56,7 +56,19 @@ void Table::IncrementTime() {
     for (const TableCushionPtr& cushion : cushions_) {
       balls_[i].SetVelocity(cushion->ComputeVelocityAfterCollision(balls_[i]));
     }
-    balls_[i].UpdatePosition();
+
+    bool is_pocketed = false;
+    for (const Pocket& pocket : pockets_) {
+      if (pocket.DetermineIfPocketed(balls_[i])) {
+        is_pocketed = true;
+      }
+    }
+    if (is_pocketed) {
+      // deal with respotting
+      balls_.erase(balls_.begin() + i);
+    } else {
+      balls_[i].UpdatePosition();
+    }
   }
 }
 
