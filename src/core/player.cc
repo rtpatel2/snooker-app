@@ -12,7 +12,7 @@ namespace snooker {
 
 Player::Player() : stroke_number_(0) {}
 
-bool Player::IsBallOnRed(const Table& table) {
+bool Player::IsBallOnRed(const Table& table) const {
   if (table.GetRedBallCount() != 0 && stroke_number_ % 2 == 0) {
     return true;
   } else {
@@ -20,10 +20,10 @@ bool Player::IsBallOnRed(const Table& table) {
   }
 }
 
-bool Player::IsStrokeLegal(bool red_on,
+bool Player::IsStrokeLegal(bool is_red_on,
                            const ci::Color& cue_color_first_contacted,
-                           const Table& table) {
-  if (red_on) {
+                           const Table& table) const {
+  if (is_red_on) {
     for (const ci::Color& color : colors_potted_last_stroke_) {
       if (color == Table::kWhite) {
         return false;
