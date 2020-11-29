@@ -54,8 +54,8 @@ void SnookerApp::draw() {
   if (table_.IsSteady()) {
     if (table_.GetBalls().back().GetFirstContacted() != nullptr &&
         table_.GetBalls().back().GetFirstContacted()->GetColor() !=
-            table_.kRed) {
-      ci::gl::drawStringCentered("yea", glm::vec2(150, 300), table_.kWhite);
+            Table::kRed) {
+      ci::gl::drawStringCentered("yea", glm::vec2(150, 300), Table::kWhite);
     }
 
     ci::gl::ScopedModelMatrix scoped_matrix;
