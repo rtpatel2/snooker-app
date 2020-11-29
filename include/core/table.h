@@ -89,14 +89,14 @@ class Table {
   static constexpr float kBallMass = 3.0f;
 
   /** Ball colors. */
-  const ci::Color kRed = ci::Color("red");
-  const ci::Color kBlack = ci::Color("black");
-  const ci::Color kWhite = ci::Color("white");
-  const ci::Color kGreen = ci::Color("green");
-  const ci::Color kYellow = ci::Color("yellow");
-  const ci::Color kPink = ci::Color("pink");
-  const ci::Color kBrown = ci::Color("brown");
-  const ci::Color kBlue = ci::Color("blue");
+  static const ci::Color kRed;
+  static const ci::Color kBlack;
+  static const ci::Color kWhite;
+  static const ci::Color kGreen;
+  static const ci::Color kYellow;
+  static const ci::Color kPink;
+  static const ci::Color kBrown;
+  static const ci::Color kBlue;
 
  private:
   /** Creates standard cushions for this Table based on its dimensions. */

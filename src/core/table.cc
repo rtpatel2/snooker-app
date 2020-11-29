@@ -7,6 +7,16 @@
 
 namespace snooker {
 
+/** Ball colors. */
+const ci::Color Table::kRed = ci::Color("red");
+const ci::Color Table::kBlack = ci::Color("black");
+const ci::Color Table::kWhite = ci::Color("white");
+const ci::Color Table::kGreen = ci::Color("green");
+const ci::Color Table::kYellow = ci::Color("yellow");
+const ci::Color Table::kPink = ci::Color("pink");
+const ci::Color Table::kBrown = ci::Color("brown");
+const ci::Color Table::kBlue = ci::Color("blue");
+
 Table::Table() : red_ball_count_(0) {
   walls_ = ci::Rectf(kHorizontalMargin, kVerticalMargin,
                      kHorizontalMargin + kTableWidth,
