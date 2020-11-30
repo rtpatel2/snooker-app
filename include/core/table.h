@@ -79,42 +79,6 @@ class Table {
    */
   ci::Color DetermineLeastPointsColor() const;
 
-//  /**
-//   * Handles logic pertaining to the start of a stroke.
-//   *
-//   * @param start_position the position of the stroke start.
-//   */
-//  void HandleStrokeStart(const glm::vec2& start_position);
-//
-//  /**
-//   * Handles logic pertaining to the pulling back of the cue.
-//   *
-//   * @param mouse_position current position of the mouse.
-//   */
-//  void HandleCuePullBack(const glm::vec2& mouse_position);
-//
-//  /**
-//   * Handles logic pertaining to the end of a stroke.
-//   *
-//   * @param end_position the position of the stroke end.
-//   */
-//  void HandleStrokeEnd(const glm::vec2& end_position);
-
-//  /**
-//   * Computes the angle that the cue makes to point at the cue ball.
-//   *
-//   * @param mouse_position current position of the mouse.
-//   * @return the angle between the cue and cue ball.
-//   */
-//  float ComputeCueAngle(const glm::vec2& mouse_position) const;
-//
-//  /**
-//   * Computes the position and dimensions of the cue.
-//   *
-//   * @return Rectangle corresponding to cue dimensions.
-//   */
-//  ci::Rectf ComputeCueDimensions() const;
-
   const std::vector<TableCushionPtr>& GetCushions() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
@@ -187,10 +151,6 @@ class Table {
   std::vector<Ball> balls_;
   size_t red_ball_count_;
   std::vector<Pocket> pockets_;
-
-//  bool stroke_started_;
-//  glm::vec2 stroke_start_;
-  float cue_pull_back_;
 };
 
 }  // namespace snooker
