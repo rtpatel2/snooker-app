@@ -142,6 +142,11 @@ class Table {
   static constexpr float kBallRadius = 2.625f * Table::kScalingFactor;
   static constexpr float kBallMass = 3.0f;
 
+  /** Cue specifications. */
+  static constexpr float kCueLength = 100 * Table::kScalingFactor;
+  static constexpr float kCueWidth = 1 * Table::kScalingFactor;
+  static constexpr float kMaxPullBack = 25 * Table::kScalingFactor;
+
   /** Ball colors. */
   static const ci::Color kRed;
   static const ci::Color kBlack;

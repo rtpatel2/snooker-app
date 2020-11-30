@@ -110,9 +110,8 @@ void Table::HandleStrokeStart(const glm::vec2& start_position) {
 
 void Table::HandleCuePullBack(const glm::vec2& mouse_position) {
   if (stroke_started_) {
-    cue_pull_back_ = std::fminf(
-        Cue::kMaxPullBack,
-        glm::length(mouse_position - stroke_start_));
+    cue_pull_back_ =
+        std::fminf(kMaxPullBack, glm::length(mouse_position - stroke_start_));
   }
 }
 
@@ -122,7 +121,7 @@ void Table::HandleStrokeEnd(const glm::vec2& end_position) {
     if (glm::length(velocity) == 0) {
       SetCueBallVelocity(glm::vec2(0, 0));
     } else {
-      float speed = std::fminf(Cue::kMaxPullBack, glm::length(velocity));
+      float speed = std::fminf(kMaxPullBack, glm::length(velocity));
       SetCueBallVelocity(glm::normalize(velocity) * speed *
                          Table::kScalingFactor * Ball::kTimeScaleFactor *
                          Table::kCueStrokeFactor);
@@ -140,8 +139,8 @@ float Table::ComputeCueAngle(const glm::vec2& mouse_position) const {
 }
 
 ci::Rectf Table::ComputeCueDimensions() const {
-  return ci::Rectf(-Cue::kCueLength - cue_pull_back_, -Cue::kCueWidth,
-                   -Table::kBallRadius - cue_pull_back_, Cue::kCueWidth);
+  return ci::Rectf(-kCueLength - cue_pull_back_, -kCueWidth,
+                   -Table::kBallRadius - cue_pull_back_, kCueWidth);
 }
 
 const std::vector<TableCushionPtr>& Table::GetCushions() const {
