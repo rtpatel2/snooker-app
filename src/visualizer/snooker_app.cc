@@ -100,8 +100,6 @@ void SnookerApp::mouseDown(ci::app::MouseEvent event) {
   if (table_.IsSteady()) {
     stroke_started_ = true;
     stroke_start_ = static_cast<glm::vec2>(event.getPos());
-    //TODO: Move this into draw()
-    table_.ResetFirstContacted();
   }
 }
 

@@ -67,7 +67,7 @@ class Ball {
   size_t GetPoints() const;
 
   static constexpr float kGravityAcceleration = 980.0f;
-  static constexpr float kFrictionWithTable = 0.005f;
+  static constexpr float kFrictionWithTable = 0.004f;
   static constexpr float kRestitutionCoefficient = 0.95f;
   static constexpr float kTimeScaleFactor = 0.01f;
 

@@ -15,7 +15,7 @@ class Cue {
 
   static constexpr float kCueLength = 100 * Table::kScalingFactor;
   static constexpr float kCueWidth = 1 * Table::kScalingFactor;
-  static constexpr float kMaxPullBack = 40 * Table::kScalingFactor;
+  static constexpr float kMaxPullBack = 25 * Table::kScalingFactor;
 };
 
 }  // namespace snooker
