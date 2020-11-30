@@ -132,6 +132,18 @@ void Table::HandleStrokeEnd(const glm::vec2& end_position) {
   }
 }
 
+float Table::ComputeCueAngle(const glm::vec2& mouse_position) const {
+  glm::vec2 cue_vector = balls_.back().GetPosition() - mouse_position;
+  float cue_angle = glm::atan(cue_vector.y / cue_vector.x);
+  cue_angle += (cue_vector.x < 0) ? static_cast<float>(M_PI) : 0;
+  return cue_angle;
+}
+
+ci::Rectf Table::ComputeCueDimensions() const {
+  return ci::Rectf(-Cue::kCueLength - cue_pull_back_, -Cue::kCueWidth,
+                   -Table::kBallRadius - cue_pull_back_, Cue::kCueWidth);
+}
+
 const std::vector<TableCushionPtr>& Table::GetCushions() const {
   return cushions_;
 }
@@ -150,10 +162,6 @@ size_t Table::GetRedBallCount() const {
 
 const std::vector<Pocket>& Table::GetPockets() const {
   return pockets_;
-}
-
-float Table::GetCuePullBack() const {
-  return cue_pull_back_;
 }
 
 void Table::CreateCushions() {

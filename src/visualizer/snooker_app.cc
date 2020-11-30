@@ -65,16 +65,10 @@ void SnookerApp::draw() {
     ci::gl::translate(table_.GetBalls().back().GetPosition());
 
     glm::vec2 mouse_position = getMousePos() - getWindowPos();
-    glm::vec2 cue_vector =
-        table_.GetBalls().back().GetPosition() - mouse_position;
-    float cue_angle = glm::atan(cue_vector.y / cue_vector.x);
-    cue_angle += (cue_vector.x < 0) ? static_cast<float>(M_PI) : 0;
-    ci::gl::rotate(cue_angle);
+    ci::gl::rotate(table_.ComputeCueAngle(mouse_position));
     ci::gl::color(ci::Color("brown"));
 
-    ci::gl::drawSolidRect(ci::Rectf(
-        -Cue::kCueLength - table_.GetCuePullBack(), -Cue::kCueWidth,
-        -Table::kBallRadius - table_.GetCuePullBack(), Cue::kCueWidth));
+    ci::gl::drawSolidRect(table_.ComputeCueDimensions());
   }
 }
 

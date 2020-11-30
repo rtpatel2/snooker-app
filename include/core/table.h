@@ -89,7 +89,7 @@ class Table {
   /**
    * Handles logic pertaining to the pulling back of the cue.
    *
-   * @param mouse_position the position of the mouse.
+   * @param mouse_position current position of the mouse.
    */
   void HandleCuePullBack(const glm::vec2& mouse_position);
 
@@ -100,12 +100,26 @@ class Table {
    */
   void HandleStrokeEnd(const glm::vec2& end_position);
 
+  /**
+   * Computes the angle that the cue makes to point at the cue ball.
+   *
+   * @param mouse_position current position of the mouse.
+   * @return the angle between the cue and cue ball.
+   */
+  float ComputeCueAngle(const glm::vec2& mouse_position) const;
+
+  /**
+   * Computes the position and dimensions of the cue.
+   *
+   * @return Rectangle corresponding to cue dimensions.
+   */
+  ci::Rectf ComputeCueDimensions() const;
+
   const std::vector<TableCushionPtr>& GetCushions() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
   size_t GetRedBallCount() const;
   const std::vector<Pocket>& GetPockets() const;
-  float GetCuePullBack() const;
 
   /** Constants relevant to creation of a default Table. */
   static constexpr float kHorizontalMargin = 100.0f;
