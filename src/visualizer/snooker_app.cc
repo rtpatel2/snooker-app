@@ -22,13 +22,6 @@ SnookerApp::SnookerApp()
 
 void SnookerApp::update() {
   table_.IncrementTime();
-  for (const Ball& ball : table_.GetBalls()) {
-    for (const Pocket& pocket : table_.GetPockets()) {
-      if (pocket.DetermineIfPocketed(ball)) {
-        player_.AddBallsPottedLastStroke(const_cast<Ball*>(&ball));
-      }
-    }
-  }
   engine_.AssessTable();
 }
 

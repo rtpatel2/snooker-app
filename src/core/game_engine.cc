@@ -11,10 +11,17 @@ GameEngine::GameEngine(Table* table)
     : table_(table), current_player(&player1_) {}
 
 void GameEngine::AssessTable() {
+  for (const Ball& ball : table_->GetBalls()) {
+    for (const Pocket& pocket : table_->GetPockets()) {
+      if (pocket.DetermineIfPocketed(ball)) {
+        current_player->AddBallsPottedLastStroke(const_cast<Ball*>(&ball));
+      }
+    }
+  }
+
   bool is_red_on = current_player->IsBallOnRed(*table_);
   bool is_stroke_legal = current_player->IsStrokeLegal(
-      is_red_on, table_->GetBalls().back().GetFirstContacted()->GetColor(),
-      *table_);
+      is_red_on, table_->GetBalls().back().GetFirstContacted(), *table_);
 
   if (is_stroke_legal) {
     for (Ball* ball : current_player->GetBallsPottedLastStroke()) {
@@ -45,6 +52,7 @@ void GameEngine::AssessTable() {
       current_player = &player1_;
     }
   }
+  table_->ResetFirstContacted();
 
   /**
    *  decide which is ball is on for the first stroke:

@@ -21,16 +21,16 @@ bool Player::IsBallOnRed(const Table& table) const {
   }
 }
 
-bool Player::IsStrokeLegal(bool is_red_on,
-                           const ci::Color& cue_color_first_contacted,
+bool Player::IsStrokeLegal(bool is_red_on, Ball* cue_ball_first_contacted,
                            const Table& table) const {
   if (is_red_on) {
+    if (cue_ball_first_contacted == nullptr ||
+        cue_ball_first_contacted->GetColor() != Table::kRed) {
+      return false;
+    }
     for (Ball* ball : balls_potted_last_stroke_) {
       ci::Color color = ball->GetColor();
       if (color == Table::kWhite) {
-        return false;
-      }
-      if (cue_color_first_contacted != Table::kRed) {
         return false;
       }
       if (color != Table::kRed) {
@@ -43,16 +43,16 @@ bool Player::IsStrokeLegal(bool is_red_on,
     }
     if (!balls_potted_last_stroke_.empty() &&
         (balls_potted_last_stroke_.front()->GetColor() !=
-             cue_color_first_contacted ||
+             cue_ball_first_contacted->GetColor() ||
          balls_potted_last_stroke_.front()->GetColor() == Table::kWhite)) {
       return false;
     }
     if (table.GetRedBallCount() != 0 &&
-        cue_color_first_contacted == Table::kRed) {
+        cue_ball_first_contacted->GetColor() == Table::kRed) {
       return false;
     }
-    if (table.GetRedBallCount() == 0 &&
-        cue_color_first_contacted != table.DetermineLeastPointsColor()) {
+    if (table.GetRedBallCount() == 0 && cue_ball_first_contacted->GetColor() !=
+                                            table.DetermineLeastPointsColor()) {
       return false;
     }
   }

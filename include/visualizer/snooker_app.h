@@ -50,7 +50,6 @@ class SnookerApp : public ci::app::App {
 
   Table table_;
   GameEngine engine_;
-  Player player_;
   bool stroke_started_;
   glm::vec2 stroke_start_;
   float cue_pull_back_;
