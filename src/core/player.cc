@@ -10,7 +10,7 @@
 
 namespace snooker {
 
-Player::Player() : stroke_number_(0) {}
+Player::Player() : stroke_number_(0), score_(0) {}
 
 //TODO: Make private if possible
 bool Player::IsBallOnRed(const Table& table) const {

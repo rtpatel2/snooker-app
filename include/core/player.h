@@ -55,7 +55,7 @@ class Player {
  private:
   std::vector<Ball*> balls_potted_last_stroke_;
   size_t stroke_number_;
-
+  size_t score_;
 };
 
 }  // namespace snooker
