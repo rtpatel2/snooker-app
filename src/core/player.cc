@@ -12,6 +12,7 @@ namespace snooker {
 
 Player::Player() : stroke_number_(0) {}
 
+//TODO: Make private if possible
 bool Player::IsBallOnRed(const Table& table) const {
   if (table.GetRedBallCount() != 0 && stroke_number_ % 2 == 0) {
     return true;

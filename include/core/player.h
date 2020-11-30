@@ -17,6 +17,7 @@ class Player {
  public:
   Player();
 
+  //TODO: Make private if possible
   /**
    * Determines whether or not the "ball-on" for this Player is red (i.e.,
    * whether or not the next ball the Player must contact and pot is red)
