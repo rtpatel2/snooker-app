@@ -84,13 +84,13 @@ TEST_CASE("Validate adding Balls to the Table.") {
   }
 
   SECTION("Adding multiple Balls to a Table.") {
-    table.AddBall(
-        Ball(glm::vec2(300, 300), glm::vec2(60, 80), ci::Color("blue"), 1, 2));
-    table.AddBall(
-        Ball(glm::vec2(400, 300), glm::vec2(-4, 6), ci::Color("green"), 4, 5));
+    table.AddBall(Ball(glm::vec2(300, 300), glm::vec2(60, 80),
+                       ci::Color("blue"), 1, 2, 5));
+    table.AddBall(Ball(glm::vec2(400, 300), glm::vec2(-4, 6),
+                       ci::Color("green"), 4, 5, 2));
     REQUIRE(2 == table.GetBalls().size());
-    REQUIRE(glm::vec2(300, 300) == table.GetBalls()[0].GetPosition());
-    REQUIRE(glm::vec2(-0.04, 0.06) == table.GetBalls()[1].GetVelocity());
+    REQUIRE(glm::vec2(-0.04, 0.06) == table.GetBalls()[0].GetVelocity());
+    REQUIRE(glm::vec2(300, 300) == table.GetBalls()[1].GetPosition());
   }
 
   SECTION("Attempting to add Balls outside of the walls of a Table.") {

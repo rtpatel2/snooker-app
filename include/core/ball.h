@@ -56,6 +56,15 @@ class Ball {
   /** Returns this Ball to its initial position. */
   void RespotBall();
 
+  /**
+   * Compares Balls by point value, for sorting purposes.
+   *
+   * @param other Ball to which to compare this Ball.
+   * @return true if this Ball has a lower point value than the other Ball,
+   * and false otherwise.
+   */
+  bool operator<(const Ball& other) const;
+
   const glm::vec2& GetPosition() const;
   const glm::vec2& GetVelocity() const;
   void SetVelocity(const glm::vec2& velocity);

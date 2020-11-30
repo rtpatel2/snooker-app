@@ -7,6 +7,7 @@
 #include "core/pocket.h"
 #include "cinder/gl/gl.h"
 
+#include <algorithm>
 #include <vector>
 
 namespace snooker {
@@ -42,6 +43,7 @@ void Table::AddBall(const Ball& ball) {
       ++red_ball_count_;
     }
   }
+  std::sort(balls_.begin(), balls_.end());
 }
 
 void Table::IncrementTime() {

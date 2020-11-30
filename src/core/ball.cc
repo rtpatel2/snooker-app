@@ -65,6 +65,10 @@ void Ball::RespotBall() {
   velocity_ = glm::vec2(0, 0);
 }
 
+bool Ball::operator<(const Ball& other) const {
+  return points_ < other.points_;
+}
+
 const glm::vec2& Ball::GetPosition() const {
   return position_;
 }
