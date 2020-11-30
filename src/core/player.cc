@@ -64,7 +64,12 @@ void Player::AddBallsPottedLastStroke(Ball* ball) {
   balls_potted_last_stroke_.push_back(ball);
 }
 
-void Player::ClearBallsPottedLastStroke() {
+void Player::EndStroke(bool still_at_table) {
+  if (still_at_table) {
+    ++stroke_number_;
+  } else {
+    stroke_number_ = 0;
+  }
   balls_potted_last_stroke_.clear();
 }
 

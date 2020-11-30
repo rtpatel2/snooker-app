@@ -47,8 +47,13 @@ class Player {
    */
   void AddBallsPottedLastStroke(Ball* ball);
 
-  /** Clears all Balls from the list of Balls potted last stroke. */
-  void ClearBallsPottedLastStroke();
+  /**
+   * Ends the Player's current stroke, updating necessary fields.
+   *
+   * @param still_at_table true if this Player is still at the Table (i.e.,
+   * previous stroke was legal and potted the ball-on), and false otherwise.
+   */
+  void EndStroke(bool still_at_table);
 
   const std::vector<Ball*>& GetBallsPottedLastStroke() const;
 
