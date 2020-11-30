@@ -29,8 +29,7 @@ void SnookerApp::update() {
       }
     }
   }
-  engine_.AssessTable(player_);
-  player_.ClearBallsPottedLastStroke();
+  engine_.AssessTable();
 }
 
 void SnookerApp::draw() {
