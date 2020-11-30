@@ -50,6 +50,7 @@ class SnookerApp : public ci::app::App {
 
   Table table_;
   GameEngine engine_;
+  bool should_update_player_;
 };
 
 }  // namespace visualizer

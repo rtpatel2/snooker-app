@@ -13,7 +13,7 @@ namespace snooker {
 
 namespace visualizer {
 
-SnookerApp::SnookerApp() : engine_(&table_) {
+SnookerApp::SnookerApp() : engine_(&table_), should_update_player_(true) {
   ci::app::setWindowSize(static_cast<int>(kWindowWidth),
                          static_cast<int>(kWindowHeight));
 }
@@ -21,7 +21,8 @@ SnookerApp::SnookerApp() : engine_(&table_) {
 void SnookerApp::update() {
   //TODO: Move this into GameEngine too?
   table_.IncrementTime();
-  engine_.AssessTable();
+  engine_.HandlePocketingBalls();
+  //engine_.UpdatePlayerAtTable();
 }
 
 void SnookerApp::draw() {
@@ -64,10 +65,10 @@ void SnookerApp::draw() {
     ci::gl::translate(table_.GetBalls().back().GetPosition());
 
     glm::vec2 mouse_position = getMousePos() - getWindowPos();
-    ci::gl::rotate(table_.ComputeCueAngle(mouse_position));
+    ci::gl::rotate(engine_.ComputeCueAngle(mouse_position));
     ci::gl::color(ci::Color("brown"));
 
-    ci::gl::drawSolidRect(table_.ComputeCueDimensions());
+    ci::gl::drawSolidRect(engine_.ComputeCueDimensions());
   }
 
   if (engine_.IsPlayer1Turn()) {
@@ -78,15 +79,15 @@ void SnookerApp::draw() {
 }
 
 void SnookerApp::mouseUp(ci::app::MouseEvent event) {
-  table_.HandleStrokeEnd(static_cast<glm::vec2>(event.getPos()));
+  engine_.HandleStrokeEnd(static_cast<glm::vec2>(event.getPos()));
 }
 
 void SnookerApp::mouseDown(ci::app::MouseEvent event) {
-  table_.HandleStrokeStart(static_cast<glm::vec2>(event.getPos()));
+  engine_.HandleStrokeStart(static_cast<glm::vec2>(event.getPos()));
 }
 
 void SnookerApp::mouseDrag(ci::app::MouseEvent event) {
-  table_.HandleCuePullBack(static_cast<glm::vec2>(event.getPos()));
+  engine_.HandleCuePullBack(static_cast<glm::vec2>(event.getPos()));
 }
 
 }  // namespace visualizer

@@ -14,8 +14,11 @@ class GameEngine {
  public:
   GameEngine(Table* table);
 
-  /** Assesses the state of the Table. */
-  void AssessTable();
+  /** Handles the logic behind potting and spotting Balls. */
+  void HandlePocketingBalls();
+
+  /** Updates the current player at the Table. */
+  void UpdatePlayerAtTable();
 
   /**
    * Determines whether or not Player 1 is currently at the Table.
@@ -24,11 +27,54 @@ class GameEngine {
    */
   bool IsPlayer1Turn() const;
 
+  /**
+ * Handles logic pertaining to the start of a stroke.
+ *
+ * @param start_position the position of the stroke start.
+ */
+  void HandleStrokeStart(const glm::vec2& start_position);
+
+  /**
+   * Handles logic pertaining to the pulling back of the cue.
+   *
+   * @param mouse_position current position of the mouse.
+   */
+  void HandleCuePullBack(const glm::vec2& mouse_position);
+
+  /**
+   * Handles logic pertaining to the end of a stroke.
+   *
+   * @param end_position the position of the stroke end.
+   */
+  void HandleStrokeEnd(const glm::vec2& end_position);
+
+  /**
+   * Computes the angle that the cue makes to point at the cue ball.
+   *
+   * @param mouse_position current position of the mouse.
+   * @return the angle between the cue and cue ball.
+   */
+  float ComputeCueAngle(const glm::vec2& mouse_position) const;
+
+  /**
+   * Computes the position and dimensions of the cue.
+   *
+   * @return Rectangle corresponding to cue dimensions.
+   */
+  ci::Rectf ComputeCueDimensions() const;
+
  private:
   Table* table_;
   Player player1_;
   Player player2_;
   Player* current_player;
+
+  bool stroke_started_;
+  glm::vec2 stroke_start_;
+  float cue_pull_back_;
+  bool is_red_on_;
+  bool is_stroke_legal_;
+  bool should_update_player_;
 };
 
 }  // namespace snooker
