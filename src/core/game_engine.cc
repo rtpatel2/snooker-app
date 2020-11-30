@@ -8,22 +8,50 @@
 namespace snooker {
 
 GameEngine::GameEngine(Table* table)
-    : table_(table) {}
+    : table_(table), next_to_stroke_(&player1_) {}
 
-void GameEngine::AssessTable(const Player& player) {
-  bool is_red_on = player.IsBallOnRed(*table_);
-  bool is_stroke_legal = player.IsStrokeLegal(
+void GameEngine::RunGame() {
+  while (table_->GetBalls().size() > 1) {
+
+  }
+}
+
+void GameEngine::AssessTable(Player* player) {
+  bool is_red_on = player->IsBallOnRed(*table_);
+  bool is_stroke_legal = player->IsStrokeLegal(
       is_red_on, table_->GetBalls().back().GetFirstContacted()->GetColor(),
       *table_);
-  if (!is_stroke_legal) {
-    for (Ball* ball : player.GetBallsPottedLastStroke()) {
-      ball->RespotBall();
+
+  if (is_stroke_legal) {
+    for (Ball* ball : player->GetBallsPottedLastStroke()) {
+       if (table_->GetRedBallCount() > 0 &&
+                 ball->GetColor() != Table::kRed) {
+        ball->RespotBall();
+      } else {
+        table_->RemoveBallFromTable(ball);
+      }
     }
   } else {
-    for (Ball* ball : player.GetBallsPottedLastStroke()) {
-      table_->RemoveBallFromTable(ball);
+    for (Ball* ball : player->GetBallsPottedLastStroke()) {
+      if (ball->GetColor() != Table::kRed) {
+        ball->RespotBall();
+      } else if (ball->GetColor() == Table::kRed) {
+        table_->RemoveBallFromTable(ball);
+      }
     }
   }
+
+  if (is_stroke_legal && !player->GetBallsPottedLastStroke().empty()) {
+    // make sure to find a way to change the player's ball-on
+    next_to_stroke_;
+  } else {
+    if (next_to_stroke_ ==  &player1_) {
+      next_to_stroke_ = &player2_;
+    } else {
+      next_to_stroke_ = &player1_;
+    }
+  }
+
   /**
    *  decide which is ball is on for the first stroke:
    *    - if even stroke and reds up, red

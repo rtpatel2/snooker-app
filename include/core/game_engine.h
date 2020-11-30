@@ -15,17 +15,21 @@ class GameEngine {
  public:
   GameEngine(Table* table);
 
+  /** Runs a game of snooker. */
+  void RunGame();
+
   /**
    * Assesses the state of the Table.
    *
    * @param player Player who just stroked.
    */
-  void AssessTable(const Player& player);
+  void AssessTable(Player* player);
 
  private:
   Table* table_;
   Player player1_;
   Player player2_;
+  Player* next_to_stroke_;
 };
 
 }  // namespace snooker
