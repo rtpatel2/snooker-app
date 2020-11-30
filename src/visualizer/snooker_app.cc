@@ -21,6 +21,7 @@ SnookerApp::SnookerApp()
 }
 
 void SnookerApp::update() {
+  //TODO: Move this into GameEngine too?
   table_.IncrementTime();
   engine_.AssessTable();
 }
@@ -61,12 +62,6 @@ void SnookerApp::draw() {
   }
 
   if (table_.IsSteady()) {
-    if (table_.GetBalls().back().GetFirstContacted() != nullptr &&
-        table_.GetBalls().back().GetFirstContacted()->GetColor() !=
-            Table::kRed) {
-      ci::gl::drawStringCentered("yea", glm::vec2(150, 300), Table::kWhite);
-    }
-
     ci::gl::ScopedModelMatrix scoped_matrix;
     ci::gl::translate(table_.GetBalls().back().GetPosition());
 
