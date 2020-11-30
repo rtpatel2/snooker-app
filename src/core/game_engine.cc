@@ -55,4 +55,12 @@ void GameEngine::AssessTable() {
   table_->ResetFirstContacted();
 }
 
+bool GameEngine::IsPlayer1Turn() const {
+  if (current_player == &player1_) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 }  // namespace snooker

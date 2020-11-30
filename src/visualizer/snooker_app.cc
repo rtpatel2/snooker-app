@@ -5,7 +5,6 @@
 #include "visualizer/snooker_app.h"
 #include "core/ball.h"
 #include "core/table.h"
-#include "core/cue.h"
 #include "core/pocket.h"
 #include "core/game_engine.h"
 #include "cinder/gl/gl.h"
@@ -69,6 +68,12 @@ void SnookerApp::draw() {
     ci::gl::color(ci::Color("brown"));
 
     ci::gl::drawSolidRect(table_.ComputeCueDimensions());
+  }
+
+  if (engine_.IsPlayer1Turn()) {
+    ci::gl::drawStringCentered("Player 1", glm::vec2(150, 300), kWhite);
+  } else {
+    ci::gl::drawStringCentered("Player 2", glm::vec2(150, 300), kWhite);
   }
 }
 

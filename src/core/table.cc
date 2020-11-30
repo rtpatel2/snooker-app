@@ -4,7 +4,6 @@
 
 #include "core/table.h"
 #include "core/pocket.h"
-#include "core/cue.h"
 #include "cinder/gl/gl.h"
 
 #include <vector>

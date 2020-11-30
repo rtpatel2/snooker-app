@@ -5,7 +5,6 @@
 #pragma once
 
 #include "table.h"
-#include "cue.h"
 #include "player.h"
 
 namespace snooker {
@@ -17,6 +16,13 @@ class GameEngine {
 
   /** Assesses the state of the Table. */
   void AssessTable();
+
+  /**
+   * Determines whether or not Player 1 is currently at the Table.
+   *
+   * @return true if Player 1 is at the table, and false otherwise.
+   */
+  bool IsPlayer1Turn() const;
 
  private:
   Table* table_;
