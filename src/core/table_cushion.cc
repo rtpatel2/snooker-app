@@ -13,7 +13,8 @@ TableCushion::TableCushion() = default;
 StraightCushion::StraightCushion(const ci::Rectf& bounds)
     : bounds_(bounds) {}
 
-glm::vec2 StraightCushion::ComputeVelocityAfterCollision(const Ball& ball) const {
+glm::vec2 StraightCushion::ComputeVelocityAfterCollision(
+    const Ball& ball) const {
   glm::vec2 velocity = ball.GetVelocity();
   glm::vec2 position = ball.GetPosition();
   if (bounds_.y1 <= position.y && position.y <= bounds_.y2) {
