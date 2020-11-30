@@ -4,7 +4,6 @@
 
 #include "core/game_engine.h"
 #include "core/table.h"
-#include "core/cue.h"
 
 namespace snooker {
 
@@ -21,7 +20,9 @@ void GameEngine::AssessTable(const Player& player) {
       ball->RespotBall();
     }
   } else {
-
+    for (Ball* ball : player.GetBallsPottedLastStroke()) {
+      table_->RemoveBallFromTable(ball);
+    }
   }
   /**
    *  decide which is ball is on for the first stroke:

@@ -66,6 +66,13 @@ class Table {
   void ResetFirstContacted();
 
   /**
+   * Removes the given Ball from this Table.
+   *
+   * @param ball pointer to the Ball to remove.
+   */
+  void RemoveBallFromTable(Ball* ball);
+
+  /**
    * Determines the color with lowest point value still on the Table.
    *
    * @return color of the lowest point value Ball.

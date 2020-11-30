@@ -62,6 +62,7 @@ glm::vec2 Ball::ComputeVelocityAfterCollision(Ball& other) {
 
 void Ball::RespotBall() {
   position_ = initial_position_;
+  velocity_ = glm::vec2(0, 0);
 }
 
 const glm::vec2& Ball::GetPosition() const {

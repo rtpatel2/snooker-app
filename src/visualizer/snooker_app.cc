@@ -28,11 +28,9 @@ void SnookerApp::update() {
         player_.AddBallsPottedLastStroke(const_cast<Ball*>(&ball));
       }
     }
-
-    engine_.AssessTable(player_);
-    player_.ClearBallsPottedLastStroke();
   }
-
+  engine_.AssessTable(player_);
+  player_.ClearBallsPottedLastStroke();
 }
 
 void SnookerApp::draw() {
