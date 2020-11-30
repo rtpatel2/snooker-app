@@ -14,8 +14,7 @@ namespace snooker {
 
 namespace visualizer {
 
-SnookerApp::SnookerApp()
-    : stroke_started_(false), cue_pull_back_(0), engine_(&table_) {
+SnookerApp::SnookerApp() : engine_(&table_) {
   ci::app::setWindowSize(static_cast<int>(kWindowWidth),
                          static_cast<int>(kWindowHeight));
 }
@@ -73,42 +72,22 @@ void SnookerApp::draw() {
     ci::gl::rotate(cue_angle);
     ci::gl::color(ci::Color("brown"));
 
-    ci::gl::drawSolidRect(
-        ci::Rectf(-Cue::kCueLength - cue_pull_back_, -Cue::kCueWidth,
-                  -Table::kBallRadius - cue_pull_back_, Cue::kCueWidth));
+    ci::gl::drawSolidRect(ci::Rectf(
+        -Cue::kCueLength - table_.GetCuePullBack(), -Cue::kCueWidth,
+        -Table::kBallRadius - table_.GetCuePullBack(), Cue::kCueWidth));
   }
 }
 
 void SnookerApp::mouseUp(ci::app::MouseEvent event) {
-  if (table_.IsSteady() && stroke_started_) {
-    glm::vec2 stroke_end = static_cast<glm::vec2>(event.getPos());
-    glm::vec2 velocity(stroke_start_ - stroke_end);
-    if (glm::length(velocity) == 0) {
-      table_.SetCueBallVelocity(glm::vec2(0, 0));
-    } else {
-      float speed = std::fminf(Cue::kMaxPullBack, glm::length(velocity));
-      table_.SetCueBallVelocity(glm::normalize(velocity) * speed *
-                                Table::kScalingFactor * Ball::kTimeScaleFactor *
-                                Table::kCueStrokeFactor);
-    }
-    stroke_started_ = false;
-    cue_pull_back_ = 0;
-  }
+  table_.HandleStrokeEnd(static_cast<glm::vec2>(event.getPos()));
 }
 
 void SnookerApp::mouseDown(ci::app::MouseEvent event) {
-  if (table_.IsSteady()) {
-    stroke_started_ = true;
-    stroke_start_ = static_cast<glm::vec2>(event.getPos());
-  }
+  table_.HandleStrokeStart(static_cast<glm::vec2>(event.getPos()));
 }
 
 void SnookerApp::mouseDrag(ci::app::MouseEvent event) {
-  if (stroke_started_) {
-    cue_pull_back_ = std::fminf(
-        Cue::kMaxPullBack,
-        glm::length(static_cast<glm::vec2>(event.getPos()) - stroke_start_));
-  }
+  table_.HandleCuePullBack(static_cast<glm::vec2>(event.getPos()));
 }
 
 }  // namespace visualizer

@@ -4,6 +4,7 @@
 
 #include "core/table.h"
 #include "core/pocket.h"
+#include "core/cue.h"
 #include "cinder/gl/gl.h"
 
 #include <vector>
@@ -20,7 +21,7 @@ const ci::Color Table::kPink = ci::Color("pink");
 const ci::Color Table::kBrown = ci::Color("brown");
 const ci::Color Table::kBlue = ci::Color("blue");
 
-Table::Table() : red_ball_count_(0) {
+Table::Table() : red_ball_count_(0), stroke_started_(false), cue_pull_back_(0) {
   walls_ = ci::Rectf(kHorizontalMargin, kVerticalMargin,
                      kHorizontalMargin + kTableWidth,
                      kVerticalMargin + kTableHeight);
@@ -30,7 +31,11 @@ Table::Table() : red_ball_count_(0) {
 }
 
 Table::Table(const ci::Rectf& walls, std::vector<TableCushionPtr> cushions)
-    : walls_(walls), cushions_(std::move(cushions)), red_ball_count_(0) {}
+    : walls_(walls),
+      cushions_(std::move(cushions)),
+      red_ball_count_(0),
+      stroke_started_(false),
+      cue_pull_back_(0) {}
 
 void Table::AddBall(const Ball& ball) {
   if (walls_.contains(ball.GetPosition())) {
@@ -96,6 +101,37 @@ ci::Color Table::DetermineLeastPointsColor() const {
   return balls_.front().GetColor();
 }
 
+void Table::HandleStrokeStart(const glm::vec2& start_position) {
+  if (IsSteady()) {
+    stroke_started_ = true;
+    stroke_start_ = start_position;
+  }
+}
+
+void Table::HandleCuePullBack(const glm::vec2& mouse_position) {
+  if (stroke_started_) {
+    cue_pull_back_ = std::fminf(
+        Cue::kMaxPullBack,
+        glm::length(mouse_position - stroke_start_));
+  }
+}
+
+void Table::HandleStrokeEnd(const glm::vec2& end_position) {
+  if (IsSteady() && stroke_started_) {
+    glm::vec2 velocity(stroke_start_ - end_position);
+    if (glm::length(velocity) == 0) {
+      SetCueBallVelocity(glm::vec2(0, 0));
+    } else {
+      float speed = std::fminf(Cue::kMaxPullBack, glm::length(velocity));
+      SetCueBallVelocity(glm::normalize(velocity) * speed *
+                         Table::kScalingFactor * Ball::kTimeScaleFactor *
+                         Table::kCueStrokeFactor);
+    }
+    stroke_started_ = false;
+    cue_pull_back_ = 0;
+  }
+}
+
 const std::vector<TableCushionPtr>& Table::GetCushions() const {
   return cushions_;
 }
@@ -114,6 +150,10 @@ size_t Table::GetRedBallCount() const {
 
 const std::vector<Pocket>& Table::GetPockets() const {
   return pockets_;
+}
+
+float Table::GetCuePullBack() const {
+  return cue_pull_back_;
 }
 
 void Table::CreateCushions() {
