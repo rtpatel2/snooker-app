@@ -195,3 +195,21 @@ TEST_CASE("Validate < operator overloading.") {
     REQUIRE_FALSE(ball2 < ball3);
   }
 }
+
+TEST_CASE("Validate == operator overloading.") {
+  Ball ball1(glm::vec2(500.3, 600.2), glm::vec2(-1, 2), ci::Color("white"),
+             1, 2, 3);
+  Ball ball2(glm::vec2(500.299, 600.199), glm::vec2(-5, -7),
+             ci::Color("green"), 4, 5, 6);
+  Ball ball3(glm::vec2(351.4, 621.4), glm::vec2(3.14, 2.71),
+             ci::Color("blue"), 7, 8, 9);
+
+  SECTION("Classify Balls with identical initial positions as equal.") {
+    REQUIRE(ball1 == ball2);
+  }
+
+  SECTION("Classify Balls with different initial positions as nonequal.") {
+    REQUIRE_FALSE(ball1 == ball3);
+    REQUIRE_FALSE(ball2 == ball3);
+  }
+}
