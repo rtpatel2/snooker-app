@@ -42,6 +42,10 @@ const std::vector<Ball>& Player::GetBallsPottedLastStroke() const {
   return balls_potted_last_stroke_;
 }
 
+size_t Player::GetStrokeNumber() const {
+  return stroke_number_;
+}
+
 bool Player::IsBallOnRed(const Table& table) const {
   if (table.GetRedBallCount() != 0 && stroke_number_ % 2 == 0) {
     return true;

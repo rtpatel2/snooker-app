@@ -160,3 +160,22 @@ TEST_CASE("Validate adding Balls pocketed last stroke.") {
             player.GetBallsPottedLastStroke()[2].GetColor());
   }
 }
+
+TEST_CASE("Validate ending a stroke.") {
+  Player player;
+  Table table;
+
+  SECTION("Ending a stroke and leaving the table.") {
+    player.EndStroke(false);
+    REQUIRE(0 == player.GetStrokeNumber());
+    REQUIRE(0 == player.GetBallsPottedLastStroke().size());
+  }
+
+  SECTION("Ending a stroke but staying at the table.") {
+    player.EndStroke(false);
+    player.EndStroke(true);
+    player.EndStroke(true);
+    REQUIRE(2 == player.GetStrokeNumber());
+    REQUIRE(0 == player.GetBallsPottedLastStroke().size());
+  }
+}

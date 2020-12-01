@@ -43,6 +43,7 @@ class Player {
   void EndStroke(bool still_at_table);
 
   const std::vector<Ball>& GetBallsPottedLastStroke() const;
+  size_t GetStrokeNumber() const;
 
  private:
   /**
