@@ -109,7 +109,7 @@ class Table {
   /** Cue specifications. */
   static constexpr float kCueLength = 100 * Table::kScalingFactor;
   static constexpr float kCueWidth = 1 * Table::kScalingFactor;
-  static constexpr float kMaxPullBack = 25 * Table::kScalingFactor;
+  static constexpr float kMaxPullBack = 20 * Table::kScalingFactor;
 
  private:
   /** Creates standard cushions for this Table based on its dimensions. */
