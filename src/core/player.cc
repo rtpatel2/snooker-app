@@ -12,18 +12,9 @@ namespace snooker {
 
 Player::Player() : stroke_number_(0), score_(0) {}
 
-//TODO: Make private if possible
-bool Player::IsBallOnRed(const Table& table) const {
-  if (table.GetRedBallCount() != 0 && stroke_number_ % 2 == 0) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-bool Player::IsStrokeLegal(bool is_red_on,
-                           const ci::Color& cue_color_first_contacted,
+bool Player::IsStrokeLegal(const ci::Color& cue_color_first_contacted,
                            const Table& table) const {
+  bool is_red_on = IsBallOnRed(table);
   if (cue_color_first_contacted == Ball::kNoContactColor) {
     return false;
   } else if (is_red_on) {
@@ -77,6 +68,14 @@ void Player::EndStroke(bool still_at_table) {
 
 const std::vector<Ball>& Player::GetBallsPottedLastStroke() const {
   return balls_potted_last_stroke_;
+}
+
+bool Player::IsBallOnRed(const Table& table) const {
+  if (table.GetRedBallCount() != 0 && stroke_number_ % 2 == 0) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 }  // namespace snooker
