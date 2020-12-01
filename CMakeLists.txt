@@ -63,6 +63,7 @@ list(APPEND TEST_FILES tests/ball_test.cc)
 list(APPEND TEST_FILES tests/table_test.cc)
 list(APPEND TEST_FILES tests/table_cushion_test.cc)
 list(APPEND TEST_FILES tests/player_test.cc)
+list(APPEND TEST_FILES tests/pocket_test.cc)
 
 ci_make_app(
         APP_NAME        snooker-visualizer
