@@ -44,14 +44,17 @@ TEST_CASE("Creating a Table.") {
                 ->GetBounds().getUpperRight());
     REQUIRE(12.5 == dynamic_cast<CurvedCushion*>(table.GetCushions()[12].get())
                         ->GetRadius());
-    REQUIRE(glm::vec2(285, 322.25) == table.GetBalls()[0].GetPosition());
-    REQUIRE(769.188 ==
+    REQUIRE(782.313 ==
+            Approx(table.GetBalls()[0].GetPosition().x).margin(kMarginOfError));
+    REQUIRE(322.25 ==
+            Approx(table.GetBalls()[0].GetPosition().y).margin(kMarginOfError));
+    REQUIRE(808.563 ==
             Approx(table.GetBalls()[4].GetPosition().x).margin(kMarginOfError));
     REQUIRE(322.25 ==
             Approx(table.GetBalls()[4].GetPosition().y).margin(kMarginOfError));
-    REQUIRE(795.438 ==
+    REQUIRE(821.688 ==
             Approx(table.GetBalls()[7].GetPosition().x).margin(kMarginOfError));
-    REQUIRE(328.813 ==
+    REQUIRE(315.688 ==
             Approx(table.GetBalls()[7].GetPosition().y).margin(kMarginOfError));
     REQUIRE(glm::vec2(248.75,  358.5) == table.GetBalls().back().GetPosition());
   }
@@ -124,22 +127,22 @@ TEST_CASE("Validate incrementing the time of a Table.") {
                        ci::Color("green"), 4, 5, 5));
     table.IncrementTime();
 
-    REQUIRE(300.571 == Approx(table.GetBalls()[0].GetPosition().x).margin
+    REQUIRE(300.576 == Approx(table.GetBalls()[0].GetPosition().x).margin
         (kMarginOfError));
-    REQUIRE(300.761 == Approx(table.GetBalls()[0].GetPosition().y).margin
+    REQUIRE(300.769 == Approx(table.GetBalls()[0].GetPosition().y).margin
         (kMarginOfError));
-    REQUIRE(0.571 == Approx(table.GetBalls()[0].GetVelocity().x).margin
+    REQUIRE(0.576 == Approx(table.GetBalls()[0].GetVelocity().x).margin
         (kMarginOfError));
-    REQUIRE(0.761 == Approx(table.GetBalls()[0].GetVelocity().y).margin
+    REQUIRE(0.769 == Approx(table.GetBalls()[0].GetVelocity().y).margin
                  (kMarginOfError));
 
-    REQUIRE(399.987 == Approx(table.GetBalls()[1].GetPosition().x).margin
+    REQUIRE(399.982 == Approx(table.GetBalls()[1].GetPosition().x).margin
         (kMarginOfError));
-    REQUIRE(300.0192 == Approx(table.GetBalls()[1].GetPosition().y).margin
+    REQUIRE(300.027 == Approx(table.GetBalls()[1].GetPosition().y).margin
         (kMarginOfError));
-    REQUIRE(-0.013 == Approx(table.GetBalls()[1].GetVelocity().x).margin
+    REQUIRE(-0.0183 == Approx(table.GetBalls()[1].GetVelocity().x).margin
         (kMarginOfError));
-    REQUIRE(0.0192 == Approx(table.GetBalls()[1].GetVelocity().y).margin
+    REQUIRE(0.02738 == Approx(table.GetBalls()[1].GetVelocity().y).margin
         (kMarginOfError));
   }
 
@@ -148,13 +151,13 @@ TEST_CASE("Validate incrementing the time of a Table.") {
                        ci::Color("white"), 5, 6, 9));
     table.IncrementTime();
 
-    REQUIRE(102.311 == Approx(table.GetBalls()[0].GetPosition().x).margin
+    REQUIRE(102.313 == Approx(table.GetBalls()[0].GetPosition().x).margin
         (kMarginOfError));
-    REQUIRE(113.188 == Approx(table.GetBalls()[0].GetPosition().y).margin
+    REQUIRE(113.197 == Approx(table.GetBalls()[0].GetPosition().y).margin
         (kMarginOfError));
-    REQUIRE(0.311 == Approx(table.GetBalls()[0].GetVelocity().x).margin
+    REQUIRE(0.313 == Approx(table.GetBalls()[0].GetVelocity().x).margin
         (kMarginOfError));
-    REQUIRE(1.188 == Approx(table.GetBalls()[0].GetVelocity().y).margin
+    REQUIRE(1.197 == Approx(table.GetBalls()[0].GetVelocity().y).margin
         (kMarginOfError));
   }
 
@@ -165,22 +168,22 @@ TEST_CASE("Validate incrementing the time of a Table.") {
                        ci::Color("black"), 4, 5, 15));
     table.IncrementTime();
 
-    REQUIRE(308.442 == Approx(table.GetBalls()[0].GetPosition().x)
+    REQUIRE(308.450 == Approx(table.GetBalls()[0].GetPosition().x)
                            .margin(kMarginOfError));
-    REQUIRE(300.312 == Approx(table.GetBalls()[0].GetPosition().y)
+    REQUIRE(300.317 == Approx(table.GetBalls()[0].GetPosition().y)
                            .margin(kMarginOfError));
-    REQUIRE(0.442 == Approx(table.GetBalls()[0].GetVelocity().x)
+    REQUIRE(0.450 == Approx(table.GetBalls()[0].GetVelocity().x)
                          .margin(kMarginOfError));
-    REQUIRE(0.312 == Approx(table.GetBalls()[0].GetVelocity().y)
+    REQUIRE(0.317 == Approx(table.GetBalls()[0].GetVelocity().y)
                          .margin(kMarginOfError));
 
-    REQUIRE(298.567 == Approx(table.GetBalls()[1].GetPosition().x)
+    REQUIRE(298.558 == Approx(table.GetBalls()[1].GetPosition().x)
                            .margin(kMarginOfError));
-    REQUIRE(300.640 == Approx(table.GetBalls()[1].GetPosition().y)
+    REQUIRE(300.644 == Approx(table.GetBalls()[1].GetPosition().y)
                            .margin(kMarginOfError));
-    REQUIRE(-1.433 == Approx(table.GetBalls()[1].GetVelocity().x)
+    REQUIRE(-1.442 == Approx(table.GetBalls()[1].GetVelocity().x)
                           .margin(kMarginOfError));
-    REQUIRE(0.640 == Approx(table.GetBalls()[1].GetVelocity().y)
+    REQUIRE(0.644 == Approx(table.GetBalls()[1].GetVelocity().y)
                          .margin(kMarginOfError));
   }
 
@@ -193,31 +196,31 @@ TEST_CASE("Validate incrementing the time of a Table.") {
                        ci::Color("green"), 4, 5, 15));
     table.IncrementTime();
 
-    REQUIRE(308.442 == Approx(table.GetBalls()[0].GetPosition().x).margin
+    REQUIRE(308.450 == Approx(table.GetBalls()[0].GetPosition().x).margin
         (kMarginOfError));
-    REQUIRE(300.312 == Approx(table.GetBalls()[0].GetPosition().y).margin
+    REQUIRE(300.317 == Approx(table.GetBalls()[0].GetPosition().y).margin
         (kMarginOfError));
-    REQUIRE(0.442 == Approx(table.GetBalls()[0].GetVelocity().x).margin
+    REQUIRE(0.450 == Approx(table.GetBalls()[0].GetVelocity().x).margin
         (kMarginOfError));
-    REQUIRE(0.312 == Approx(table.GetBalls()[0].GetVelocity().y).margin
-        (kMarginOfError));
-
-    REQUIRE(298.567 == Approx(table.GetBalls()[1].GetPosition().x).margin
-        (kMarginOfError));
-    REQUIRE(300.640 == Approx(table.GetBalls()[1].GetPosition().y).margin
-        (kMarginOfError));
-    REQUIRE(-1.433 == Approx(table.GetBalls()[1].GetVelocity().x).margin
-        (kMarginOfError));
-    REQUIRE(0.640 == Approx(table.GetBalls()[1].GetVelocity().y).margin
+    REQUIRE(0.317 == Approx(table.GetBalls()[0].GetVelocity().y).margin
         (kMarginOfError));
 
-    REQUIRE(199.987 == Approx(table.GetBalls()[2].GetPosition().x).margin
+    REQUIRE(298.558 == Approx(table.GetBalls()[1].GetPosition().x).margin
         (kMarginOfError));
-    REQUIRE(488.981 == Approx(table.GetBalls()[2].GetPosition().y).margin
+    REQUIRE(300.644 == Approx(table.GetBalls()[1].GetPosition().y).margin
         (kMarginOfError));
-    REQUIRE(-0.0119 == Approx(table.GetBalls()[2].GetVelocity().x).margin
+    REQUIRE(-1.442 == Approx(table.GetBalls()[1].GetVelocity().x).margin
         (kMarginOfError));
-    REQUIRE(-0.0169 == Approx(table.GetBalls()[2].GetVelocity().y).margin
+    REQUIRE(0.644 == Approx(table.GetBalls()[1].GetVelocity().y).margin
+        (kMarginOfError));
+
+    REQUIRE(199.983 == Approx(table.GetBalls()[2].GetPosition().x).margin
+        (kMarginOfError));
+    REQUIRE(488.975 == Approx(table.GetBalls()[2].GetPosition().y).margin
+        (kMarginOfError));
+    REQUIRE(-0.0175 == Approx(table.GetBalls()[2].GetVelocity().x).margin
+        (kMarginOfError));
+    REQUIRE(-0.0249 == Approx(table.GetBalls()[2].GetVelocity().y).margin
         (kMarginOfError));
   }
 }

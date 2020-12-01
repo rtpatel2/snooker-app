@@ -33,10 +33,10 @@ TEST_CASE("Validate updating a Ball's position.") {
     Ball ball(glm::vec2(100, 100), glm::vec2(40, 30), ci::Color("white"), 1, 1,
               3);
     ball.UpdatePosition();
-    REQUIRE(0.3608 == Approx(ball.GetVelocity().x).margin(kMarginOfError));
-    REQUIRE(0.2706 == Approx(ball.GetVelocity().y).margin(kMarginOfError));
-    REQUIRE(100.3608 == Approx(ball.GetPosition().x).margin(kMarginOfError));
-    REQUIRE(100.2706 == Approx(ball.GetPosition().y).margin(kMarginOfError));
+    REQUIRE(0.3686 == Approx(ball.GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(0.2765 == Approx(ball.GetVelocity().y).margin(kMarginOfError));
+    REQUIRE(100.3686 == Approx(ball.GetPosition().x).margin(kMarginOfError));
+    REQUIRE(100.2765 == Approx(ball.GetPosition().y).margin(kMarginOfError));
   }
 
   SECTION("Ball with one non-zero velocity component.") {
@@ -44,9 +44,9 @@ TEST_CASE("Validate updating a Ball's position.") {
               1);
     ball.UpdatePosition();
     REQUIRE(0 == Approx(ball.GetVelocity().x).margin(kMarginOfError));
-    REQUIRE(-2.951 == Approx(ball.GetVelocity().y).margin(kMarginOfError));
+    REQUIRE(-2.961 == Approx(ball.GetVelocity().y).margin(kMarginOfError));
     REQUIRE(100 == Approx(ball.GetPosition().x).margin(kMarginOfError));
-    REQUIRE(97.049 == Approx(ball.GetPosition().y).margin(kMarginOfError));
+    REQUIRE(97.0392 == Approx(ball.GetPosition().y).margin(kMarginOfError));
   }
 
   SECTION("Ball with zero speed.") {
