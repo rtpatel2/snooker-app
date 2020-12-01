@@ -85,6 +85,7 @@ class Ball {
   static constexpr float kFrictionWithTable = 0.004f;
   static constexpr float kRestitutionCoefficient = 0.95f;
   static constexpr float kTimeScaleFactor = 0.01f;
+  static constexpr float kMarginOfError = 0.001f;
 
  private:
   glm::vec2 position_;

@@ -65,7 +65,8 @@ bool Ball::operator<(const Ball& other) const {
 }
 
 bool Ball::operator==(const Ball& other) const {
-  if (initial_position_ == other.initial_position_) {
+  if (glm::length(initial_position_ - other.initial_position_) <
+      kMarginOfError) {
     return true;
   } else {
     return false;
