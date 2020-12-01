@@ -3,6 +3,7 @@
  */
 
 #include "core/table.h"
+#include "core/ball.h"
 #include "core/table_cushion.h"
 #include "core/pocket.h"
 #include "cinder/gl/gl.h"
@@ -11,16 +12,6 @@
 #include <vector>
 
 namespace snooker {
-
-/** Ball colors. */
-const ci::Color Table::kRed = ci::Color("red");
-const ci::Color Table::kBlack = ci::Color("black");
-const ci::Color Table::kWhite = ci::Color("white");
-const ci::Color Table::kGreen = ci::Color("green");
-const ci::Color Table::kYellow = ci::Color("yellow");
-const ci::Color Table::kPink = ci::Color("pink");
-const ci::Color Table::kBrown = ci::Color("brown");
-const ci::Color Table::kBlue = ci::Color("blue");
 
 Table::Table() : red_ball_count_(0) {
   walls_ = ci::Rectf(kHorizontalMargin, kVerticalMargin,
@@ -39,7 +30,7 @@ Table::Table(const ci::Rectf& walls, std::vector<TableCushionPtr> cushions)
 void Table::AddBall(const Ball& ball) {
   if (walls_.contains(ball.GetPosition())) {
     balls_.push_back(ball);
-    if (ball.GetColor() == kRed) {
+    if (ball.GetColor() == Ball::kRed) {
       ++red_ball_count_;
     }
   }
@@ -76,7 +67,7 @@ bool Table::IsSteady() const {
 
 void Table::ResetFirstContacted() {
   for (Ball& ball : balls_) {
-    ball.SetFirstContacted(nullptr);
+    ball.SetFirstContacted(Ball::kNoContactColor);
   }
 }
 
@@ -84,7 +75,7 @@ void Table::RemoveBallFromTable(const Ball& ball) {
   for (size_t index_to_remove = 0; index_to_remove < balls_.size();
        ++index_to_remove) {
     if (ball == balls_[index_to_remove]) {
-      if (ball.GetColor() == kRed) {
+      if (ball.GetColor() == Ball::kRed) {
         --red_ball_count_;
       }
       balls_.erase(balls_.begin() + index_to_remove);
@@ -278,57 +269,57 @@ void Table::CreateBalls() {
         glm::vec2(walls_.x1 + 0.75 * width + 2 * row * kBallRadius,
                   walls_.y1 + height / 2 - (row - 1) * kBallRadius);
     for (size_t ball_count = 1; ball_count <= row; ++ball_count) {
-      AddBall(Ball(ball_position, zero, kRed, kBallRadius, kBallMass, 1));
+      AddBall(Ball(ball_position, zero, Ball::kRed, kBallRadius, kBallMass, 1));
       ball_position.y += 2 * kBallRadius;
     }
   }
 
   AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition,
                          walls_.y1 + height / 2 + kSemicircleRadius),
-               zero, kYellow, kBallRadius, kBallMass, 2));
+               zero, Ball::kYellow, kBallRadius, kBallMass, 2));
   AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition,
                          walls_.y1 + height / 2 - kSemicircleRadius),
-               zero, kGreen, kBallRadius, kBallMass, 3));
+               zero, Ball::kGreen, kBallRadius, kBallMass, 3));
   AddBall(
       Ball(glm::vec2(walls_.x1 + kBaulkLinePosition, walls_.y1 + height / 2),
-           zero, kBrown, kBallRadius, kBallMass, 4));
+           zero, Ball::kBrown, kBallRadius, kBallMass, 4));
   AddBall(Ball(glm::vec2(walls_.x1 + width / 2, walls_.y1 + height / 2), zero,
-               kBlue, kBallRadius, kBallMass, 5));
+               Ball::kBlue, kBallRadius, kBallMass, 5));
   AddBall(Ball(glm::vec2(walls_.x1 + 0.75 * width, walls_.y1 + height / 2),
-               zero, kPink, kBallRadius, kBallMass, 6));
+               zero, Ball::kPink, kBallRadius, kBallMass, 6));
   AddBall(Ball(glm::vec2(walls_.x1 + kTableWidth - kBlackBallGap,
                          walls_.y1 + height / 2),
-               zero, kBlack, kBallRadius, kBallMass, 7));
+               zero, Ball::kBlack, kBallRadius, kBallMass, 7));
 
   // TODO: Make this velocity 0
   AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition - kSemicircleRadius / 2,
                          walls_.y1 + height / 2 + kSemicircleRadius / 2),
-               glm::vec2(1200, -80), kWhite, kBallRadius, kBallMass, 99));
+               glm::vec2(1200, -80), Ball::kWhite, kBallRadius, kBallMass, 99));
 }
 
 void Table::CreatePockets() {
   pockets_.push_back(Pocket(glm::vec2(kHorizontalMargin + kCornerPocketRadius,
                                       kVerticalMargin + kCornerPocketRadius),
-                            kCornerPocketRadius, kBlack));
+                            kCornerPocketRadius, Ball::kBlack));
   pockets_.push_back(
       Pocket(glm::vec2(kHorizontalMargin + kCornerPocketRadius,
                        kVerticalMargin + kTableHeight - kCornerPocketRadius),
-             kCornerPocketRadius, kBlack));
+             kCornerPocketRadius, Ball::kBlack));
   pockets_.push_back(
       Pocket(glm::vec2(kHorizontalMargin + kTableWidth - kCornerPocketRadius,
                        kVerticalMargin + kCornerPocketRadius),
-             kCornerPocketRadius, kBlack));
+             kCornerPocketRadius, Ball::kBlack));
   pockets_.push_back(
       Pocket(glm::vec2(kHorizontalMargin + kTableWidth - kCornerPocketRadius,
                        kVerticalMargin + kTableHeight - kCornerPocketRadius),
-             kCornerPocketRadius, kBlack));
+             kCornerPocketRadius, Ball::kBlack));
   pockets_.push_back(Pocket(glm::vec2(kHorizontalMargin + kTableWidth / 2,
                                       kVerticalMargin),
-                            kSidePocketRadius, kBlack));
+                            kSidePocketRadius, Ball::kBlack));
   pockets_.push_back(
       Pocket(glm::vec2(kHorizontalMargin + kTableWidth / 2,
                        kVerticalMargin + kTableHeight),
-             kSidePocketRadius, kBlack));
+             kSidePocketRadius, Ball::kBlack));
 }
 
 }  // namespace snooker

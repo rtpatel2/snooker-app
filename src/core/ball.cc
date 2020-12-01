@@ -7,6 +7,17 @@
 
 namespace snooker {
 
+/** Ball colors. */
+const ci::Color Ball::kRed = ci::Color("red");
+const ci::Color Ball::kBlack = ci::Color("black");
+const ci::Color Ball::kWhite = ci::Color("white");
+const ci::Color Ball::kGreen = ci::Color("green");
+const ci::Color Ball::kYellow = ci::Color("yellow");
+const ci::Color Ball::kPink = ci::Color("pink");
+const ci::Color Ball::kBrown = ci::Color("brown");
+const ci::Color Ball::kBlue = ci::Color("blue");
+const ci::Color Ball::kNoContactColor = ci::Color("orange");
+
 Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
            const ci::Color& color, float radius, float mass)
     : position_(initial_position),
@@ -15,7 +26,7 @@ Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
       color_(color),
       radius_(radius),
       mass_(mass),
-      first_contacted_(nullptr) {}
+      first_contacted_(kNoContactColor) {}
 
 Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
            const ci::Color& color, float radius, float mass, size_t points)
@@ -48,8 +59,8 @@ glm::vec2 Ball::ComputeVelocityAfterCollision(Ball& other) {
       glm::dot(velocity_ - other.velocity_, position_ - other.position_) < 0) {
     glm::vec2 velocity_change = velocity_ - other.velocity_;
     glm::vec2 position_change = position_ - other.position_;
-    if (first_contacted_ == nullptr) {
-      first_contacted_ = &other;
+    if (first_contacted_ == kNoContactColor) {
+      first_contacted_ = other.GetColor();
     }
     return (velocity_ - ((2 * other.mass_) / (mass_ + other.mass_)) *
                             (glm::dot(velocity_change, position_change) /
@@ -101,12 +112,12 @@ float Ball::GetMass() const {
   return mass_;
 }
 
-Ball* Ball::GetFirstContacted() const {
+const ci::Color& Ball::GetFirstContacted() const {
   return first_contacted_;
 }
 
-void Ball::SetFirstContacted(Ball* ball) {
-  first_contacted_ = ball;
+void Ball::SetFirstContacted(const ci::Color& color) {
+  first_contacted_ = color;
 }
 
 size_t Ball::GetPoints() const {

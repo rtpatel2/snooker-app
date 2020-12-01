@@ -111,16 +111,6 @@ class Table {
   static constexpr float kCueWidth = 1 * Table::kScalingFactor;
   static constexpr float kMaxPullBack = 25 * Table::kScalingFactor;
 
-  /** Ball colors. */
-  static const ci::Color kRed;
-  static const ci::Color kBlack;
-  static const ci::Color kWhite;
-  static const ci::Color kGreen;
-  static const ci::Color kYellow;
-  static const ci::Color kPink;
-  static const ci::Color kBrown;
-  static const ci::Color kBlue;
-
  private:
   /** Creates standard cushions for this Table based on its dimensions. */
   void CreateCushions();

@@ -3,6 +3,7 @@
  */
 
 #include "core/game_engine.h"
+#include "core/ball.h"
 #include "core/table.h"
 
 namespace snooker {
@@ -39,8 +40,8 @@ void GameEngine::EndStroke() {
 
     for (const Ball& ball : current_player->GetBallsPottedLastStroke()) {
       if ((is_stroke_legal_ && table_->GetRedBallCount() > 0 &&
-           ball.GetColor() != Table::kRed) ||
-          (!is_stroke_legal_ && ball.GetColor() != Table::kRed)) {
+           ball.GetColor() != Ball::kRed) ||
+          (!is_stroke_legal_ && ball.GetColor() != Ball::kRed)) {
         Ball ball_copy(ball.GetInitialPosition(), glm::vec2(0, 0),
                        ball.GetColor(), ball.GetRadius(), ball.GetMass(),
                        ball.GetPoints());

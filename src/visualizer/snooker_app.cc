@@ -13,7 +13,7 @@ namespace snooker {
 
 namespace visualizer {
 
-SnookerApp::SnookerApp() : engine_(&table_), should_update_player_(true) {
+SnookerApp::SnookerApp() : engine_(&table_) {
   ci::app::setWindowSize(static_cast<int>(kWindowWidth),
                          static_cast<int>(kWindowHeight));
 }

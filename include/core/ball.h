@@ -77,8 +77,8 @@ class Ball {
   const ci::Color& GetColor() const;
   float GetRadius() const;
   float GetMass() const;
-  Ball* GetFirstContacted() const;
-  void SetFirstContacted(Ball* ball);
+  const ci::Color& GetFirstContacted() const;
+  void SetFirstContacted(const ci::Color& color);
   size_t GetPoints() const;
 
   static constexpr float kGravityAcceleration = 980.0f;
@@ -87,6 +87,17 @@ class Ball {
   static constexpr float kTimeScaleFactor = 0.01f;
   static constexpr float kMarginOfError = 0.001f;
 
+  /** Ball colors. */
+  static const ci::Color kRed;
+  static const ci::Color kBlack;
+  static const ci::Color kWhite;
+  static const ci::Color kGreen;
+  static const ci::Color kYellow;
+  static const ci::Color kPink;
+  static const ci::Color kBrown;
+  static const ci::Color kBlue;
+  static const ci::Color kNoContactColor;
+
  private:
   glm::vec2 position_;
   glm::vec2 velocity_;
@@ -94,7 +105,7 @@ class Ball {
   ci::Color color_;
   float mass_;
   float radius_;
-  Ball* first_contacted_;
+  ci::Color first_contacted_;
   size_t points_;
 };
 
