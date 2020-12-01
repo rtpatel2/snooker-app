@@ -57,6 +57,30 @@ class Player {
    */
   bool IsBallOnRed(const Table& table) const;
 
+  /**
+   * Determines whether or not the previous stroke was legal, given that the
+   * "ball-on" was red.
+   *
+   * @param cue_color_first_contacted the color of the Ball that the cue Ball
+   * first contacted on this stroke.
+   * @param table current state of the Table.
+   * @return true if the stroke was legal, and false otherwise.
+   */
+  bool IsStrokeLegalRedOn(const ci::Color& cue_color_first_contacted,
+                          const Table& table) const;
+
+  /**
+   * Determines whether or not the previous stroke was legal, given that the
+   * "ball-on" was a colored Ball.
+   *
+   * @param cue_color_first_contacted the color of the Ball that the cue Ball
+   * first contacted on this stroke.
+   * @param table current state of the Table.
+   * @return true if the stroke was legal, and false otherwise.
+   */
+  bool IsStrokeLegalColorsOn(const ci::Color& cue_color_first_contacted,
+                             const Table& table) const;
+
   std::vector<Ball> balls_potted_last_stroke_;
   size_t stroke_number_;
   size_t score_;
