@@ -49,11 +49,6 @@ void SnookerApp::draw() {
       Table::kVerticalMargin + Table::kTableHeight + Table::kCushionWidth / 2);
   ci::gl::drawStrokedRect(rails, Table::kCushionWidth);
 
-  for (const Ball& ball : table_.GetBalls()) {
-    ci::gl::color(ball.GetColor());
-    ci::gl::drawSolidCircle(ball.GetPosition(), ball.GetRadius());
-  }
-
   for (const Pocket& pocket : table_.GetPockets()) {
     ci::gl::color(pocket.GetColor());
     ci::gl::drawSolidCircle(pocket.GetPosition(), pocket.GetRadius());
@@ -68,6 +63,11 @@ void SnookerApp::draw() {
     ci::gl::color(ci::Color("brown"));
 
     ci::gl::drawSolidRect(engine_.ComputeCueDimensions());
+  }
+
+  for (const Ball& ball : table_.GetBalls()) {
+    ci::gl::color(ball.GetColor());
+    ci::gl::drawSolidCircle(ball.GetPosition(), ball.GetRadius());
   }
 
   if (engine_.IsPlayer1Turn()) {
