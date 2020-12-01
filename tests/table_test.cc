@@ -77,8 +77,8 @@ TEST_CASE("Validate adding Balls to the Table.") {
   Table table(ci::Rectf(100, 100, 500, 500), std::move(cushions));
 
   SECTION("Adding one Ball to an empty Table.") {
-    table.AddBall(
-        Ball(glm::vec2(300, 300), glm::vec2(60, 80), ci::Color("blue"), 1, 2));
+    table.AddBall(Ball(glm::vec2(300, 300), glm::vec2(60, 80),
+                       ci::Color("blue"), 1, 2, 1));
     REQUIRE(1 == table.GetBalls().size());
     REQUIRE(glm::vec2(300, 300) == table.GetBalls()[0].GetPosition());
   }
@@ -94,10 +94,10 @@ TEST_CASE("Validate adding Balls to the Table.") {
   }
 
   SECTION("Attempting to add Balls outside of the walls of a Table.") {
-    table.AddBall(
-        Ball(glm::vec2(300, 300), glm::vec2(60, 80), ci::Color("blue"), 1, 2));
-    table.AddBall(
-        Ball(glm::vec2(40, 300), glm::vec2(-4, 6), ci::Color("green"), 4, 5));
+    table.AddBall(Ball(glm::vec2(300, 300), glm::vec2(60, 80),
+                       ci::Color("blue"), 1, 2, 2));
+    table.AddBall(Ball(glm::vec2(40, 300), glm::vec2(-4, 6), ci::Color("green"),
+                       4, 5, 3));
     REQUIRE(1 == table.GetBalls().size());
     REQUIRE(glm::vec2(300, 300) == table.GetBalls()[0].GetPosition());
   }
@@ -118,10 +118,10 @@ TEST_CASE("Validate incrementing the time of a Table.") {
   Table table(ci::Rectf(100, 100, 500, 500), std::move(cushions));
 
   SECTION("No collisions.") {
-    table.AddBall(
-        Ball(glm::vec2(300, 300), glm::vec2(60, 80), ci::Color("white"), 1, 2));
-    table.AddBall(
-        Ball(glm::vec2(400, 300), glm::vec2(-4, 6), ci::Color("green"), 4, 5));
+    table.AddBall(Ball(glm::vec2(300, 300), glm::vec2(60, 80),
+                       ci::Color("white"), 1, 2, 4));
+    table.AddBall(Ball(glm::vec2(400, 300), glm::vec2(-4, 6),
+                       ci::Color("green"), 4, 5, 5));
     table.IncrementTime();
 
     REQUIRE(300.571 == Approx(table.GetBalls()[0].GetPosition().x).margin
@@ -145,7 +145,7 @@ TEST_CASE("Validate incrementing the time of a Table.") {
 
   SECTION("Colliding only with TableCushions.") {
     table.AddBall(Ball(glm::vec2(102, 112), glm::vec2(-130, -34),
-                       ci::Color("white"), 5, 6));
+                       ci::Color("white"), 5, 6, 9));
     table.IncrementTime();
 
     REQUIRE(102.311 == Approx(table.GetBalls()[0].GetPosition().x).margin
@@ -160,9 +160,9 @@ TEST_CASE("Validate incrementing the time of a Table.") {
 
   SECTION("Colliding only with Balls.") {
     table.AddBall(Ball(glm::vec2(308, 300), glm::vec2(-130, 34),
-                               ci::Color("white"), 5, 6));
-    table.AddBall(
-        Ball(glm::vec2(300, 300), glm::vec2(66, 66), ci::Color("black"), 4, 5));
+                       ci::Color("white"), 5, 6, 12));
+    table.AddBall(Ball(glm::vec2(300, 300), glm::vec2(66, 66),
+                       ci::Color("black"), 4, 5, 15));
     table.IncrementTime();
 
     REQUIRE(308.442 == Approx(table.GetBalls()[0].GetPosition().x)
@@ -186,11 +186,11 @@ TEST_CASE("Validate incrementing the time of a Table.") {
 
   SECTION("Multiple types of collisions.") {
     table.AddBall(Ball(glm::vec2(308, 300), glm::vec2(-130, 34),
-                       ci::Color("white"), 5, 6));
-    table.AddBall(
-        Ball(glm::vec2(300, 300), glm::vec2(66, 66), ci::Color("black"), 4, 5));
-    table.AddBall(
-        Ball(glm::vec2(200, 489), glm::vec2(-4, 6), ci::Color("green"), 4, 5));
+                       ci::Color("white"), 5, 6, 15));
+    table.AddBall(Ball(glm::vec2(300, 300), glm::vec2(66, 66),
+                       ci::Color("black"), 4, 5, 15));
+    table.AddBall(Ball(glm::vec2(200, 489), glm::vec2(-4, 6),
+                       ci::Color("green"), 4, 5, 15));
     table.IncrementTime();
 
     REQUIRE(308.442 == Approx(table.GetBalls()[0].GetPosition().x).margin

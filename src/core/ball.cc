@@ -19,20 +19,15 @@ const ci::Color Ball::kBlue = ci::Color("blue");
 const ci::Color Ball::kNoContactColor = ci::Color("orange");
 
 Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
-           const ci::Color& color, float radius, float mass)
+           const ci::Color& color, float radius, float mass, size_t point_value)
     : position_(initial_position),
       velocity_(initial_velocity * kTimeScaleFactor),
       initial_position_(initial_position),
       color_(color),
       radius_(radius),
       mass_(mass),
-      first_contacted_(kNoContactColor) {}
-
-Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
-           const ci::Color& color, float radius, float mass, size_t point_value)
-    : Ball(initial_position, initial_velocity, color, radius, mass) {
-  point_value_ = point_value;
-}
+      first_contacted_(kNoContactColor),
+      point_value_(point_value) {}
 
 void Ball::UpdatePosition() {
   if (velocity_.y != 0 || velocity_.x != 0) {

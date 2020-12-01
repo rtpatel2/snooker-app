@@ -20,19 +20,6 @@ class Ball {
    * @param color color of the Ball.
    * @param radius radius of the Ball.
    * @param mass mass of the Ball.
-   */
-  Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
-       const ci::Color& color, float radius, float mass);
-
-  /**
-   * Creates a new snooker Ball with the specified initial position, initial
-   * velocity, color, radius, and mass.
-   *
-   * @param initial_position initial position of the Ball.
-   * @param initial_velocity initial velocity of the Ball.
-   * @param color color of the Ball.
-   * @param radius radius of the Ball.
-   * @param mass mass of the Ball.
    * @param point_value point value of the Ball.
    */
   Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
