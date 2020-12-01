@@ -17,8 +17,8 @@ class GameEngine {
   /** Handles the logic behind pocketing Balls. */
   void PocketBalls();
 
-  /** Handles the logic behind spotting Balls, when appropriate. */
-  void SpotBalls();
+  /** Handles the logic behind ending a Player's stroke. */
+  void EndStroke();
 
   /**
    * Determines whether or not Player 1 is currently at the Table.

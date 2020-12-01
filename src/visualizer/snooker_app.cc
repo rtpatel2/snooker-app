@@ -22,7 +22,6 @@ void SnookerApp::update() {
   //TODO: Move this into GameEngine too?
   table_.IncrementTime();
   engine_.PocketBalls();
-  //engine_.SpotBalls();
 }
 
 void SnookerApp::draw() {

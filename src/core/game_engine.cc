@@ -27,52 +27,39 @@ void GameEngine::PocketBalls() {
   for (const Ball& ball : current_player->GetBallsPottedLastStroke()) {
     table_->RemoveBallFromTable(ball);
   }
-  SpotBalls();
 
-
-//
-//  if (is_stroke_legal_ &&
-//      !current_player->GetBallsPottedLastStroke().empty()) {
-//    current_player->EndStroke(true);
-//  } else {
-//    current_player->EndStroke(false);
-//    if (current_player == &player1_) {
-//      current_player = &player2_;
-//    } else {
-//      current_player = &player1_;
-//    }
-//  }
-
+  EndStroke();
 }
 
-void GameEngine::SpotBalls() {
+void GameEngine::EndStroke() {
   if (table_->IsSteady() && stroke_complete_) {
     is_red_on_ = current_player->IsBallOnRed(*table_);
     is_stroke_legal_ = current_player->IsStrokeLegal(
         is_red_on_, table_->GetBalls().back().GetFirstContacted(), *table_);
 
-    if (is_stroke_legal_) {
-      for (const Ball& ball : current_player->GetBallsPottedLastStroke()) {
-        if (table_->GetRedBallCount() > 0 && ball.GetColor() != Table::kRed) {
-          Ball ball_copy(ball.GetInitialPosition(), glm::vec2(0, 0),
-                         ball.GetColor(), ball.GetRadius(), ball.GetMass(),
-                         ball.GetPoints());
-          table_->AddBall(ball_copy);
-        }
-      }
-    } else {
-      for (const Ball& ball : current_player->GetBallsPottedLastStroke()) {
-        if (ball.GetColor() != Table::kRed) {
-          Ball ball_copy(ball.GetInitialPosition(), glm::vec2(0, 0),
-                         ball.GetColor(), ball.GetRadius(), ball.GetMass(),
-                         ball.GetPoints());
-          table_->AddBall(ball_copy);
-        }
+    for (const Ball& ball : current_player->GetBallsPottedLastStroke()) {
+      if ((is_stroke_legal_ && table_->GetRedBallCount() > 0 &&
+           ball.GetColor() != Table::kRed) ||
+          (!is_stroke_legal_ && ball.GetColor() != Table::kRed)) {
+        Ball ball_copy(ball.GetInitialPosition(), glm::vec2(0, 0),
+                       ball.GetColor(), ball.GetRadius(), ball.GetMass(),
+                       ball.GetPoints());
+        table_->AddBall(ball_copy);
       }
     }
 
+    if (is_stroke_legal_ &&
+        !current_player->GetBallsPottedLastStroke().empty()) {
+      current_player->EndStroke(true);
+    } else {
+      current_player->EndStroke(false);
+      if (current_player == &player1_) {
+        current_player = &player2_;
+      } else {
+        current_player = &player1_;
+      }
+    }
     stroke_complete_ = false;
-    current_player->EndStroke(true);
     table_->ResetFirstContacted();
   }
 }
