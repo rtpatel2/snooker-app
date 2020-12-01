@@ -80,11 +80,11 @@ void Table::ResetFirstContacted() {
   }
 }
 
-void Table::RemoveBallFromTable(Ball* ball) {
+void Table::RemoveBallFromTable(const Ball& ball) {
   for (size_t index_to_remove = 0; index_to_remove < balls_.size();
        ++index_to_remove) {
-    if (ball == &balls_[index_to_remove]) {
-      if (ball->GetColor() == kRed) {
+    if (ball == balls_[index_to_remove]) {
+      if (ball.GetColor() == kRed) {
         --red_ball_count_;
       }
       balls_.erase(balls_.begin() + index_to_remove);

@@ -12,57 +12,69 @@ GameEngine::GameEngine(Table* table)
       current_player(&player1_),
       stroke_started_(false),
       cue_pull_back_(0),
-      should_update_player_(false) {}
+      stroke_complete_(false) {}
 
-void GameEngine::HandlePocketingBalls() {
+void GameEngine::PocketBalls() {
   for (const Ball& ball : table_->GetBalls()) {
     for (const Pocket& pocket : table_->GetPockets()) {
       if (pocket.DetermineIfPocketed(ball)) {
-        current_player->AddBallsPottedLastStroke(const_cast<Ball*>(&ball));
+        current_player->AddBallsPottedLastStroke(ball);
         break;
       }
     }
   }
 
-  is_red_on_ = current_player->IsBallOnRed(*table_);
-  is_stroke_legal_ = current_player->IsStrokeLegal(
-      is_red_on_, table_->GetBalls().back().GetFirstContacted(), *table_);
-
-  if (is_stroke_legal_) {
-    for (Ball* ball : current_player->GetBallsPottedLastStroke()) {
-       if (table_->GetRedBallCount() > 0 &&
-                 ball->GetColor() != Table::kRed) {
-        ball->RespotBall();
-      } else {
-        table_->RemoveBallFromTable(ball);
-      }
-    }
-  } else {
-    for (Ball* ball : current_player->GetBallsPottedLastStroke()) {
-      if (ball->GetColor() != Table::kRed) {
-        ball->RespotBall();
-      } else if (ball->GetColor() == Table::kRed) {
-        table_->RemoveBallFromTable(ball);
-      }
-    }
+  for (const Ball& ball : current_player->GetBallsPottedLastStroke()) {
+    table_->RemoveBallFromTable(ball);
   }
+  SpotBalls();
 
-  if (is_stroke_legal_ &&
-      !current_player->GetBallsPottedLastStroke().empty()) {
-    current_player->EndStroke(true);
-  } else {
-    current_player->EndStroke(false);
-    if (current_player == &player1_) {
-      current_player = &player2_;
-    } else {
-      current_player = &player1_;
-    }
-  }
 
-  table_->ResetFirstContacted();
+//
+//  if (is_stroke_legal_ &&
+//      !current_player->GetBallsPottedLastStroke().empty()) {
+//    current_player->EndStroke(true);
+//  } else {
+//    current_player->EndStroke(false);
+//    if (current_player == &player1_) {
+//      current_player = &player2_;
+//    } else {
+//      current_player = &player1_;
+//    }
+//  }
+
 }
 
-void GameEngine::UpdatePlayerAtTable() {
+void GameEngine::SpotBalls() {
+  if (table_->IsSteady() && stroke_complete_) {
+    is_red_on_ = current_player->IsBallOnRed(*table_);
+    is_stroke_legal_ = current_player->IsStrokeLegal(
+        is_red_on_, table_->GetBalls().back().GetFirstContacted(), *table_);
+
+    if (is_stroke_legal_) {
+      for (const Ball& ball : current_player->GetBallsPottedLastStroke()) {
+        if (table_->GetRedBallCount() > 0 && ball.GetColor() != Table::kRed) {
+          Ball ball_copy(ball.GetInitialPosition(), glm::vec2(0, 0),
+                         ball.GetColor(), ball.GetRadius(), ball.GetMass(),
+                         ball.GetPoints());
+          table_->AddBall(ball_copy);
+        }
+      }
+    } else {
+      for (const Ball& ball : current_player->GetBallsPottedLastStroke()) {
+        if (ball.GetColor() != Table::kRed) {
+          Ball ball_copy(ball.GetInitialPosition(), glm::vec2(0, 0),
+                         ball.GetColor(), ball.GetRadius(), ball.GetMass(),
+                         ball.GetPoints());
+          table_->AddBall(ball_copy);
+        }
+      }
+    }
+
+    stroke_complete_ = false;
+    current_player->EndStroke(true);
+    table_->ResetFirstContacted();
+  }
 }
 
 void GameEngine::HandleStrokeStart(const glm::vec2& start_position) {
@@ -93,7 +105,7 @@ void GameEngine::HandleStrokeEnd(const glm::vec2& end_position) {
     }
     stroke_started_ = false;
     cue_pull_back_ = 0;
-    should_update_player_ = true;
+    stroke_complete_ = true;
   }
 }
 

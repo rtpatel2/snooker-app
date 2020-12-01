@@ -53,8 +53,13 @@ class Ball {
    */
   glm::vec2 ComputeVelocityAfterCollision(Ball& other);
 
-  /** Returns this Ball to its initial position. */
-  void RespotBall();
+  /**
+   * Compares this Ball for equality with the given Ball.
+   *
+   * @param other Ball to compare to.
+   * @return true if the Balls are equal, and false otherwise.
+   */
+  bool operator==(const Ball& other) const;
 
   /**
    * Compares Balls by point value, for sorting purposes.
@@ -67,6 +72,7 @@ class Ball {
 
   const glm::vec2& GetPosition() const;
   const glm::vec2& GetVelocity() const;
+  const glm::vec2& GetInitialPosition() const;
   void SetVelocity(const glm::vec2& velocity);
   const ci::Color& GetColor() const;
   float GetRadius() const;

@@ -21,8 +21,8 @@ SnookerApp::SnookerApp() : engine_(&table_), should_update_player_(true) {
 void SnookerApp::update() {
   //TODO: Move this into GameEngine too?
   table_.IncrementTime();
-  engine_.HandlePocketingBalls();
-  //engine_.UpdatePlayerAtTable();
+  engine_.PocketBalls();
+  //engine_.SpotBalls();
 }
 
 void SnookerApp::draw() {

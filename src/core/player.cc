@@ -23,13 +23,14 @@ bool Player::IsBallOnRed(const Table& table) const {
 
 bool Player::IsStrokeLegal(bool is_red_on, Ball* cue_ball_first_contacted,
                            const Table& table) const {
-  if (is_red_on) {
-    if (cue_ball_first_contacted == nullptr ||
-        cue_ball_first_contacted->GetColor() != Table::kRed) {
+  if (cue_ball_first_contacted == nullptr) {
+    return false;
+  } else if (is_red_on) {
+    if (cue_ball_first_contacted->GetColor() != Table::kRed) {
       return false;
     }
-    for (Ball* ball : balls_potted_last_stroke_) {
-      ci::Color color = ball->GetColor();
+    for (const Ball& ball : balls_potted_last_stroke_) {
+      ci::Color color = ball.GetColor();
       if (color == Table::kWhite) {
         return false;
       }
@@ -42,9 +43,9 @@ bool Player::IsStrokeLegal(bool is_red_on, Ball* cue_ball_first_contacted,
       return false;
     }
     if (!balls_potted_last_stroke_.empty() &&
-        (balls_potted_last_stroke_.front()->GetColor() !=
+        (balls_potted_last_stroke_.front().GetColor() !=
              cue_ball_first_contacted->GetColor() ||
-         balls_potted_last_stroke_.front()->GetColor() == Table::kWhite)) {
+         balls_potted_last_stroke_.front().GetColor() == Table::kWhite)) {
       return false;
     }
     if (table.GetRedBallCount() != 0 &&
@@ -60,7 +61,7 @@ bool Player::IsStrokeLegal(bool is_red_on, Ball* cue_ball_first_contacted,
   return true;
 }
 
-void Player::AddBallsPottedLastStroke(Ball* ball) {
+void Player::AddBallsPottedLastStroke(const Ball& ball) {
   balls_potted_last_stroke_.push_back(ball);
 }
 
@@ -73,7 +74,7 @@ void Player::EndStroke(bool still_at_table) {
   balls_potted_last_stroke_.clear();
 }
 
-const std::vector<Ball*>& Player::GetBallsPottedLastStroke() const {
+const std::vector<Ball>& Player::GetBallsPottedLastStroke() const {
   return balls_potted_last_stroke_;
 }
 

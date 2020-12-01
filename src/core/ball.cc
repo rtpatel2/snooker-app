@@ -60,13 +60,16 @@ glm::vec2 Ball::ComputeVelocityAfterCollision(Ball& other) {
   }
 }
 
-void Ball::RespotBall() {
-  position_ = initial_position_;
-  velocity_ = glm::vec2(0, 0);
-}
-
 bool Ball::operator<(const Ball& other) const {
   return points_ < other.points_;
+}
+
+bool Ball::operator==(const Ball& other) const {
+  if (initial_position_ == other.initial_position_) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 const glm::vec2& Ball::GetPosition() const {
@@ -75,6 +78,10 @@ const glm::vec2& Ball::GetPosition() const {
 
 const glm::vec2& Ball::GetVelocity() const {
   return velocity_;
+}
+
+const glm::vec2& Ball::GetInitialPosition() const {
+  return initial_position_;
 }
 
 void Ball::SetVelocity(const glm::vec2& velocity) {

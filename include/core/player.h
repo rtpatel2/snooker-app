@@ -45,7 +45,7 @@ class Player {
    *
    * @param ball pointer to a Ball potted by this Player.
    */
-  void AddBallsPottedLastStroke(Ball* ball);
+  void AddBallsPottedLastStroke(const Ball& ball);
 
   /**
    * Ends the Player's current stroke, updating necessary fields.
@@ -55,10 +55,10 @@ class Player {
    */
   void EndStroke(bool still_at_table);
 
-  const std::vector<Ball*>& GetBallsPottedLastStroke() const;
+  const std::vector<Ball>& GetBallsPottedLastStroke() const;
 
  private:
-  std::vector<Ball*> balls_potted_last_stroke_;
+  std::vector<Ball> balls_potted_last_stroke_;
   size_t stroke_number_;
   size_t score_;
 };

@@ -14,11 +14,11 @@ class GameEngine {
  public:
   GameEngine(Table* table);
 
-  /** Handles the logic behind potting and spotting Balls. */
-  void HandlePocketingBalls();
+  /** Handles the logic behind pocketing Balls. */
+  void PocketBalls();
 
-  /** Updates the current player at the Table. */
-  void UpdatePlayerAtTable();
+  /** Handles the logic behind spotting Balls, when appropriate. */
+  void SpotBalls();
 
   /**
    * Determines whether or not Player 1 is currently at the Table.
@@ -74,7 +74,7 @@ class GameEngine {
   float cue_pull_back_;
   bool is_red_on_;
   bool is_stroke_legal_;
-  bool should_update_player_;
+  bool stroke_complete_;
 };
 
 }  // namespace snooker
