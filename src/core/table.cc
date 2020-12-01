@@ -279,7 +279,6 @@ void Table::CreateBalls() {
                   walls_.y1 + height / 2 - (row - 1) * kBallRadius);
     for (size_t ball_count = 1; ball_count <= row; ++ball_count) {
       AddBall(Ball(ball_position, zero, kRed, kBallRadius, kBallMass, 1));
-      ++red_ball_count_;
       ball_position.y += 2 * kBallRadius;
     }
   }
