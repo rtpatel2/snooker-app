@@ -29,9 +29,9 @@ Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
       first_contacted_(kNoContactColor) {}
 
 Ball::Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
-           const ci::Color& color, float radius, float mass, size_t points)
+           const ci::Color& color, float radius, float mass, size_t point_value)
     : Ball(initial_position, initial_velocity, color, radius, mass) {
-  points_ = points;
+  point_value_ = point_value;
 }
 
 void Ball::UpdatePosition() {
@@ -72,7 +72,7 @@ glm::vec2 Ball::ComputeVelocityAfterCollision(Ball& other) {
 }
 
 bool Ball::operator<(const Ball& other) const {
-  return points_ < other.points_;
+  return point_value_ < other.point_value_;
 }
 
 bool Ball::operator==(const Ball& other) const {
@@ -120,8 +120,8 @@ void Ball::SetFirstContacted(const ci::Color& color) {
   first_contacted_ = color;
 }
 
-size_t Ball::GetPoints() const {
-  return points_;
+size_t Ball::GetPointValue() const {
+  return point_value_;
 }
 
 }  // namespace snooker

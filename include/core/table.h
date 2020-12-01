@@ -68,7 +68,7 @@ class Table {
   /**
    * Removes the given Ball from this Table.
    *
-   * @param ball pointer to the Ball to remove.
+   * @param ball Ball to remove.
    */
   void RemoveBallFromTable(const Ball& ball);
 
@@ -77,7 +77,7 @@ class Table {
    *
    * @return color of the lowest point value Ball.
    */
-  ci::Color DetermineLeastPointsColor() const;
+  ci::Color DetermineLeastPointValueColor() const;
 
   const std::vector<TableCushionPtr>& GetCushions() const;
   const ci::Rectf& GetWalls() const;

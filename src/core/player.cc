@@ -54,7 +54,7 @@ bool Player::IsStrokeLegal(bool is_red_on,
       return false;
     }
     if (table.GetRedBallCount() == 0 &&
-        cue_color_first_contacted != table.DetermineLeastPointsColor()) {
+        cue_color_first_contacted != table.DetermineLeastPointValueColor()) {
       return false;
     }
   }

@@ -33,10 +33,10 @@ class Ball {
    * @param color color of the Ball.
    * @param radius radius of the Ball.
    * @param mass mass of the Ball.
-   * @param points point value of the Ball.
+   * @param point_value point value of the Ball.
    */
   Ball(const glm::vec2& initial_position, const glm::vec2& initial_velocity,
-       const ci::Color& color, float radius, float mass, size_t points);
+       const ci::Color& color, float radius, float mass, size_t point_value);
 
   /**
    * Updates the position of this Ball, simulating the passage of one unit of
@@ -54,7 +54,8 @@ class Ball {
   glm::vec2 ComputeVelocityAfterCollision(Ball& other);
 
   /**
-   * Compares this Ball for equality with the given Ball.
+   * Compares this Ball for equality with the given Ball, determined by
+   * whether or not the two Balls have the same initial position.
    *
    * @param other Ball to compare to.
    * @return true if the Balls are equal, and false otherwise.
@@ -79,7 +80,7 @@ class Ball {
   float GetMass() const;
   const ci::Color& GetFirstContacted() const;
   void SetFirstContacted(const ci::Color& color);
-  size_t GetPoints() const;
+  size_t GetPointValue() const;
 
   static constexpr float kGravityAcceleration = 980.0f;
   static constexpr float kFrictionWithTable = 0.004f;
@@ -106,7 +107,7 @@ class Ball {
   float mass_;
   float radius_;
   ci::Color first_contacted_;
-  size_t points_;
+  size_t point_value_;
 };
 
 }  // namespace snooker

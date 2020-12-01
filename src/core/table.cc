@@ -88,7 +88,7 @@ void Table::SetCueBallVelocity(const glm::vec2& velocity) {
   balls_.back().SetVelocity(velocity);
 }
 
-ci::Color Table::DetermineLeastPointsColor() const {
+ci::Color Table::DetermineLeastPointValueColor() const {
   return balls_.front().GetColor();
 }
 

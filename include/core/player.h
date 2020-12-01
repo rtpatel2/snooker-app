@@ -43,7 +43,7 @@ class Player {
    * Adds any Balls potted by this Player on his/her previous stroke to the
    * maintained list.
    *
-   * @param ball pointer to a Ball potted by this Player.
+   * @param ball Ball potted by this Player.
    */
   void AddBallsPottedLastStroke(const Ball& ball);
 
