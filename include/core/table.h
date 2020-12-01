@@ -56,11 +56,18 @@ class Table {
   bool IsSteady() const;
 
   /**
-   * Sets the velocity of the cue ball to the specified velocity.
+   * Sets the velocity of the cue Ball to the specified velocity.
    *
    * @param velocity velocity to which to set cue ball velocity.
    */
   void SetCueBallVelocity(const glm::vec2& velocity);
+
+  /**
+   * Sets the first contacted color of the cue Ball to the specified color.
+   *
+   * @param color color to set as first contacted.
+   */
+  void SetCueBallFirstContacted(const ci::Color& color);
 
   /** Resets the first contacted Ball pointer from all Balls on the Table. */
   void ResetFirstContacted();
