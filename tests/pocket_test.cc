@@ -3,6 +3,7 @@
  */
 
 #include "core/pocket.h"
+#include "cinder/gl/gl.h"
 #include "catch2/catch.hpp"
 
 using snooker::Pocket;
@@ -13,5 +14,10 @@ using snooker::Pocket;
  */
 
 TEST_CASE("Creating a Pocket.") {
-
+  SECTION("Calling the constructor.") {
+    Pocket pocket(glm::vec2(500, 500), 15, ci::Color("black"));
+    REQUIRE(glm::vec2(500, 500) == pocket.GetPosition());
+    REQUIRE(15 == pocket.GetRadius());
+    REQUIRE(ci::Color("black") == pocket.GetColor());
+  }
 }

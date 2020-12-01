@@ -4,6 +4,7 @@
 
 #include "core/player.h"
 #include "core/table.h"
+#include "cinder/gl/gl.h"
 #include "catch2/catch.hpp"
 
 using snooker::Player;
