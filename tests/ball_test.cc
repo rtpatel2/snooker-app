@@ -174,3 +174,24 @@ TEST_CASE("Validate computing velocity after collision with another Ball.") {
     REQUIRE(0 == Approx(ball2.GetVelocity().y).margin(kMarginOfError));
   }
 }
+
+TEST_CASE("Validate < operator overloading.") {
+  Ball ball1(glm::vec2(320.0, 620.0), glm::vec2(0.1, 0.0), ci::Color("white"),
+             1, 1, 10);
+  Ball ball2(glm::vec2(351.4, 621.4), glm::vec2(-0.1, 0.0),
+             ci::Color("white"), 1, 1, 12);
+  Ball ball3(glm::vec2(351.4, 621.4), glm::vec2(-0.1, 0.0),
+             ci::Color("white"), 1, 1, 10);
+
+  SECTION("Calling Ball has lower point value than the object Ball.") {
+    REQUIRE(ball1 < ball2);
+  }
+
+  SECTION("Calling Ball has greater point value than the object Ball.") {
+    REQUIRE_FALSE(ball2 < ball1);
+  }
+
+  SECTION("Calling Ball has equal point value than the object Ball.") {
+    REQUIRE_FALSE(ball2 < ball3);
+  }
+}
