@@ -203,6 +203,9 @@ TEST_CASE("Validate == operator overloading.") {
              ci::Color("green"), 4, 5, 6);
   Ball ball3(glm::vec2(351.4, 621.4), glm::vec2(3.14, 2.71),
              ci::Color("blue"), 7, 8, 9);
+  ball1.UpdatePosition();
+  ball2.UpdatePosition();
+  ball3.UpdatePosition();
 
   SECTION("Classify Balls with identical initial positions as equal.") {
     REQUIRE(ball1 == ball2);
