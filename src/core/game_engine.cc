@@ -34,8 +34,7 @@ void GameEngine::PocketBalls() {
 
 void GameEngine::EndStroke() {
   if (table_->IsSteady() && stroke_complete_) {
-    is_stroke_legal_ = current_player->IsStrokeLegal(
-        table_->GetBalls().back().GetFirstContacted(), *table_);
+    is_stroke_legal_ = current_player->IsStrokeLegal(*table_);
 
     for (const Ball& ball : current_player->GetBallsPottedLastStroke()) {
       if ((is_stroke_legal_ && table_->GetRedBallCount() > 0 &&

@@ -21,13 +21,10 @@ class Player {
   /**
    * Determines whether or not the previous stroke was legal.
    *
-   * @param cue_color_first_contacted the color of the Ball that the cue Ball
-   * first contacted on this stroke.
    * @param table current state of the Table.
    * @return true if the stroke was legal, and false otherwise.
    */
-  bool IsStrokeLegal(const ci::Color& cue_color_first_contacted,
-                     const Table& table) const;
+  bool IsStrokeLegal(const Table& table) const;
 
   /**
    * Adds any Balls potted by this Player on his/her previous stroke to the

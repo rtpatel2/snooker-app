@@ -12,8 +12,9 @@ namespace snooker {
 
 Player::Player() : stroke_number_(0), score_(0) {}
 
-bool Player::IsStrokeLegal(const ci::Color& cue_color_first_contacted,
-                           const Table& table) const {
+bool Player::IsStrokeLegal(const Table& table) const {
+  ci::Color cue_color_first_contacted = table.GetBalls().back()
+                                             .GetFirstContacted();
   bool is_red_on = IsBallOnRed(table);
   if (cue_color_first_contacted == Ball::kNoContactColor) {
     return false;
