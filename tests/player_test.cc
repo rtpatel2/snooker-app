@@ -131,3 +131,32 @@ TEST_CASE("Validate determining if a stroke is legal.") {
     REQUIRE(player.IsStrokeLegal(table));
   }
 }
+
+TEST_CASE("Validate adding Balls pocketed last stroke.") {
+  Player player;
+  Table table;
+
+  SECTION("Pocketing one Ball.") {
+    player.AddBallsPottedLastStroke(table.GetBalls().front());
+    REQUIRE(1 == player.GetBallsPottedLastStroke().size());
+    REQUIRE(ci::Color("red") == player.GetBallsPottedLastStroke().front()
+                                    .GetColor());
+  }
+
+  SECTION("Pocketing multiple Balls.") {
+    player.AddBallsPottedLastStroke(table.GetBalls().front());
+    table.RemoveBallFromTable(table.GetBalls().front());
+    player.AddBallsPottedLastStroke(table.GetBalls().back());
+    table.RemoveBallFromTable(table.GetBalls().back());
+    player.AddBallsPottedLastStroke(table.GetBalls().back());
+    table.RemoveBallFromTable(table.GetBalls().back());
+
+    REQUIRE(3 == player.GetBallsPottedLastStroke().size());
+    REQUIRE(ci::Color("red") ==
+            player.GetBallsPottedLastStroke()[0].GetColor());
+    REQUIRE(ci::Color("white") ==
+            player.GetBallsPottedLastStroke()[1].GetColor());
+    REQUIRE(ci::Color("black") ==
+            player.GetBallsPottedLastStroke()[2].GetColor());
+  }
+}
