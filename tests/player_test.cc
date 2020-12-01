@@ -15,6 +15,9 @@ using snooker::Player;
 
 static const double kMarginOfError = 0.001;
 
-TEST_CASE("Creating a Player.") {
-  
+TEST_CASE("Validate creating a Player.") {
+  SECTION("Calling the constructor.") {
+    Player player;
+    REQUIRE(0 == player.GetBallsPottedLastStroke().size());
+  }
 }

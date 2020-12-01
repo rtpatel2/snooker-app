@@ -71,7 +71,7 @@ class Player {
 
   /**
    * Determines whether or not the previous stroke was legal, given that the
-   * "ball-on" was a colored Ball.
+   * "ball-on" was colored.
    *
    * @param cue_color_first_contacted the color of the Ball that the cue Ball
    * first contacted on this stroke.
