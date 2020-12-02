@@ -10,7 +10,7 @@ namespace snooker {
 
 GameEngine::GameEngine(Table* table)
     : table_(table),
-      current_player(&player1_),
+      current_player_(&player1_),
       stroke_started_(false),
       cue_pull_back_(0),
       stroke_complete_(false) {}
@@ -19,13 +19,13 @@ void GameEngine::PocketBalls() {
   for (const Ball& ball : table_->GetBalls()) {
     for (const Pocket& pocket : table_->GetPockets()) {
       if (pocket.DetermineIfPocketed(ball)) {
-        current_player->AddBallsPottedLastStroke(ball);
+        current_player_->AddBallsPottedLastStroke(ball);
         break;
       }
     }
   }
 
-  for (const Ball& ball : current_player->GetBallsPottedLastStroke()) {
+  for (const Ball& ball : current_player_->GetBallsPottedLastStroke()) {
     table_->RemoveBallFromTable(ball);
   }
 
@@ -34,12 +34,12 @@ void GameEngine::PocketBalls() {
 
 void GameEngine::EndStroke() {
   if (table_->IsSteady() && stroke_complete_) {
-    is_stroke_legal_ = current_player->IsStrokeLegal(*table_);
+    bool is_stroke_legal = current_player_->IsStrokeLegal(*table_);
 
-    for (const Ball& ball : current_player->GetBallsPottedLastStroke()) {
-      if ((is_stroke_legal_ && table_->GetRedBallCount() > 0 &&
+    for (const Ball& ball : current_player_->GetBallsPottedLastStroke()) {
+      if ((is_stroke_legal && table_->GetRedBallCount() > 0 &&
            ball.GetColor() != Ball::kRed) ||
-          (!is_stroke_legal_ && ball.GetColor() != Ball::kRed)) {
+          (!is_stroke_legal && ball.GetColor() != Ball::kRed)) {
         //TODO: Create copy function
         Ball ball_copy(ball.GetInitialPosition(), glm::vec2(0, 0),
                        ball.GetColor(), ball.GetRadius(), ball.GetMass(),
@@ -48,15 +48,15 @@ void GameEngine::EndStroke() {
       }
     }
 
-    if (is_stroke_legal_ &&
-        !current_player->GetBallsPottedLastStroke().empty()) {
-      current_player->EndStroke(true);
+    if (is_stroke_legal &&
+        !current_player_->GetBallsPottedLastStroke().empty()) {
+      current_player_->EndStroke(true);
     } else {
-      current_player->EndStroke(false);
-      if (current_player == &player1_) {
-        current_player = &player2_;
+      current_player_->EndStroke(false);
+      if (current_player_ == &player1_) {
+        current_player_ = &player2_;
       } else {
-        current_player = &player1_;
+        current_player_ = &player1_;
       }
     }
     stroke_complete_ = false;
@@ -109,7 +109,7 @@ ci::Rectf GameEngine::ComputeCueDimensions() const {
 }
 
 bool GameEngine::IsPlayer1Turn() const {
-  if (current_player == &player1_) {
+  if (current_player_ == &player1_) {
     return true;
   } else {
     return false;

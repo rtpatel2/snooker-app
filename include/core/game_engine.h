@@ -67,13 +67,11 @@ class GameEngine {
   Table* table_;
   Player player1_;
   Player player2_;
-  Player* current_player;
+  Player* current_player_;
 
   bool stroke_started_;
   glm::vec2 stroke_start_;
   float cue_pull_back_;
-  bool is_red_on_;
-  bool is_stroke_legal_;
   bool stroke_complete_;
 };
 
