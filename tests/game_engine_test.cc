@@ -15,10 +15,9 @@ using snooker::Table;
  */
 
 TEST_CASE("Validate creating a GameEngine") {
+  // Sanity test -- nothing to check via REQUIREs.
   SECTION("Calling the constructor.") {
     Table table;
-    GameEngine engine(table);
-
-    REQUIRE()
+    GameEngine engine(&table);
   }
 }
