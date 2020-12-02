@@ -86,6 +86,8 @@ class Table {
    */
   ci::Color DetermineLeastPointValueColor() const;
 
+  //TODO: Some sort of function that spots any Ball that goes out of bounds.
+
   const std::vector<TableCushionPtr>& GetCushions() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
