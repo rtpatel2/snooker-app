@@ -96,7 +96,7 @@ TEST_CASE("Validate determining if a stroke is legal.") {
   SECTION("First contacting any ball other than lowest point value color when "
       "no reds remain is illegal.") {
     player.EndStroke(true);
-    for (size_t i = 0; i < 15; ++i) {
+    for (size_t ball_to_remove = 0; ball_to_remove < 15; ++ball_to_remove) {
       table.RemoveBallFromTable(table.GetBalls().front());
     }
     table.SetCueBallFirstContacted(ci::Color("pink"));
