@@ -295,10 +295,9 @@ void Table::CreateBalls() {
                          walls_.y1 + height / 2),
                zero, Ball::kBlack, kBallRadius, kBallMass, 7));
 
-  // TODO: Make this velocity 0
   AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition - kSemicircleRadius / 2,
                          walls_.y1 + height / 2 + kSemicircleRadius / 2),
-               glm::vec2(1200, -80), Ball::kWhite, kBallRadius, kBallMass, 99));
+               glm::vec2(0,0), Ball::kWhite, kBallRadius, kBallMass, 99));
 }
 
 void Table::CreatePockets() {
