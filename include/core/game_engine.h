@@ -63,6 +63,14 @@ class GameEngine {
    */
   ci::Rectf ComputeCueDimensions() const;
 
+  const Player& GetPlayer1() const;
+  const Player& GetPlayer2() const;
+  const Player* GetCurrentPlayer() const;
+  bool GetStrokeStarted() const;
+  const glm::vec2& GetStrokeStart() const;
+  float GetCuePullBack() const;
+  bool GetStrokeCompleted() const;
+
  private:
   Table* table_;
   Player player1_;
@@ -72,7 +80,7 @@ class GameEngine {
   bool stroke_started_;
   glm::vec2 stroke_start_;
   float cue_pull_back_;
-  bool stroke_complete_;
+  bool stroke_completed_;
 };
 
 }  // namespace snooker

@@ -13,7 +13,7 @@ GameEngine::GameEngine(Table* table)
       current_player_(&player1_),
       stroke_started_(false),
       cue_pull_back_(0),
-      stroke_complete_(false) {}
+      stroke_completed_(false) {}
 
 void GameEngine::PocketBalls() {
   for (const Ball& ball : table_->GetBalls()) {
@@ -33,7 +33,7 @@ void GameEngine::PocketBalls() {
 }
 
 void GameEngine::EndStroke() {
-  if (table_->IsSteady() && stroke_complete_) {
+  if (table_->IsSteady() && stroke_completed_) {
     bool is_stroke_legal = current_player_->IsStrokeLegal(*table_);
 
     for (const Ball& ball : current_player_->GetBallsPottedLastStroke()) {
@@ -59,7 +59,7 @@ void GameEngine::EndStroke() {
         current_player_ = &player1_;
       }
     }
-    stroke_complete_ = false;
+    stroke_completed_ = false;
     table_->ResetFirstContacted();
   }
 }
@@ -92,7 +92,7 @@ void GameEngine::HandleStrokeEnd(const glm::vec2& end_position) {
     }
     stroke_started_ = false;
     cue_pull_back_ = 0;
-    stroke_complete_ = true;
+    stroke_completed_ = true;
   }
 }
 
@@ -114,6 +114,34 @@ bool GameEngine::IsPlayer1Turn() const {
   } else {
     return false;
   }
+}
+
+const Player& GameEngine::GetPlayer1() const {
+  return player1_;
+}
+
+const Player& GameEngine::GetPlayer2() const {
+  return player2_;
+}
+
+const Player* GameEngine::GetCurrentPlayer() const {
+  return current_player_;
+}
+
+bool GameEngine::GetStrokeStarted() const {
+  return stroke_started_;
+}
+
+const glm::vec2& GameEngine::GetStrokeStart() const {
+  return stroke_start_;
+}
+
+float GameEngine::GetCuePullBack() const {
+  return cue_pull_back_;
+}
+
+bool GameEngine::GetStrokeCompleted() const {
+  return stroke_completed_;
 }
 
 }  // namespace snooker
