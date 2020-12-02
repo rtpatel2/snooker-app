@@ -17,9 +17,6 @@ class GameEngine {
   /** Handles the logic behind pocketing Balls. */
   void PocketBalls();
 
-  /** Handles the logic behind ending a Player's stroke. */
-  void EndStroke();
-
   /**
    * Determines whether or not Player 1 is currently at the Table.
    *
@@ -72,6 +69,9 @@ class GameEngine {
   bool GetStrokeCompleted() const;
 
  private:
+  /** Handles the logic behind ending a Player's stroke. */
+  void EndStroke();
+
   Table* table_;
   Player player1_;
   Player player2_;

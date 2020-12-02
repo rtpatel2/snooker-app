@@ -32,38 +32,6 @@ void GameEngine::PocketBalls() {
   EndStroke();
 }
 
-void GameEngine::EndStroke() {
-  if (table_->IsSteady() && stroke_completed_) {
-    bool is_stroke_legal = current_player_->IsStrokeLegal(*table_);
-
-    for (const Ball& ball : current_player_->GetBallsPottedLastStroke()) {
-      if ((is_stroke_legal && table_->GetRedBallCount() > 0 &&
-           ball.GetColor() != Ball::kRed) ||
-          (!is_stroke_legal && ball.GetColor() != Ball::kRed)) {
-        //TODO: Create copy function
-        Ball ball_copy(ball.GetInitialPosition(), glm::vec2(0, 0),
-                       ball.GetColor(), ball.GetRadius(), ball.GetMass(),
-                       ball.GetPointValue());
-        table_->AddBall(ball_copy);
-      }
-    }
-
-    if (is_stroke_legal &&
-        !current_player_->GetBallsPottedLastStroke().empty()) {
-      current_player_->EndStroke(true);
-    } else {
-      current_player_->EndStroke(false);
-      if (current_player_ == &player1_) {
-        current_player_ = &player2_;
-      } else {
-        current_player_ = &player1_;
-      }
-    }
-    stroke_completed_ = false;
-    table_->ResetFirstContacted();
-  }
-}
-
 void GameEngine::HandleStrokeStart(const glm::vec2& start_position) {
   if (table_->IsSteady()) {
     stroke_started_ = true;
@@ -142,6 +110,38 @@ float GameEngine::GetCuePullBack() const {
 
 bool GameEngine::GetStrokeCompleted() const {
   return stroke_completed_;
+}
+
+void GameEngine::EndStroke() {
+  if (table_->IsSteady() && stroke_completed_) {
+    bool is_stroke_legal = current_player_->IsStrokeLegal(*table_);
+
+    for (const Ball& ball : current_player_->GetBallsPottedLastStroke()) {
+      if ((is_stroke_legal && table_->GetRedBallCount() > 0 &&
+           ball.GetColor() != Ball::kRed) ||
+          (!is_stroke_legal && ball.GetColor() != Ball::kRed)) {
+        //TODO: Create copy function
+        Ball ball_copy(ball.GetInitialPosition(), glm::vec2(0, 0),
+                       ball.GetColor(), ball.GetRadius(), ball.GetMass(),
+                       ball.GetPointValue());
+        table_->AddBall(ball_copy);
+      }
+    }
+
+    if (is_stroke_legal &&
+        !current_player_->GetBallsPottedLastStroke().empty()) {
+      current_player_->EndStroke(true);
+    } else {
+      current_player_->EndStroke(false);
+      if (current_player_ == &player1_) {
+        current_player_ = &player2_;
+      } else {
+        current_player_ = &player1_;
+      }
+    }
+    stroke_completed_ = false;
+    table_->ResetFirstContacted();
+  }
 }
 
 }  // namespace snooker
