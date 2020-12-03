@@ -42,6 +42,27 @@ class SnookerApp : public ci::app::App {
   const float kWindowHeight = 2 * Table::kVerticalMargin + Table::kTableHeight;
 
  private:
+  /** Draws the felt of the Table. */
+  void DrawTableFelt() const;
+
+  /** Draws the cushion of the Table. */
+  void DrawCushions() const;
+
+  /** Draws the rails of the Table. */
+  void DrawRails() const;
+
+  /** Draws the pockets of the Table. */
+  void DrawPockets() const;
+
+  /** Draws the snooker cue, when appropriate. */
+  void DrawCue() const;
+
+  /** Draws the Balls currently on the Table. */
+  void DrawBalls() const;
+
+  /** Draws which player who is currently at the Table. */
+  void DrawCurrentPlayer() const;
+
   const ci::Color kWhite = ci::Color("white");
   const ci::Color kBlack = ci::Color("black");
   const ci::Color kTableColor = ci::Color(0.227f, 0.71f, 0.0118f);
