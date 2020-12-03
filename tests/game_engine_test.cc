@@ -110,3 +110,22 @@ TEST_CASE("Validate pocketing Balls.") {
     REQUIRE(&(engine.GetPlayer1()) == engine.GetCurrentPlayer());
   }
 }
+
+TEST_CASE("Validate starting a stroke.") {
+  Table table;
+  GameEngine engine(&table);
+
+  SECTION("Starting a stroke when the Table is steady.") {
+    engine.HandleStrokeStart(glm::vec2(123, 456));
+
+    REQUIRE(engine.GetStrokeStarted());
+    REQUIRE(glm::vec2(123, 456) == engine.GetStrokeStartPosition());
+  }
+
+  SECTION("Attempting to start a stroke when the Table is not steady.") {
+    table.SetCueBallVelocity(glm::vec2(1, 2));
+    engine.HandleStrokeStart(glm::vec2(500, 400));
+
+    REQUIRE_FALSE(engine.GetStrokeStarted());
+  }
+}

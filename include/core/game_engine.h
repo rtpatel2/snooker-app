@@ -64,7 +64,7 @@ class GameEngine {
   const Player& GetPlayer2() const;
   const Player* GetCurrentPlayer() const;
   bool GetStrokeStarted() const;
-  const glm::vec2& GetStrokeStart() const;
+  const glm::vec2& GetStrokeStartPosition() const;
   float GetCuePullBack() const;
   bool GetStrokeCompleted() const;
 
@@ -78,7 +78,7 @@ class GameEngine {
   Player* current_player_;
 
   bool stroke_started_;
-  glm::vec2 stroke_start_;
+  glm::vec2 stroke_start_position_;
   float cue_pull_back_;
   bool stroke_completed_;
 };
