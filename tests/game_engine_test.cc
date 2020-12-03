@@ -215,3 +215,32 @@ TEST_CASE("Validate computing the cue angle.") {
         .margin(kMarginOfError));
   }
 }
+
+TEST_CASE("Validate computing cue dimensions.") {
+  Table table;
+  GameEngine engine(&table);
+
+  SECTION("Computing dimensions without pulling back cue.") {
+    engine.HandleStrokeStart(glm::vec2(100, 100));
+    engine.HandleCuePullBack(glm::vec2(103, 104));
+    REQUIRE(-255 ==
+            Approx(engine.ComputeCueDimensions().x1).margin(kMarginOfError));
+    REQUIRE(-2.5 ==
+            Approx(engine.ComputeCueDimensions().y1).margin(kMarginOfError));
+    REQUIRE(-11.563 ==
+            Approx(engine.ComputeCueDimensions().x2).margin(kMarginOfError));
+    REQUIRE(2.5 ==
+            Approx(engine.ComputeCueDimensions().y2).margin(kMarginOfError));
+  }
+
+  SECTION("Computing dimensions with cue pull-back.") {
+    REQUIRE(-250 ==
+            Approx(engine.ComputeCueDimensions().x1).margin(kMarginOfError));
+    REQUIRE(-2.5 ==
+            Approx(engine.ComputeCueDimensions().y1).margin(kMarginOfError));
+    REQUIRE(-6.563 ==
+            Approx(engine.ComputeCueDimensions().x2).margin(kMarginOfError));
+    REQUIRE(2.5 ==
+            Approx(engine.ComputeCueDimensions().y2).margin(kMarginOfError));
+  }
+}
