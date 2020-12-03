@@ -129,3 +129,20 @@ TEST_CASE("Validate starting a stroke.") {
     REQUIRE_FALSE(engine.GetStrokeStarted());
   }
 }
+
+TEST_CASE("Validate pulling back the cue.") {
+  Table table;
+  GameEngine engine(&table);
+
+  SECTION("Pulling back the cue less than the maximum.") {
+    engine.HandleStrokeStart(glm::vec2(100, 100));
+    engine.HandleCuePullBack(glm::vec2(105, 100));
+    REQUIRE(5 == engine.GetCuePullBack());
+  }
+
+  SECTION("Pulling back the cue more than the maximum.") {
+    engine.HandleStrokeStart(glm::vec2(100, 100));
+    engine.HandleCuePullBack(glm::vec2(105, 300));
+    REQUIRE(50 == engine.GetCuePullBack());
+  }
+}
