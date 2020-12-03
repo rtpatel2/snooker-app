@@ -98,7 +98,7 @@ class Table {
   static constexpr float kHorizontalMargin = 100.0f;
   static constexpr float kVerticalMargin = 100.0f;
   static constexpr float kScalingFactor = 2.5f;
-  static constexpr float kCueStrokeFactor = 6.0f;
+  static constexpr float kStrokeStrengthFactor = 6.0f;
 
   static constexpr float kTableWidth = 356.9f * kScalingFactor;
   static constexpr float kTableHeight = 177.8f * kScalingFactor;

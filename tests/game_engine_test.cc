@@ -146,3 +146,22 @@ TEST_CASE("Validate pulling back the cue.") {
     REQUIRE(50 == engine.GetCuePullBack());
   }
 }
+
+TEST_CASE("Validate releasing the cue and ending a stroke.") {
+  Table table;
+  GameEngine engine(&table);
+
+  SECTION("Ending a stroke of zero pull-back.") {
+    engine.HandleStrokeStart(glm::vec2(200, 200));
+    engine.HandleStrokeEnd(glm::vec2(200, 200));
+
+    REQUIRE(glm::vec2(0, 0) == table.GetBalls().back().GetVelocity());
+  }
+
+  SECTION("Ending a stroke of non-zero pull-back.") {
+    engine.HandleStrokeStart(glm::vec2(200, 200));
+    engine.HandleStrokeEnd(glm::vec2(203, 204));
+
+    REQUIRE(glm::vec2(-0.45, -0.6) == table.GetBalls().back().GetVelocity());
+  }
+}

@@ -56,7 +56,7 @@ void GameEngine::HandleStrokeEnd(const glm::vec2& end_position) {
       float speed = std::fminf(Table::kMaxPullBack, glm::length(velocity));
       table_->SetCueBallVelocity(glm::normalize(velocity) * speed *
                          Table::kScalingFactor * Ball::kTimeScaleFactor *
-                         Table::kCueStrokeFactor);
+                         Table::kStrokeStrengthFactor);
     }
     stroke_started_ = false;
     cue_pull_back_ = 0;
