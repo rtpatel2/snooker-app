@@ -15,7 +15,6 @@ namespace snooker {
 /** Maintains game logic and control flow of a game of snooker. */
 class Player {
  public:
-  /** Creates a new Player. */
   Player();
 
   /**

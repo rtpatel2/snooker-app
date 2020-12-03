@@ -12,6 +12,10 @@ namespace snooker {
 /** Maintains game logic and control flow of a game of snooker. */
 class GameEngine {
  public:
+  /**
+   * Creates a new GameEngine for the specified Table.
+   * @param table Table associated with this GameEngine.
+   */
   GameEngine(Table* table);
 
   /** Handles the logic behind pocketing Balls. */

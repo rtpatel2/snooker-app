@@ -113,7 +113,7 @@ TEST_CASE("Validate pocketing Balls.") {
   }
 }
 
-TEST_CASE("Validate checking if player 1 is currently at the Table.") {
+TEST_CASE("Validate checking if Player 1 is currently at the Table.") {
   Table table;
   GameEngine engine(&table);
 

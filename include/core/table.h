@@ -21,9 +21,7 @@ namespace snooker {
 /** Maintains functionality of a snooker table. */
 class Table {
  public:
-  /**
-   * Creates a new Table with standard snooker configuration.
-   */
+  /** Creates a new Table with standard snooker configuration. */
   Table();
 
   /**
@@ -55,20 +53,6 @@ class Table {
    */
   bool IsSteady() const;
 
-  /**
-   * Sets the velocity of the cue Ball to the specified velocity.
-   *
-   * @param velocity velocity to which to set cue ball velocity.
-   */
-  void SetCueBallVelocity(const glm::vec2& velocity);
-
-  /**
-   * Sets the first contacted color of the cue Ball to the specified color.
-   *
-   * @param color color to set as first contacted.
-   */
-  void SetCueBallFirstContacted(const ci::Color& color);
-
   /** Resets the first contacted Ball pointer from all Balls on the Table. */
   void ResetFirstContacted();
 
@@ -85,6 +69,20 @@ class Table {
    * @return color of the lowest point value Ball.
    */
   ci::Color DetermineLeastPointValueColor() const;
+
+  /**
+   * Sets the velocity of the cue Ball to the specified velocity.
+   *
+   * @param velocity velocity to which to set cue ball velocity.
+   */
+  void SetCueBallVelocity(const glm::vec2& velocity);
+
+  /**
+   * Sets the first contacted color of the cue Ball to the specified color.
+   *
+   * @param color color to set as first contacted.
+   */
+  void SetCueBallFirstContacted(const ci::Color& color);
 
   //TODO: Some sort of function that spots any Ball that goes out of bounds.
 

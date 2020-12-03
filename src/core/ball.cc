@@ -66,10 +66,6 @@ glm::vec2 Ball::ComputeVelocityAfterCollision(Ball& other) {
   }
 }
 
-bool Ball::operator<(const Ball& other) const {
-  return point_value_ < other.point_value_;
-}
-
 bool Ball::operator==(const Ball& other) const {
   if (glm::length(initial_position_ - other.initial_position_) <
       kMarginOfError) {
@@ -77,6 +73,10 @@ bool Ball::operator==(const Ball& other) const {
   } else {
     return false;
   }
+}
+
+bool Ball::operator<(const Ball& other) const {
+  return point_value_ < other.point_value_;
 }
 
 const glm::vec2& Ball::GetPosition() const {

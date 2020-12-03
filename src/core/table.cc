@@ -84,16 +84,16 @@ void Table::RemoveBallFromTable(const Ball& ball) {
   }
 }
 
+ci::Color Table::DetermineLeastPointValueColor() const {
+  return balls_.front().GetColor();
+}
+
 void Table::SetCueBallVelocity(const glm::vec2& velocity) {
   balls_.back().SetVelocity(velocity);
 }
 
 void Table::SetCueBallFirstContacted(const ci::Color& color) {
   balls_.back().SetFirstContacted(color);
-}
-
-ci::Color Table::DetermineLeastPointValueColor() const {
-  return balls_.front().GetColor();
 }
 
 const std::vector<TableCushionPtr>& Table::GetCushions() const {
