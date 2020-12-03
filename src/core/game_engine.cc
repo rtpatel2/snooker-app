@@ -32,6 +32,14 @@ void GameEngine::PocketBalls() {
   EndStroke();
 }
 
+bool GameEngine::IsPlayer1Turn() const {
+  if (current_player_ == &player1_) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 void GameEngine::HandleStrokeStart(const glm::vec2& start_position) {
   if (table_->IsSteady()) {
     stroke_started_ = true;
@@ -75,14 +83,6 @@ float GameEngine::ComputeCueAngle(const glm::vec2& mouse_position) const {
 ci::Rectf GameEngine::ComputeCueDimensions() const {
   return ci::Rectf(-Table::kCueLength - cue_pull_back_, -Table::kCueWidth,
                    -Table::kBallRadius - cue_pull_back_, Table::kCueWidth);
-}
-
-bool GameEngine::IsPlayer1Turn() const {
-  if (current_player_ == &player1_) {
-    return true;
-  } else {
-    return false;
-  }
 }
 
 const Player& GameEngine::GetPlayer1() const {

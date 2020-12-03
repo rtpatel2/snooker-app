@@ -113,6 +113,23 @@ TEST_CASE("Validate pocketing Balls.") {
   }
 }
 
+TEST_CASE("Validate checking if player 1 is currently at the Table.") {
+  Table table;
+  GameEngine engine(&table);
+
+  SECTION("Player 1 is at the Table.") {
+    REQUIRE(engine.IsPlayer1Turn());
+  }
+
+  SECTION("Player 2 is at the Table.") {
+    engine.HandleStrokeStart(glm::vec2(100, 100));
+    engine.HandleStrokeEnd(glm::vec2(100, 100));
+    engine.PocketBalls();
+
+    REQUIRE_FALSE(engine.IsPlayer1Turn());
+  }
+}
+
 TEST_CASE("Validate starting a stroke.") {
   Table table;
   GameEngine engine(&table);
