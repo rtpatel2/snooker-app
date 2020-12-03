@@ -44,7 +44,7 @@ class Table {
    * Updates the velocities and positions of all Balls, simulating the
    * passage of one unit of time.
    */
-  void IncrementTime();
+  void SimulateTimeStep();
 
   /**
    * Determines whether or not all Balls on this Table have stopped moving.

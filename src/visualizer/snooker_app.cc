@@ -19,7 +19,7 @@ SnookerApp::SnookerApp() : engine_(&table_) {
 }
 
 void SnookerApp::update() {
-  table_.IncrementTime();
+  table_.SimulateTimeStep();
   engine_.PocketBalls();
 }
 

@@ -125,7 +125,7 @@ TEST_CASE("Validate incrementing the time of a Table.") {
                        ci::Color("white"), 1, 2, 4));
     table.AddBall(Ball(glm::vec2(400, 300), glm::vec2(-4, 6),
                        ci::Color("green"), 4, 5, 5));
-    table.IncrementTime();
+    table.SimulateTimeStep();
 
     REQUIRE(300.576 == Approx(table.GetBalls()[0].GetPosition().x).margin
         (kMarginOfError));
@@ -149,7 +149,7 @@ TEST_CASE("Validate incrementing the time of a Table.") {
   SECTION("Colliding only with TableCushions.") {
     table.AddBall(Ball(glm::vec2(102, 112), glm::vec2(-130, -34),
                        ci::Color("white"), 5, 6, 9));
-    table.IncrementTime();
+    table.SimulateTimeStep();
 
     REQUIRE(102.313 == Approx(table.GetBalls()[0].GetPosition().x).margin
         (kMarginOfError));
@@ -166,7 +166,7 @@ TEST_CASE("Validate incrementing the time of a Table.") {
                        ci::Color("white"), 5, 6, 12));
     table.AddBall(Ball(glm::vec2(300, 300), glm::vec2(66, 66),
                        ci::Color("black"), 4, 5, 15));
-    table.IncrementTime();
+    table.SimulateTimeStep();
 
     REQUIRE(308.450 == Approx(table.GetBalls()[0].GetPosition().x)
                            .margin(kMarginOfError));
@@ -194,7 +194,7 @@ TEST_CASE("Validate incrementing the time of a Table.") {
                        ci::Color("black"), 4, 5, 15));
     table.AddBall(Ball(glm::vec2(200, 489), glm::vec2(-4, 6),
                        ci::Color("green"), 4, 5, 15));
-    table.IncrementTime();
+    table.SimulateTimeStep();
 
     REQUIRE(308.450 == Approx(table.GetBalls()[0].GetPosition().x).margin
         (kMarginOfError));

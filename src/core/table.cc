@@ -37,7 +37,7 @@ void Table::AddBall(const Ball& ball) {
   std::sort(balls_.begin(), balls_.end());
 }
 
-void Table::IncrementTime() {
+void Table::SimulateTimeStep() {
   for (size_t i = 0; i < balls_.size(); ++i) {
     for (size_t j = i + 1; j < balls_.size(); ++j) {
       glm::vec2 particle1_new_velocity =
