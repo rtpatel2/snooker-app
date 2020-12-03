@@ -16,6 +16,8 @@ using snooker::Ball;
  * relevant edge cases.
  */
 
+static const double kMarginOfError = 0.001;
+
 TEST_CASE("Validate creating a GameEngine") {
   SECTION("Calling the constructor.") {
     Table table;
@@ -162,6 +164,54 @@ TEST_CASE("Validate releasing the cue and ending a stroke.") {
     engine.HandleStrokeStart(glm::vec2(200, 200));
     engine.HandleStrokeEnd(glm::vec2(203, 204));
 
-    REQUIRE(glm::vec2(-0.45, -0.6) == table.GetBalls().back().GetVelocity());
+    REQUIRE(-0.45 ==
+        Approx(table.GetBalls().back().GetVelocity().x).margin(kMarginOfError));
+    REQUIRE(-0.6 ==
+        Approx(table.GetBalls().back().GetVelocity().y).margin(kMarginOfError));
+  }
+}
+
+TEST_CASE("Validate computing the cue angle.") {
+  Table table;
+  GameEngine engine(&table);
+
+  SECTION("Angle in the first quadrant.") {
+    REQUIRE(0.7509 == Approx(engine.ComputeCueAngle(glm::vec2(245, 355)))
+                      .margin(kMarginOfError));
+  }
+
+  SECTION("Angle in the second quadrant.") {
+    REQUIRE(1.914 == Approx(engine.ComputeCueAngle(glm::vec2(250, 355)))
+                      .margin(kMarginOfError));
+  }
+
+  SECTION("Angle in the third quadrant.") {
+    REQUIRE(4.0177 == Approx(engine.ComputeCueAngle(glm::vec2(250, 360)))
+                          .margin(kMarginOfError));
+  }
+
+  SECTION("Angle in the fourth quadrant.") {
+    REQUIRE(-0.3805 == Approx(engine.ComputeCueAngle(glm::vec2(245, 360)))
+                           .margin(kMarginOfError));
+  }
+
+  SECTION("0 degree angle.") {
+    REQUIRE(0 == Approx(engine.ComputeCueAngle(glm::vec2(240, 358.5)))
+        .margin(kMarginOfError));
+  }
+
+  SECTION("90 degree angle.") {
+    REQUIRE(1.5708 == Approx(engine.ComputeCueAngle(glm::vec2(248.75, 330)))
+        .margin(kMarginOfError));
+  }
+
+  SECTION("180 degree angle.") {
+    REQUIRE(3.1416 == Approx(engine.ComputeCueAngle(glm::vec2(260, 358.5)))
+        .margin(kMarginOfError));
+  }
+
+  SECTION("270 degree angle.") {
+    REQUIRE(-1.5708 == Approx(engine.ComputeCueAngle(glm::vec2(248.75, 370)))
+        .margin(kMarginOfError));
   }
 }
