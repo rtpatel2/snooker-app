@@ -305,3 +305,17 @@ TEST_CASE("Validate finding the lowest point value color.") {
     REQUIRE(Ball::kBlack == table.FindLeastPointValueColor());
   }
 }
+
+TEST_CASE("Validate setting the cue Ball velocity.") {
+  Table table;
+
+  SECTION("Setting the cue Ball velocity to 0.") {
+    table.SetCueBallVelocity(glm::vec2(0, 0));
+    REQUIRE(glm::vec2(0, 0) == table.GetBalls().back().GetVelocity());
+  }
+
+  SECTION("Setting the cue Ball velocity to a non-zero value.") {
+    table.SetCueBallVelocity(glm::vec2(3, 4));
+    REQUIRE(glm::vec2(3, 4) == table.GetBalls().back().GetVelocity());
+  }
+}
