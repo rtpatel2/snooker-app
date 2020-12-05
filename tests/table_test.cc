@@ -260,3 +260,32 @@ TEST_CASE("Validate resetting first contacted.") {
     }
   }
 }
+
+TEST_CASE("Validate removing a Ball from the Table.") {
+  Table table;
+
+  SECTION("Removing a red Ball.") {
+    Ball ball(glm::vec2(113, 113), glm::vec2(0, 0), ci::Color("red"), 5, 5, 1);
+    table.AddBall(ball);
+    REQUIRE(23 == table.GetBalls().size());
+    REQUIRE(16 == table.GetRedBallCount());
+    Ball copy_ball(glm::vec2(113, 113), glm::vec2(0, 0), ci::Color("red"), 5,
+                   5, 1);
+    table.RemoveBallFromTable(copy_ball);
+    REQUIRE(22 == table.GetBalls().size());
+    REQUIRE(15 == table.GetRedBallCount());
+  }
+
+  SECTION("Removing a color Ball.") {
+    Ball ball(glm::vec2(113, 113), glm::vec2(0, 0), ci::Color("black"), 5, 5,
+              7);
+    table.AddBall(ball);
+    REQUIRE(23 == table.GetBalls().size());
+    REQUIRE(16 == table.GetRedBallCount());
+    Ball copy_ball(glm::vec2(113, 113), glm::vec2(0, 0), ci::Color("black"), 5,
+                   5, 7);
+    table.RemoveBallFromTable(copy_ball);
+    REQUIRE(22 == table.GetBalls().size());
+    REQUIRE(16 == table.GetRedBallCount());
+  }
+}
