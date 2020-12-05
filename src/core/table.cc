@@ -84,7 +84,7 @@ void Table::RemoveBallFromTable(const Ball& ball) {
   }
 }
 
-ci::Color Table::DetermineLeastPointValueColor() const {
+ci::Color Table::FindLeastPointValueColor() const {
   return balls_.front().GetColor();
 }
 

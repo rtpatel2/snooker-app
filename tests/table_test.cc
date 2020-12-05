@@ -276,16 +276,32 @@ TEST_CASE("Validate removing a Ball from the Table.") {
     REQUIRE(15 == table.GetRedBallCount());
   }
 
-  SECTION("Removing a color Ball.") {
-    Ball ball(glm::vec2(113, 113), glm::vec2(0, 0), ci::Color("black"), 5, 5,
-              7);
-    table.AddBall(ball);
-    REQUIRE(23 == table.GetBalls().size());
-    REQUIRE(16 == table.GetRedBallCount());
-    Ball copy_ball(glm::vec2(113, 113), glm::vec2(0, 0), ci::Color("black"), 5,
-                   5, 7);
-    table.RemoveBallFromTable(copy_ball);
-    REQUIRE(22 == table.GetBalls().size());
-    REQUIRE(16 == table.GetRedBallCount());
+  SECTION("Removing a red and color Ball.") {
+    table.RemoveBallFromTable(table.GetBalls().front());
+    table.RemoveBallFromTable(table.GetBalls().back());
+    REQUIRE(20 == table.GetBalls().size());
+    REQUIRE(14 == table.GetRedBallCount());
+  }
+}
+
+TEST_CASE("Validate finding the lowest point value color.") {
+  Table table;
+
+  SECTION("Finding lowest point value color without removing any Balls.") {
+    REQUIRE(Ball::kRed == table.FindLeastPointValueColor());
+  }
+
+  SECTION("Finding lowest point value color after reds are removed.") {
+    for (size_t ball = 0; ball < 15; ++ball) {
+      table.RemoveBallFromTable(table.GetBalls().front());
+    }
+    REQUIRE(Ball::kYellow == table.FindLeastPointValueColor());
+  }
+
+  SECTION("Finding lowest point value color with only black remaining.") {
+    for (size_t ball = 0; ball < 20; ++ball) {
+      table.RemoveBallFromTable(table.GetBalls().front());
+    }
+    REQUIRE(Ball::kBlack == table.FindLeastPointValueColor());
   }
 }

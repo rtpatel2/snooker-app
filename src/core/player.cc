@@ -83,7 +83,7 @@ bool Player::IsStrokeLegalColorsOn(const ci::Color& cue_color_first_contacted,
       cue_color_first_contacted == Ball::kRed) {
     return false;
   } else if (table.GetRedBallCount() == 0 &&
-      cue_color_first_contacted != table.DetermineLeastPointValueColor()) {
+      cue_color_first_contacted != table.FindLeastPointValueColor()) {
     return false;
   } else {
     return true;

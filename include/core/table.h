@@ -64,11 +64,11 @@ class Table {
   void RemoveBallFromTable(const Ball& ball);
 
   /**
-   * Determines the color with lowest point value still on the Table.
+   * Finds the color with lowest point value still on the Table.
    *
    * @return color of the lowest point value Ball.
    */
-  ci::Color DetermineLeastPointValueColor() const;
+  ci::Color FindLeastPointValueColor() const;
 
   /**
    * Sets the velocity of the cue Ball to the specified velocity.
