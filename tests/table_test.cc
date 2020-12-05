@@ -238,3 +238,25 @@ TEST_CASE("Validate checking if a Table is steady.") {
     REQUIRE_FALSE(table.IsSteady());
   }
 }
+
+TEST_CASE("Validate resetting first contacted.") {
+  Table table;
+
+  SECTION("Resetting first contacted for a Table with no contact.") {
+    table.ResetFirstContacted();
+    for (const Ball& ball : table.GetBalls()) {
+      REQUIRE(Ball::kNoContactColor == ball.GetFirstContacted());
+    }
+  }
+
+  SECTION("Resetting first contacted for a Table after a stroke.") {
+    table.SetCueBallVelocity(glm::vec2(17, -3));
+    while (!table.IsSteady()) {
+      table.SimulateTimeStep();
+    }
+    table.ResetFirstContacted();
+    for (const Ball& ball : table.GetBalls()) {
+      REQUIRE(Ball::kNoContactColor == ball.GetFirstContacted());
+    }
+  }
+}
