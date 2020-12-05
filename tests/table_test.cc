@@ -319,3 +319,17 @@ TEST_CASE("Validate setting the cue Ball velocity.") {
     REQUIRE(glm::vec2(3, 4) == table.GetBalls().back().GetVelocity());
   }
 }
+
+TEST_CASE("Validate setting cue Ball first contacted color.") {
+  Table table;
+
+  SECTION("Setting cue Ball first contacted color to no-contact color.") {
+    table.SetCueBallFirstContacted(Ball::kNoContactColor);
+    REQUIRE(Ball::kNoContactColor == table.GetBalls().back().GetColor());
+  }
+
+  SECTION("Setting cue Ball first contacted to snooker Ball color.") {
+    table.SetCueBallFirstContacted(Ball::kRed);
+    REQUIRE(Ball::kRed == table.GetBalls().back().GetColor());
+  }
+}
