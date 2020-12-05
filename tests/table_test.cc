@@ -325,11 +325,12 @@ TEST_CASE("Validate setting cue Ball first contacted color.") {
 
   SECTION("Setting cue Ball first contacted color to no-contact color.") {
     table.SetCueBallFirstContacted(Ball::kNoContactColor);
-    REQUIRE(Ball::kNoContactColor == table.GetBalls().back().GetColor());
+    REQUIRE(Ball::kNoContactColor ==
+            table.GetBalls().back().GetFirstContacted());
   }
 
   SECTION("Setting cue Ball first contacted to snooker Ball color.") {
     table.SetCueBallFirstContacted(Ball::kRed);
-    REQUIRE(Ball::kRed == table.GetBalls().back().GetColor());
+    REQUIRE(Ball::kRed == table.GetBalls().back().GetFirstContacted());
   }
 }
