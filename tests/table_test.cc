@@ -106,7 +106,7 @@ TEST_CASE("Validate adding Balls to the Table.") {
   }
 }
 
-TEST_CASE("Validate incrementing the time of a Table.") {
+TEST_CASE("Validate simulating a time step for a Table.") {
   StraightCushionPtr cushion1 =
       std::make_unique<StraightCushion>(ci::Rectf(100, 110, 115, 300));
   StraightCushionPtr cushion2 =
@@ -222,5 +222,19 @@ TEST_CASE("Validate incrementing the time of a Table.") {
         (kMarginOfError));
     REQUIRE(-0.0249 == Approx(table.GetBalls()[2].GetVelocity().y).margin
         (kMarginOfError));
+  }
+}
+
+TEST_CASE("Validate checking if a Table is steady.") {
+  Table table;
+
+  SECTION("Correctly identifying a steady Table as steady.") {
+    table.SetCueBallVelocity(glm::vec2(0, 0));
+    REQUIRE(table.IsSteady());
+  }
+
+  SECTION("Correctly identifying a Table with moving Balls as not steady.") {
+    table.SetCueBallVelocity(glm::vec2(1, 4));
+    REQUIRE_FALSE(table.IsSteady());
   }
 }
