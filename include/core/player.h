@@ -50,6 +50,13 @@ class Player {
    */
   void EndStroke(bool still_at_table);
 
+  /**
+   * Adds the specified number of points to this Player.
+   *
+   * @param points_to_add number of points to add.
+   */
+  void AddPoints(size_t points_to_add);
+
   const std::vector<Ball>& GetBallsPottedLastStroke() const;
   size_t GetStrokeNumber() const;
 

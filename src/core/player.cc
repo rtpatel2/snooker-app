@@ -46,6 +46,10 @@ void Player::EndStroke(bool still_at_table) {
   balls_potted_last_stroke_.clear();
 }
 
+void Player::AddPoints(size_t points_to_add) {
+  score_ += points_to_add;
+}
+
 const std::vector<Ball>& Player::GetBallsPottedLastStroke() const {
   return balls_potted_last_stroke_;
 }

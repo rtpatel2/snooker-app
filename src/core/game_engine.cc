@@ -179,6 +179,9 @@ void GameEngine::EndStroke() {
     bool is_stroke_legal = current_player_->IsStrokeLegal(*table_);
 
     for (const Ball& ball : current_player_->GetBallsPottedLastStroke()) {
+      if (is_stroke_legal) {
+        current_player_->AddPoints(ball.GetPointValue());
+      }
       if ((is_stroke_legal && table_->GetRedBallCount() > 0 &&
            ball.GetColor() != Ball::kRed) ||
           (!is_stroke_legal && ball.GetColor() != Ball::kRed)) {
