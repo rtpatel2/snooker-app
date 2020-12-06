@@ -34,11 +34,14 @@ class GameEngine {
    */
   void PerformCPUStroke();
 
+  /** Computes the best stroke for the CPU to perform. */
+  void ComputeBestStroke();
+
   /**
- * Handles logic pertaining to the start of a stroke.
- *
- * @param start_position the position of the stroke start.
- */
+   * Handles logic pertaining to the start of a stroke.
+   *
+   * @param start_position the position of the stroke start.
+   */
   void HandleStrokeStart(const glm::vec2& start_position);
 
   /**

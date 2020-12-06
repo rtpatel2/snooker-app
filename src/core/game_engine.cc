@@ -46,15 +46,52 @@ void GameEngine::PerformCPUStroke() {
     if (!stroke_started_) {
       HandleStrokeStart(table_->GetBalls().back().GetPosition());
       stroke_current_position_ = stroke_start_position_;
-      stroke_end_position_ = stroke_start_position_ - 40.0f;
+      ComputeBestStroke();
     } else if (glm::length(stroke_current_position_ - stroke_end_position_) >
                Ball::kMarginOfError) {
-      stroke_current_position_ += (stroke_end_position_ - stroke_start_position_) / 50.0f;
+      stroke_current_position_ +=
+          (stroke_end_position_ - stroke_start_position_) / 50.0f;
       HandleCuePullBack(stroke_current_position_);
     } else {
       HandleStrokeEnd(stroke_end_position_);
     }
   }
+}
+
+void GameEngine::ComputeBestStroke() {
+  glm::vec2 ball_to_strike_position;
+  float min_distance_to_cue = FLT_MAX;
+  for (const Ball& ball : table_->GetBalls()) {
+    if ((current_player_->IsBallOnRed(*table_) &&
+         ball.GetColor() == Ball::kRed) ||
+        (!current_player_->IsBallOnRed(*table_) &&
+         ball.GetColor() != Ball::kWhite &&
+         ((table_->GetRedBallCount() == 0 &&
+           ball.GetColor() == table_->FindLeastPointValueColor()) ||
+          (table_->GetRedBallCount() > 0 && ball.GetColor() != Ball::kRed)))) {
+      float distance = glm::length(stroke_start_position_ - ball.GetPosition());
+      if (distance < min_distance_to_cue) {
+        min_distance_to_cue = distance;
+        ball_to_strike_position = ball.GetPosition();
+      }
+    }
+  }
+
+  glm::vec2 object_ball_desired_path;
+  float min_distance_to_pocket = FLT_MAX;
+  for (const Pocket& pocket : table_->GetPockets()) {
+    glm::vec2 path = pocket.GetPosition() - ball_to_strike_position;
+    float distance = glm::length(path);
+    if (distance < min_distance_to_pocket) {
+      min_distance_to_pocket = distance;
+      object_ball_desired_path = path;
+    }
+  }
+
+  glm::vec2 stroke_path =
+      glm::normalize(ball_to_strike_position - stroke_start_position_);
+  stroke_end_position_ =
+      stroke_start_position_ - Table::kMaxPullBack * stroke_path;
 }
 
 void GameEngine::HandleStrokeStart(const glm::vec2& start_position) {

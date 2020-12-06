@@ -18,6 +18,15 @@ class Player {
   Player();
 
   /**
+   * Determines whether or not the "ball-on" for this Player is red (i.e.,
+   * whether or not the next ball the Player must contact and pot is red)
+   *
+   * @param table current state of the Table.
+   * @return true if the "ball-on" is red, and false otherwise.
+   */
+  bool IsBallOnRed(const Table& table) const;
+
+  /**
    * Determines whether or not the previous stroke was legal.
    *
    * @param table current state of the Table.
@@ -45,15 +54,6 @@ class Player {
   size_t GetStrokeNumber() const;
 
  private:
-  /**
-   * Determines whether or not the "ball-on" for this Player is red (i.e.,
-   * whether or not the next ball the Player must contact and pot is red)
-   *
-   * @param table current state of the Table.
-   * @return true if the "ball-on" is red, and false otherwise.
-   */
-  bool IsBallOnRed(const Table& table) const;
-
   /**
    * Determines whether or not the previous stroke was legal, given that the
    * "ball-on" was red.
