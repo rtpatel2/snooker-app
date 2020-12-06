@@ -35,15 +35,21 @@ void SnookerApp::draw() {
 }
 
 void SnookerApp::mouseUp(ci::app::MouseEvent event) {
-  engine_.HandleStrokeEnd(static_cast<glm::vec2>(event.getPos()));
+  if (engine_.IsPlayer1Turn()) {
+    engine_.HandleStrokeEnd(static_cast<glm::vec2>(event.getPos()));
+  }
 }
 
 void SnookerApp::mouseDown(ci::app::MouseEvent event) {
-  engine_.HandleStrokeStart(static_cast<glm::vec2>(event.getPos()));
+  if (engine_.IsPlayer1Turn()) {
+    engine_.HandleStrokeStart(static_cast<glm::vec2>(event.getPos()));
+  }
 }
 
 void SnookerApp::mouseDrag(ci::app::MouseEvent event) {
-  engine_.HandleCuePullBack(static_cast<glm::vec2>(event.getPos()));
+  if (engine_.IsPlayer1Turn()) {
+    engine_.HandleCuePullBack(static_cast<glm::vec2>(event.getPos()));
+  }
 }
 
 void SnookerApp::DrawTableFelt() const {
