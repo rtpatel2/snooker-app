@@ -30,7 +30,6 @@ void GameEngine::PocketBalls() {
   }
 
   EndStroke();
-  PerformCPUStroke();
 }
 
 bool GameEngine::IsPlayer1Turn() const {
@@ -140,6 +139,10 @@ float GameEngine::ComputeCueAngle(const glm::vec2& mouse_position) const {
 ci::Rectf GameEngine::ComputeCueDimensions() const {
   return ci::Rectf(-Table::kCueLength - cue_pull_back_, -Table::kCueWidth,
                    -Table::kBallRadius - cue_pull_back_, Table::kCueWidth);
+}
+
+bool GameEngine::IsGameOver() const {
+  return 1 == table_->GetBalls().size();
 }
 
 const Player& GameEngine::GetPlayer1() const {

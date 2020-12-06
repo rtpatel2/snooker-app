@@ -73,6 +73,13 @@ class GameEngine {
    */
   ci::Rectf ComputeCueDimensions() const;
 
+  /**
+   * Determines whether or not this game is over.
+   *
+   * @return true if the game is over, and false otherwise.
+   */
+  bool IsGameOver() const;
+
   const Player& GetPlayer1() const;
   const Player& GetPlayer2() const;
   const Player* GetCurrentPlayer() const;

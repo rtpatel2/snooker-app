@@ -19,8 +19,11 @@ SnookerApp::SnookerApp() : engine_(&table_) {
 }
 
 void SnookerApp::update() {
-  table_.SimulateTimeStep();
-  engine_.PocketBalls();
+  if (!engine_.IsGameOver()) {
+    table_.SimulateTimeStep();
+    engine_.PocketBalls();
+    engine_.PerformCPUStroke();
+  }
 }
 
 void SnookerApp::draw() {
