@@ -75,9 +75,10 @@ class GameEngine {
   const Player* GetCurrentPlayer() const;
   bool GetStrokeStarted() const;
   const glm::vec2& GetStrokeStartPosition() const;
+  const glm::vec2& GetStrokeCurrentPosition() const;
   float GetCuePullBack() const;
   bool GetStrokeCompleted() const;
-  const glm::vec2& GetCurrentPosition() const;
+
 
  private:
   /** Handles the logic behind ending a Player's stroke. */
@@ -90,11 +91,10 @@ class GameEngine {
 
   bool stroke_started_;
   glm::vec2 stroke_start_position_;
+  glm::vec2 stroke_current_position_;
+  glm::vec2 stroke_end_position_;
   float cue_pull_back_;
   bool stroke_completed_;
-
-  glm::vec2 current_position_;
-  glm::vec2 end_position_;
 };
 
 }  // namespace snooker

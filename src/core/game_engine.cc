@@ -45,14 +45,14 @@ void GameEngine::PerformCPUStroke() {
   if (!IsPlayer1Turn()) {
     if (!stroke_started_) {
       HandleStrokeStart(table_->GetBalls().back().GetPosition());
-      current_position_ = stroke_start_position_;
-      end_position_ = stroke_start_position_ - 40.0f;
-    } else if (glm::length(current_position_ - end_position_) >
+      stroke_current_position_ = stroke_start_position_;
+      stroke_end_position_ = stroke_start_position_ - 40.0f;
+    } else if (glm::length(stroke_current_position_ - stroke_end_position_) >
                Ball::kMarginOfError) {
-      current_position_ += (end_position_ - stroke_start_position_) / 50.0f;
-      HandleCuePullBack(current_position_);
+      stroke_current_position_ += (stroke_end_position_ - stroke_start_position_) / 50.0f;
+      HandleCuePullBack(stroke_current_position_);
     } else {
-      HandleStrokeEnd(end_position_);
+      HandleStrokeEnd(stroke_end_position_);
     }
   }
 }
@@ -122,16 +122,16 @@ const glm::vec2& GameEngine::GetStrokeStartPosition() const {
   return stroke_start_position_;
 }
 
+const glm::vec2& GameEngine::GetStrokeCurrentPosition() const {
+  return stroke_current_position_;
+}
+
 float GameEngine::GetCuePullBack() const {
   return cue_pull_back_;
 }
 
 bool GameEngine::GetStrokeCompleted() const {
   return stroke_completed_;
-}
-
-const glm::vec2& GameEngine::GetCurrentPosition() const {
-  return current_position_;
 }
 
 void GameEngine::EndStroke() {

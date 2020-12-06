@@ -98,7 +98,7 @@ void SnookerApp::DrawCue() const {
     if (engine_.IsPlayer1Turn()) {
       mouse_position = getMousePos() - getWindowPos();
     } else {
-      mouse_position = engine_.GetCurrentPosition();
+      mouse_position = engine_.GetStrokeCurrentPosition();
     }
 
     ci::gl::rotate(engine_.ComputeCueAngle(mouse_position));
