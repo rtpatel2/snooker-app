@@ -58,6 +58,10 @@ size_t Player::GetStrokeNumber() const {
   return stroke_number_;
 }
 
+size_t Player::GetScore() const {
+  return score_;
+}
+
 bool Player::IsStrokeLegalRedOn(const ci::Color& cue_color_first_contacted,
                         const Table& table) const {
   if (cue_color_first_contacted != Ball::kRed) {

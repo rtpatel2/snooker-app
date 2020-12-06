@@ -59,6 +59,7 @@ class Player {
 
   const std::vector<Ball>& GetBallsPottedLastStroke() const;
   size_t GetStrokeNumber() const;
+  size_t GetScore() const;
 
  private:
   /**
