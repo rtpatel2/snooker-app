@@ -29,6 +29,12 @@ class GameEngine {
   bool IsPlayer1Turn() const;
 
   /**
+   * Performs an automated stroke for the CPU, striking the nearest object
+   * Ball of the correct color and attempting to pocket it optimally.
+   */
+  void PerformCPUStroke();
+
+  /**
  * Handles logic pertaining to the start of a stroke.
  *
  * @param start_position the position of the stroke start.
@@ -71,6 +77,7 @@ class GameEngine {
   const glm::vec2& GetStrokeStartPosition() const;
   float GetCuePullBack() const;
   bool GetStrokeCompleted() const;
+  const glm::vec2& GetCurrentPosition() const;
 
  private:
   /** Handles the logic behind ending a Player's stroke. */
@@ -85,6 +92,9 @@ class GameEngine {
   glm::vec2 stroke_start_position_;
   float cue_pull_back_;
   bool stroke_completed_;
+
+  glm::vec2 current_position_;
+  glm::vec2 end_position_;
 };
 
 }  // namespace snooker

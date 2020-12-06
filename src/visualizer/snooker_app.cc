@@ -29,8 +29,8 @@ void SnookerApp::draw() {
   DrawCushions();
   DrawRails();
   DrawPockets();
-  DrawCue();
   DrawBalls();
+  DrawCue();
   DrawCurrentPlayer();
 }
 
@@ -94,7 +94,13 @@ void SnookerApp::DrawCue() const {
     ci::gl::ScopedModelMatrix scoped_matrix;
     ci::gl::translate(table_.GetBalls().back().GetPosition());
 
-    glm::vec2 mouse_position = getMousePos() - getWindowPos();
+    glm::vec2 mouse_position;
+    if (engine_.IsPlayer1Turn()) {
+      mouse_position = getMousePos() - getWindowPos();
+    } else {
+      mouse_position = engine_.GetCurrentPosition();
+    }
+
     ci::gl::rotate(engine_.ComputeCueAngle(mouse_position));
     ci::gl::color(ci::Color("brown"));
 
