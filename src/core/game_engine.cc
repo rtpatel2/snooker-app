@@ -88,8 +88,11 @@ void GameEngine::ComputeBestStroke() {
     }
   }
 
+  glm::vec2 collision_point =
+      ball_to_strike_position -
+      Table::kBallRadius * glm::normalize(object_ball_desired_path);
   glm::vec2 stroke_path =
-      glm::normalize(ball_to_strike_position - stroke_start_position_);
+      glm::normalize(collision_point - stroke_start_position_);
   stroke_end_position_ =
       stroke_start_position_ - Table::kMaxPullBack * stroke_path;
 }
