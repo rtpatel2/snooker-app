@@ -32,6 +32,7 @@ void SnookerApp::draw() {
   DrawBalls();
   DrawCue();
   DrawCurrentPlayer();
+  DrawPlayerScores();
 }
 
 void SnookerApp::mouseUp(ci::app::MouseEvent event) {
@@ -116,11 +117,27 @@ void SnookerApp::DrawBalls() const {
 }
 
 void SnookerApp::DrawCurrentPlayer() const {
+  glm::vec2 position(Table::kHorizontalMargin + Table::kTableWidth / 2,
+                     Table::kVerticalMargin / 4);
   if (engine_.IsPlayer1Turn()) {
-    ci::gl::drawStringCentered("Player 1", glm::vec2(150, 300), kWhite);
+    ci::gl::drawStringCentered("PLAYER 1 TURN", position, kWhite, kDefaultFont);
   } else {
-    ci::gl::drawStringCentered("Player 2", glm::vec2(150, 300), kWhite);
+    ci::gl::drawStringCentered("PLAYER 2 TURN", position, kWhite, kDefaultFont);
   }
+}
+
+void SnookerApp::DrawPlayerScores() const {
+  ci::gl::drawStringCentered(
+      "PLAYER 1 SCORE: " + std::to_string(engine_.GetPlayer1().GetScore()),
+      glm::vec2(Table::kHorizontalMargin + Table::kTableWidth / 4,
+                Table::kVerticalMargin / 2),
+      kWhite, kDefaultFont);
+
+  ci::gl::drawStringCentered(
+      "PLAYER 2 SCORE: " + std::to_string(engine_.GetPlayer2().GetScore()),
+      glm::vec2(Table::kHorizontalMargin + Table::kTableWidth * 3 / 4,
+                Table::kVerticalMargin / 2),
+      kWhite, kDefaultFont);
 }
 
 }  // namespace visualizer

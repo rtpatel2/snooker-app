@@ -63,11 +63,17 @@ class SnookerApp : public ci::app::App {
   /** Draws which player who is currently at the Table. */
   void DrawCurrentPlayer() const;
 
+  /** Draws each Player's score. */
+  void DrawPlayerScores() const;
+
   const ci::Color kWhite = ci::Color("white");
   const ci::Color kBlack = ci::Color("black");
   const ci::Color kTableColor = ci::Color(0.227f, 0.71f, 0.0118f);
   const ci::Color kCushionColor = ci::Color(0.0392f, 0.424f, 0.0118f);
   const ci::Color kRailColor = ci::Color(0.502f, 0.251f, 0);
+
+  /** Font used for the text displayed on this GUI. */
+  const ci::Font kDefaultFont = ci::Font("Segoe UI", 16);
 
   Table table_;
   GameEngine engine_;
