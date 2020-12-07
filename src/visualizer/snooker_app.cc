@@ -163,10 +163,10 @@ void SnookerApp::DrawEndGameScreen() const {
                                  kLargeFont);
     } else if (engine_.GetPlayer1().GetScore() >
                engine_.GetPlayer2().GetScore()) {
-      ci::gl::drawStringCentered("WIN!", game_status_position, kWhite,
+      ci::gl::drawStringCentered("PLAYER 1 WINS!", game_status_position, kWhite,
                                  kLargeFont);
     } else {
-      ci::gl::drawStringCentered("LOSS", game_status_position, kWhite,
+      ci::gl::drawStringCentered("PLAYER 2 WINS!", game_status_position, kWhite,
                                  kLargeFont);
     }
 
