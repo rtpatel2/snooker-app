@@ -36,6 +36,8 @@ void SnookerApp::draw() {
   DrawCue();
   DrawCurrentPlayer();
   DrawPlayerScores();
+
+  DrawEndGameScreen();
 }
 
 void SnookerApp::mouseUp(ci::app::MouseEvent event) {
@@ -141,6 +143,40 @@ void SnookerApp::DrawPlayerScores() const {
       glm::vec2(Table::kHorizontalMargin + Table::kTableWidth * 3 / 4,
                 Table::kVerticalMargin / 2),
       kWhite, kDefaultFont);
+}
+
+void SnookerApp::DrawEndGameScreen() const {
+  if (engine_.IsGameOver()) {
+    ci::gl::color(kGray);
+    ci::Rectf window(
+        Table::kHorizontalMargin + Table::kTableWidth / 2 - kEndScreenWidth / 2,
+        Table::kVerticalMargin + Table::kTableHeight / 2 - kEndScreenHeight / 2,
+        Table::kHorizontalMargin + Table::kTableWidth / 2 + kEndScreenWidth / 2,
+        Table::kVerticalMargin + Table::kTableHeight / 2 +
+            kEndScreenHeight / 2);
+    ci::gl::drawSolidRect(window);
+
+    glm::vec2 game_status_position((window.x1 + window.x2) / 2,
+                                           window.y1 + kEndScreenHeight / 4);
+    if (engine_.GetPlayer1().GetScore() == engine_.GetPlayer2().GetScore()) {
+      ci::gl::drawStringCentered("DRAW", game_status_position, kWhite,
+                                 kLargeFont);
+    } else if (engine_.GetPlayer1().GetScore() >
+               engine_.GetPlayer2().GetScore()) {
+      ci::gl::drawStringCentered("WIN!", game_status_position, kWhite,
+                                 kLargeFont);
+    } else {
+      ci::gl::drawStringCentered("LOSS", game_status_position, kWhite,
+                                 kLargeFont);
+    }
+
+    glm::vec2 score_position((window.x1 + window.x2) / 2,
+                             window.y1 + kEndScreenHeight / 2);
+    ci::gl::drawStringCentered(
+        std::to_string(engine_.GetPlayer1().GetScore()) + " - " +
+            std::to_string(engine_.GetPlayer2().GetScore()),
+        score_position, kWhite, kLargeFont);
+    }
 }
 
 }  // namespace visualizer
