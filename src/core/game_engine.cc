@@ -136,6 +136,10 @@ const glm::vec2& GameEngine::GetStrokeCurrentPosition() const {
   return stroke_current_position_;
 }
 
+const glm::vec2& GameEngine::GetStrokeEndPosition() const {
+  return stroke_end_position_;
+}
+
 float GameEngine::GetCuePullBack() const {
   return cue_pull_back_;
 }

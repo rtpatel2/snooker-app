@@ -83,6 +83,7 @@ class GameEngine {
   bool GetStrokeStarted() const;
   const glm::vec2& GetStrokeStartPosition() const;
   const glm::vec2& GetStrokeCurrentPosition() const;
+  const glm::vec2& GetStrokeEndPosition() const;
   float GetCuePullBack() const;
   bool GetStrokeCompleted() const;
 
