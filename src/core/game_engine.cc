@@ -15,7 +15,9 @@ GameEngine::GameEngine(Table* table)
       current_player_(&player1_),
       stroke_started_(false),
       cue_pull_back_(0),
-      stroke_completed_(false) {}
+      stroke_completed_(false),
+      red_ball_count_(table->GetRedBallCount()),
+      least_value_color_(table->FindLeastPointValueColor()) {}
 
 void GameEngine::PocketBalls() {
   for (const Ball& ball : table_->GetBalls()) {
@@ -63,9 +65,9 @@ void GameEngine::ComputeBestStroke() {
   glm::vec2 ball_to_strike_position;
   float min_distance_to_cue = FLT_MAX;
   for (const Ball& ball : table_->GetBalls()) {
-    if ((current_player_->IsBallOnRed(*table_) &&
+    if ((current_player_->IsBallOnRed(red_ball_count_) &&
          ball.GetColor() == Ball::kRed) ||
-        (!current_player_->IsBallOnRed(*table_) &&
+        (!current_player_->IsBallOnRed(red_ball_count_) &&
          ball.GetColor() != Ball::kWhite &&
          ((table_->GetRedBallCount() == 0 &&
            ball.GetColor() == table_->FindLeastPointValueColor()) ||
@@ -102,6 +104,8 @@ void GameEngine::HandleStrokeStart(const glm::vec2& start_position) {
   if (table_->IsSteady()) {
     stroke_started_ = true;
     stroke_start_position_ = start_position;
+    red_ball_count_ = table_->GetRedBallCount();
+    least_value_color_ = table_->FindLeastPointValueColor();
   }
 }
 
@@ -181,7 +185,9 @@ bool GameEngine::GetStrokeCompleted() const {
 
 void GameEngine::EndStroke() {
   if (table_->IsSteady() && stroke_completed_) {
-    bool is_stroke_legal = current_player_->IsStrokeLegal(*table_);
+    bool is_stroke_legal = current_player_->IsStrokeLegal(
+        red_ball_count_, least_value_color_,
+        table_->GetBalls().back().GetFirstContacted());
 
     for (const Ball& ball : current_player_->GetBallsPottedLastStroke()) {
       if (is_stroke_legal) {

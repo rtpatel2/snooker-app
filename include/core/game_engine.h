@@ -89,7 +89,6 @@ class GameEngine {
   float GetCuePullBack() const;
   bool GetStrokeCompleted() const;
 
-
  private:
   /** Handles the logic behind ending a Player's stroke. */
   void EndStroke();
@@ -105,6 +104,9 @@ class GameEngine {
   glm::vec2 stroke_end_position_;
   float cue_pull_back_;
   bool stroke_completed_;
+
+  size_t red_ball_count_;
+  ci::Color least_value_color_;
 };
 
 }  // namespace snooker

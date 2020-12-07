@@ -27,18 +27,21 @@ class Player {
    * Determines whether or not the "ball-on" for this Player is red (i.e.,
    * whether or not the next ball the Player must contact and pot is red)
    *
-   * @param table current state of the Table.
+   * @param red_ball_count the number of red Balls on the Table.
    * @return true if the "ball-on" is red, and false otherwise.
    */
-  bool IsBallOnRed(const Table& table) const;
+  bool IsBallOnRed(size_t red_ball_count) const;
 
   /**
    * Determines whether or not the previous stroke was legal.
    *
-   * @param table current state of the Table.
+   * @param red_ball_count the number of red Balls on the Table.
+   * @param least_value_color color with lowest point value on the Table.
+   * @param cue_first_contacted_color color first contacted by cue Ball.
    * @return true if the stroke was legal, and false otherwise.
    */
-  bool IsStrokeLegal(const Table& table) const;
+  bool IsStrokeLegal(size_t red_ball_count, const ci::Color& least_value_color,
+                     const ci::Color& cue_first_contacted_color) const;
 
   /**
    * Adds any Balls potted by this Player on his/her previous stroke to the
@@ -73,25 +76,23 @@ class Player {
    * Determines whether or not the previous stroke was legal, given that the
    * "ball-on" was red.
    *
-   * @param cue_color_first_contacted the color of the Ball that the cue Ball
-   * first contacted on this stroke.
-   * @param table current state of the Table.
+   * @param cue_first_contacted_color color first contacted by cue Ball.
    * @return true if the stroke was legal, and false otherwise.
    */
-  bool IsStrokeLegalRedOn(const ci::Color& cue_color_first_contacted,
-                          const Table& table) const;
+  bool IsStrokeLegalRedOn(const ci::Color& cue_first_contacted_color) const;
 
   /**
    * Determines whether or not the previous stroke was legal, given that the
    * "ball-on" was colored.
    *
-   * @param cue_color_first_contacted the color of the Ball that the cue Ball
-   * first contacted on this stroke.
-   * @param table current state of the Table.
+   * @param red_ball_count the number of red Balls on the Table.
+   * @param least_value_color color with lowest point value on the Table.
+   * @param cue_first_contacted_color color first contacted by cue Ball.
    * @return true if the stroke was legal, and false otherwise.
    */
-  bool IsStrokeLegalColorsOn(const ci::Color& cue_color_first_contacted,
-                             const Table& table) const;
+  bool IsStrokeLegalColorsOn(size_t red_ball_count,
+                             const ci::Color& least_value_color,
+                             const ci::Color& cue_first_contacted_color) const;
 
   bool is_cpu_;
   std::vector<Ball> balls_potted_last_stroke_;
