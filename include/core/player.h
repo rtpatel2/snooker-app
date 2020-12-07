@@ -15,7 +15,13 @@ namespace snooker {
 /** Maintains game logic and control flow of a game of snooker. */
 class Player {
  public:
-  Player();
+  /**
+   * Creates a new Player instance.
+   *
+   * @param is_cpu true if this Player is controlled by a CPU, and false
+   * otherwise.
+   */
+  Player(bool is_cpu);
 
   /**
    * Determines whether or not the "ball-on" for this Player is red (i.e.,
@@ -57,6 +63,7 @@ class Player {
    */
   void AddPoints(size_t points_to_add);
 
+  bool GetIsCPU() const;
   const std::vector<Ball>& GetBallsPottedLastStroke() const;
   size_t GetStrokeNumber() const;
   size_t GetScore() const;
@@ -86,6 +93,7 @@ class Player {
   bool IsStrokeLegalColorsOn(const ci::Color& cue_color_first_contacted,
                              const Table& table) const;
 
+  bool is_cpu_;
   std::vector<Ball> balls_potted_last_stroke_;
   size_t stroke_number_;
   size_t score_;

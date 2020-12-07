@@ -41,19 +41,19 @@ void SnookerApp::draw() {
 }
 
 void SnookerApp::mouseUp(ci::app::MouseEvent event) {
-  if (engine_.IsPlayer1Turn()) {
+  if (!engine_.GetCurrentPlayer()->GetIsCPU()) {
     engine_.HandleStrokeEnd(static_cast<glm::vec2>(event.getPos()));
   }
 }
 
 void SnookerApp::mouseDown(ci::app::MouseEvent event) {
-  if (engine_.IsPlayer1Turn()) {
+  if (!engine_.GetCurrentPlayer()->GetIsCPU()) {
     engine_.HandleStrokeStart(static_cast<glm::vec2>(event.getPos()));
   }
 }
 
 void SnookerApp::mouseDrag(ci::app::MouseEvent event) {
-  if (engine_.IsPlayer1Turn()) {
+  if (!engine_.GetCurrentPlayer()->GetIsCPU()) {
     engine_.HandleCuePullBack(static_cast<glm::vec2>(event.getPos()));
   }
 }
@@ -101,7 +101,7 @@ void SnookerApp::DrawCue() const {
     ci::gl::translate(table_.GetBalls().back().GetPosition());
 
     glm::vec2 mouse_position;
-    if (engine_.IsPlayer1Turn()) {
+    if (!engine_.GetCurrentPlayer()->GetIsCPU()) {
       mouse_position = getMousePos() - getWindowPos();
     } else {
       mouse_position = engine_.GetStrokeCurrentPosition();

@@ -10,6 +10,8 @@ namespace snooker {
 
 GameEngine::GameEngine(Table* table)
     : table_(table),
+      player1_(true),
+      player2_(true),
       current_player_(&player1_),
       stroke_started_(false),
       cue_pull_back_(0),
@@ -41,7 +43,7 @@ bool GameEngine::IsPlayer1Turn() const {
 }
 
 void GameEngine::PerformCPUStroke() {
-  if (!IsPlayer1Turn()) {
+  if (current_player_->GetIsCPU()) {
     if (!stroke_started_) {
       HandleStrokeStart(table_->GetBalls().back().GetPosition());
       stroke_current_position_ = stroke_start_position_;
