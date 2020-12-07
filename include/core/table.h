@@ -84,8 +84,6 @@ class Table {
    */
   void SetCueBallFirstContacted(const ci::Color& color);
 
-  //TODO: Some sort of function that spots any Ball that goes out of bounds.
-
   const std::vector<TableCushionPtr>& GetCushions() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;

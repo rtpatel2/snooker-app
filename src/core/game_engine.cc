@@ -16,14 +16,14 @@ GameEngine::GameEngine(Table* table)
       stroke_started_(false),
       cue_pull_back_(0),
       stroke_completed_(false),
-      red_ball_count_(table->GetRedBallCount()),
-      least_value_color_(table->FindLeastPointValueColor()) {}
+      prestroke_red_ball_count_(table->GetRedBallCount()),
+      prestroke_least_value_color_(table->FindLeastPointValueColor()) {}
 
 void GameEngine::PocketBalls() {
   for (const Ball& ball : table_->GetBalls()) {
     for (const Pocket& pocket : table_->GetPockets()) {
       if (pocket.DetermineIfPocketed(ball)) {
-        current_player_->AddBallsPottedLastStroke(ball);
+        current_player_->AddBallPottedLastStroke(ball);
         break;
       }
     }
@@ -61,51 +61,12 @@ void GameEngine::PerformCPUStroke() {
   }
 }
 
-void GameEngine::ComputeBestStroke() {
-  glm::vec2 ball_to_strike_position;
-  float min_distance_to_cue = FLT_MAX;
-  for (const Ball& ball : table_->GetBalls()) {
-    if ((current_player_->IsBallOnRed(red_ball_count_) &&
-         ball.GetColor() == Ball::kRed) ||
-        (!current_player_->IsBallOnRed(red_ball_count_) &&
-         ball.GetColor() != Ball::kWhite &&
-         ((table_->GetRedBallCount() == 0 &&
-           ball.GetColor() == table_->FindLeastPointValueColor()) ||
-          (table_->GetRedBallCount() > 0 && ball.GetColor() != Ball::kRed)))) {
-      float distance = glm::length(stroke_start_position_ - ball.GetPosition());
-      if (distance < min_distance_to_cue) {
-        min_distance_to_cue = distance;
-        ball_to_strike_position = ball.GetPosition();
-      }
-    }
-  }
-
-  glm::vec2 object_ball_desired_path;
-  float min_distance_to_pocket = FLT_MAX;
-  for (const Pocket& pocket : table_->GetPockets()) {
-    glm::vec2 path = pocket.GetPosition() - ball_to_strike_position;
-    float distance = glm::length(path);
-    if (distance < min_distance_to_pocket) {
-      min_distance_to_pocket = distance;
-      object_ball_desired_path = path;
-    }
-  }
-
-  glm::vec2 collision_point =
-      ball_to_strike_position -
-      Table::kBallRadius * glm::normalize(object_ball_desired_path);
-  glm::vec2 stroke_path =
-      glm::normalize(collision_point - stroke_start_position_);
-  stroke_end_position_ =
-      stroke_start_position_ - Table::kMaxPullBack * stroke_path;
-}
-
 void GameEngine::HandleStrokeStart(const glm::vec2& start_position) {
   if (table_->IsSteady()) {
     stroke_started_ = true;
     stroke_start_position_ = start_position;
-    red_ball_count_ = table_->GetRedBallCount();
-    least_value_color_ = table_->FindLeastPointValueColor();
+    prestroke_red_ball_count_ = table_->GetRedBallCount();
+    prestroke_least_value_color_ = table_->FindLeastPointValueColor();
   }
 }
 
@@ -186,14 +147,14 @@ bool GameEngine::GetStrokeCompleted() const {
 void GameEngine::EndStroke() {
   if (table_->IsSteady() && stroke_completed_) {
     bool is_stroke_legal = current_player_->IsStrokeLegal(
-        red_ball_count_, least_value_color_,
+        prestroke_red_ball_count_, prestroke_least_value_color_,
         table_->GetBalls().back().GetFirstContacted());
 
     for (const Ball& ball : current_player_->GetBallsPottedLastStroke()) {
       if (is_stroke_legal) {
         current_player_->AddPoints(ball.GetPointValue());
       }
-      if ((is_stroke_legal && table_->GetRedBallCount() > 0 &&
+      if ((is_stroke_legal && prestroke_red_ball_count_ > 0 &&
            ball.GetColor() != Ball::kRed) ||
           (!is_stroke_legal && ball.GetColor() != Ball::kRed)) {
         Ball ball_copy(ball.GetInitialPosition(), glm::vec2(0, 0),
@@ -217,6 +178,45 @@ void GameEngine::EndStroke() {
     stroke_completed_ = false;
     table_->ResetFirstContacted();
   }
+}
+
+void GameEngine::ComputeBestStroke() {
+  glm::vec2 ball_to_strike_position;
+  float min_distance_to_cue = FLT_MAX;
+  for (const Ball& ball : table_->GetBalls()) {
+    if ((current_player_->IsBallOnRed(prestroke_red_ball_count_) &&
+         ball.GetColor() == Ball::kRed) ||
+        (!current_player_->IsBallOnRed(prestroke_red_ball_count_) &&
+         ball.GetColor() != Ball::kWhite &&
+         ((prestroke_red_ball_count_ == 0 &&
+           ball.GetColor() == prestroke_least_value_color_) ||
+          (prestroke_red_ball_count_ > 0 && ball.GetColor() != Ball::kRed)))) {
+      float distance = glm::length(stroke_start_position_ - ball.GetPosition());
+      if (distance < min_distance_to_cue) {
+        min_distance_to_cue = distance;
+        ball_to_strike_position = ball.GetPosition();
+      }
+    }
+  }
+
+  glm::vec2 object_ball_desired_path;
+  float min_distance_to_pocket = FLT_MAX;
+  for (const Pocket& pocket : table_->GetPockets()) {
+    glm::vec2 path = pocket.GetPosition() - ball_to_strike_position;
+    float distance = glm::length(path);
+    if (distance < min_distance_to_pocket) {
+      min_distance_to_pocket = distance;
+      object_ball_desired_path = path;
+    }
+  }
+
+  glm::vec2 collision_point =
+      ball_to_strike_position -
+      Table::kBallRadius * glm::normalize(object_ball_desired_path);
+  glm::vec2 stroke_path =
+      glm::normalize(collision_point - stroke_start_position_);
+  stroke_end_position_ =
+      stroke_start_position_ - Table::kMaxPullBack * stroke_path;
 }
 
 }  // namespace snooker

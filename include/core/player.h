@@ -44,12 +44,12 @@ class Player {
                      const ci::Color& cue_first_contacted_color) const;
 
   /**
-   * Adds any Balls potted by this Player on his/her previous stroke to the
+   * Adds a Ball potted by this Player on his/her previous stroke to the
    * maintained list.
    *
    * @param ball Ball potted by this Player.
    */
-  void AddBallsPottedLastStroke(const Ball& ball);
+  void AddBallPottedLastStroke(const Ball& ball);
 
   /**
    * Ends the Player's current stroke, updating necessary fields.

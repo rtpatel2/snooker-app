@@ -34,7 +34,7 @@ bool Player::IsStrokeLegal(size_t red_ball_count,
   }
 }
 
-void Player::AddBallsPottedLastStroke(const Ball& ball) {
+void Player::AddBallPottedLastStroke(const Ball& ball) {
   balls_potted_last_stroke_.push_back(ball);
 }
 

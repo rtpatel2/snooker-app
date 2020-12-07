@@ -34,9 +34,6 @@ class GameEngine {
    */
   void PerformCPUStroke();
 
-  /** Computes the best stroke for the CPU to perform. */
-  void ComputeBestStroke();
-
   /**
    * Handles logic pertaining to the start of a stroke.
    *
@@ -93,6 +90,9 @@ class GameEngine {
   /** Handles the logic behind ending a Player's stroke. */
   void EndStroke();
 
+  /** Computes the best stroke for the CPU to perform. */
+  void ComputeBestStroke();
+
   Table* table_;
   Player player1_;
   Player player2_;
@@ -105,8 +105,8 @@ class GameEngine {
   float cue_pull_back_;
   bool stroke_completed_;
 
-  size_t red_ball_count_;
-  ci::Color least_value_color_;
+  size_t prestroke_red_ball_count_;
+  ci::Color prestroke_least_value_color_;
 };
 
 }  // namespace snooker
