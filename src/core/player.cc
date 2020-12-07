@@ -67,7 +67,7 @@ size_t Player::GetScore() const {
 }
 
 bool Player::IsStrokeLegalRedOn(const ci::Color& cue_color_first_contacted,
-                        const Table& table) const {
+                                const Table& table) const {
   if (cue_color_first_contacted != Ball::kRed) {
     return false;
   }
@@ -83,7 +83,7 @@ bool Player::IsStrokeLegalRedOn(const ci::Color& cue_color_first_contacted,
 }
 
 bool Player::IsStrokeLegalColorsOn(const ci::Color& cue_color_first_contacted,
-                           const Table& table) const {
+                                   const Table& table) const {
   if (balls_potted_last_stroke_.size() > 1) {
     return false;
   } else if (!balls_potted_last_stroke_.empty() &&

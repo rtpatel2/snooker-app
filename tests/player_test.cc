@@ -17,14 +17,14 @@ using snooker::Table;
 
 TEST_CASE("Validate creating a Player.") {
   SECTION("Calling the constructor.") {
-    Player player;
+    Player player(true);
     REQUIRE(0 == player.GetBallsPottedLastStroke().size());
   }
 }
 
 TEST_CASE("Validate determining if a stroke is legal.") {
   Table table;
-  Player player;
+  Player player(false);
 
   SECTION("Stroke in which no Ball is struck is illegal.") {
     REQUIRE_FALSE(player.IsStrokeLegal(table));
@@ -131,7 +131,7 @@ TEST_CASE("Validate determining if a stroke is legal.") {
 }
 
 TEST_CASE("Validate adding Balls pocketed last stroke.") {
-  Player player;
+  Player player(true);
   Table table;
 
   SECTION("Pocketing one Ball.") {
@@ -160,7 +160,7 @@ TEST_CASE("Validate adding Balls pocketed last stroke.") {
 }
 
 TEST_CASE("Validate ending a stroke.") {
-  Player player;
+  Player player(false);
   Table table;
 
   SECTION("Ending a stroke and leaving the table.") {

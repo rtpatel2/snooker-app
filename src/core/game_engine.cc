@@ -190,7 +190,6 @@ void GameEngine::EndStroke() {
       if ((is_stroke_legal && table_->GetRedBallCount() > 0 &&
            ball.GetColor() != Ball::kRed) ||
           (!is_stroke_legal && ball.GetColor() != Ball::kRed)) {
-        //TODO: Create copy function
         Ball ball_copy(ball.GetInitialPosition(), glm::vec2(0, 0),
                        ball.GetColor(), ball.GetRadius(), ball.GetMass(),
                        ball.GetPointValue());
