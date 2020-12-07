@@ -41,6 +41,10 @@ class SnookerApp : public ci::app::App {
   const float kWindowWidth = 2 * Table::kHorizontalMargin + Table::kTableWidth;
   const float kWindowHeight = 2 * Table::kVerticalMargin + Table::kTableHeight;
 
+  /** Dimensions of the end screen. */
+  const float kEndScreenWidth = 300.0f;
+  const float kEndScreenHeight = 200.0f;
+
  private:
   /** Draws the felt of the Table. */
   void DrawTableFelt() const;
@@ -79,9 +83,6 @@ class SnookerApp : public ci::app::App {
   /** Font used for the text displayed on this GUI. */
   const ci::Font kDefaultFont = ci::Font("Century Gothic", 18);
   const ci::Font kLargeFont = ci::Font("Century Gothic", 36);
-
-  const float kEndScreenWidth = 300.0f;
-  const float kEndScreenHeight = 200.0f;
 
   Table table_;
   GameEngine engine_;
