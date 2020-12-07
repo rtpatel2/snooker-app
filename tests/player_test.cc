@@ -27,7 +27,9 @@ TEST_CASE("Validate determining if a stroke is legal.") {
   Player player(false);
 
   SECTION("Stroke in which no Ball is struck is illegal.") {
-    REQUIRE_FALSE(player.IsStrokeLegal(table));
+    REQUIRE_FALSE(player.IsStrokeLegal(
+        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetBalls().back().GetFirstContacted()));
   }
 
   // The following sections apply to cases when the ball-on is red.
@@ -35,24 +37,32 @@ TEST_CASE("Validate determining if a stroke is legal.") {
   SECTION("Stroke in which first contacted Ball is not red is illegal.") {
     table.SetCueBallFirstContacted(table.GetBalls()[1].GetColor());
     table.SetCueBallFirstContacted(ci::Color("orange"));
-    REQUIRE_FALSE(player.IsStrokeLegal(table));
+    REQUIRE_FALSE(player.IsStrokeLegal(
+        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing the cue Ball is illegal.") {
     player.AddBallPottedLastStroke(table.GetBalls().back());
-    REQUIRE_FALSE(player.IsStrokeLegal(table));
+    REQUIRE_FALSE(player.IsStrokeLegal(
+        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing any non-red Ball is illegal.") {
     table.SetCueBallFirstContacted(table.GetBalls()[20].GetColor());
     player.AddBallPottedLastStroke(table.GetBalls()[20]);
-    REQUIRE_FALSE(player.IsStrokeLegal(table));
+    REQUIRE_FALSE(player.IsStrokeLegal(
+        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing one red Ball is legal.") {
     table.SetCueBallFirstContacted(table.GetBalls()[1].GetColor());
     player.AddBallPottedLastStroke(table.GetBalls()[1]);
-    REQUIRE(player.IsStrokeLegal(table));
+    REQUIRE(player.IsStrokeLegal(table.GetRedBallCount(),
+                                 table.FindLeastPointValueColor(),
+                                 table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing multiple red Balls is legal.") {
@@ -60,7 +70,9 @@ TEST_CASE("Validate determining if a stroke is legal.") {
     player.AddBallPottedLastStroke(table.GetBalls()[3]);
     player.AddBallPottedLastStroke(table.GetBalls()[5]);
     player.AddBallPottedLastStroke(table.GetBalls()[7]);
-    REQUIRE(player.IsStrokeLegal(table));
+    REQUIRE(player.IsStrokeLegal(table.GetRedBallCount(),
+                                 table.FindLeastPointValueColor(),
+                                 table.GetBalls().back().GetFirstContacted()));
   }
 
   // The following sections apply to cases when the ball-on is colored.
@@ -70,44 +82,57 @@ TEST_CASE("Validate determining if a stroke is legal.") {
     table.SetCueBallFirstContacted(ci::Color("black"));
     player.AddBallPottedLastStroke(table.GetBalls()[20]);
     player.AddBallPottedLastStroke(table.GetBalls()[19]);
-    REQUIRE_FALSE(player.IsStrokeLegal(table));
+    REQUIRE_FALSE(player.IsStrokeLegal(
+        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing a color different from the first contacted is illegal.") {
     player.EndStroke(true);
     table.SetCueBallFirstContacted(ci::Color("green"));
     player.AddBallPottedLastStroke(table.GetBalls()[18]);
-    REQUIRE_FALSE(player.IsStrokeLegal(table));
+    REQUIRE_FALSE(player.IsStrokeLegal(
+        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing the cue ball is illegal.") {
     player.EndStroke(true);
     table.SetCueBallFirstContacted(ci::Color("brown"));
     player.AddBallPottedLastStroke(table.GetBalls().back());
-    REQUIRE_FALSE(player.IsStrokeLegal(table));
+    REQUIRE_FALSE(player.IsStrokeLegal(
+        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("First contacting a red ball is illegal.") {
     player.EndStroke(true);
     table.SetCueBallFirstContacted(ci::Color("red"));
-    REQUIRE_FALSE(player.IsStrokeLegal(table));
+    REQUIRE_FALSE(player.IsStrokeLegal(
+        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetBalls().back().GetFirstContacted()));
   }
 
-  SECTION("First contacting any ball other than lowest point value color when "
+  SECTION(
+      "First contacting any ball other than lowest point value color when "
       "no reds remain is illegal.") {
     player.EndStroke(true);
     for (size_t ball_to_remove = 0; ball_to_remove < 15; ++ball_to_remove) {
       table.RemoveBallFromTable(table.GetBalls().front());
     }
     table.SetCueBallFirstContacted(ci::Color("pink"));
-    REQUIRE_FALSE(player.IsStrokeLegal(table));
+    REQUIRE_FALSE(player.IsStrokeLegal(
+        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing any color is legal while reds are still on the table.") {
     player.EndStroke(true);
     table.SetCueBallFirstContacted(ci::Color("black"));
     player.AddBallPottedLastStroke(table.GetBalls()[20]);
-    REQUIRE(player.IsStrokeLegal(table));
+    REQUIRE(player.IsStrokeLegal(table.GetRedBallCount(),
+                                 table.FindLeastPointValueColor(),
+                                 table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Must contact yellow first when no reds are on the table.") {
@@ -116,7 +141,9 @@ TEST_CASE("Validate determining if a stroke is legal.") {
       table.RemoveBallFromTable(table.GetBalls().front());
     }
     table.SetCueBallFirstContacted(ci::Color("yellow"));
-    REQUIRE(player.IsStrokeLegal(table));
+    REQUIRE(player.IsStrokeLegal(table.GetRedBallCount(),
+                                 table.FindLeastPointValueColor(),
+                                 table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Must pocket pink when all lower point value Balls are pocketed.") {
@@ -126,7 +153,9 @@ TEST_CASE("Validate determining if a stroke is legal.") {
     }
     table.SetCueBallFirstContacted(ci::Color("pink"));
     player.AddBallPottedLastStroke(table.GetBalls().front());
-    REQUIRE(player.IsStrokeLegal(table));
+    REQUIRE(player.IsStrokeLegal(table.GetRedBallCount(),
+                                 table.FindLeastPointValueColor(),
+                                 table.GetBalls().back().GetFirstContacted()));
   }
 }
 
