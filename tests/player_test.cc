@@ -239,3 +239,31 @@ TEST_CASE("Validate ending a stroke.") {
     REQUIRE(0 == player.GetBallsPottedLastStroke().size());
   }
 }
+
+TEST_CASE("Validate adding points to a player.") {
+  Player player1(false);
+  Player player2(true);
+
+  SECTION("Adding points to a player for the first time.") {
+    player1.AddPoints(13);
+    REQUIRE(13 == player1.GetScore());
+    REQUIRE(0 == player2.GetScore());
+  }
+
+  SECTION("Adding points to a player multiple times.") {
+    player2.AddPoints(1);
+    player2.AddPoints(6);
+    REQUIRE(0 == player1.GetScore());
+    REQUIRE(7 == player2.GetScore());
+  }
+
+  SECTION("Adding points to multiple players.") {
+    player1.AddPoints(1);
+    player1.AddPoints(2);
+    player1.AddPoints(1);
+    player2.AddPoints(1);
+    player2.AddPoints(7);
+    REQUIRE(4 == player1.GetScore());
+    REQUIRE(8 == player2.GetScore());
+  }
+}
