@@ -52,6 +52,9 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 list(APPEND CORE_SOURCE_FILES src/core/ball.cc)
 list(APPEND CORE_SOURCE_FILES src/core/table.cc)
 list(APPEND CORE_SOURCE_FILES src/core/table_cushion.cc)
+list(APPEND CORE_SOURCE_FILES src/core/game_engine.cc)
+list(APPEND CORE_SOURCE_FILES src/core/player.cc)
+list(APPEND CORE_SOURCE_FILES src/core/pocket.cc)
 
 list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
                             src/visualizer/snooker_app.cc)
@@ -59,6 +62,9 @@ list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
 list(APPEND TEST_FILES tests/ball_test.cc)
 list(APPEND TEST_FILES tests/table_test.cc)
 list(APPEND TEST_FILES tests/table_cushion_test.cc)
+list(APPEND TEST_FILES tests/player_test.cc)
+list(APPEND TEST_FILES tests/pocket_test.cc)
+list(APPEND TEST_FILES tests/game_engine_test.cc)
 
 ci_make_app(
         APP_NAME        snooker-visualizer

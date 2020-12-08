@@ -5,8 +5,9 @@
 #pragma once
 
 #include "ball.h"
-#include "cinder/gl/gl.h"
 #include "table_cushion.h"
+#include "pocket.h"
+#include "cinder/gl/gl.h"
 
 #include <memory>
 #include <vector>
@@ -20,9 +21,7 @@ namespace snooker {
 /** Maintains functionality of a snooker table. */
 class Table {
  public:
-  /**
-   * Creates a new Table with standard snooker configuration.
-   */
+  /** Creates a new Table with standard snooker configuration. */
   Table();
 
   /**
@@ -45,16 +44,59 @@ class Table {
    * Updates the velocities and positions of all Balls, simulating the
    * passage of one unit of time.
    */
-  void IncrementTime();
+  void SimulateTimeStep();
+
+  /**
+   * Determines whether or not all Balls on this Table have stopped moving.
+   *
+   * @return true if no Balls are still moving, and false otherwise.
+   */
+  bool IsSteady() const;
+
+  /** Resets the first contacted Ball pointer from all Balls on the Table. */
+  void ResetFirstContacted();
+
+  /**
+   * Removes the given Ball from this Table.
+   *
+   * @param ball Ball to remove.
+   */
+  void RemoveBallFromTable(const Ball& ball);
+
+  /**
+   * Finds the color with lowest point value still on the Table.
+   *
+   * @return color of the lowest point value Ball.
+   */
+  ci::Color FindLeastPointValueColor() const;
+
+  /**
+   * Sets the velocity of the cue Ball to the specified velocity.
+   *
+   * @param velocity velocity to which to set cue ball velocity.
+   */
+  void SetCueBallVelocity(const glm::vec2& velocity);
+
+  /**
+   * Sets the first contacted color of the cue Ball to the specified color.
+   *
+   * @param color color to set as first contacted.
+   */
+  void SetCueBallFirstContacted(const ci::Color& color);
+
+  //TODO: Some sort of function that spots any Ball that goes out of bounds.
 
   const std::vector<TableCushionPtr>& GetCushions() const;
   const ci::Rectf& GetWalls() const;
   const std::vector<Ball>& GetBalls() const;
+  size_t GetRedBallCount() const;
+  const std::vector<Pocket>& GetPockets() const;
 
   /** Constants relevant to creation of a default Table. */
   static constexpr float kHorizontalMargin = 100.0f;
   static constexpr float kVerticalMargin = 100.0f;
   static constexpr float kScalingFactor = 2.5f;
+  static constexpr float kStrokeStrengthFactor = 6.0f;
 
   static constexpr float kTableWidth = 356.9f * kScalingFactor;
   static constexpr float kTableHeight = 177.8f * kScalingFactor;
@@ -64,10 +106,17 @@ class Table {
   static constexpr float kCushionWidth = 5 * kScalingFactor;
   static constexpr float kCornerPocketWidth = 11 * kScalingFactor;
   static constexpr float kSidePocketWidth = 10.5f * kScalingFactor;
+  static constexpr float kCornerPocketRadius = kCornerPocketWidth / 2;
+  static constexpr float kSidePocketRadius = kSidePocketWidth / 2;
 
   /** Ball specifications. */
-  const float kBallRadius = 2.625f * Table::kScalingFactor;
-  const float kBallMass = 3.0f;
+  static constexpr float kBallRadius = 2.625f * Table::kScalingFactor;
+  static constexpr float kBallMass = 3.0f;
+
+  /** Cue specifications. */
+  static constexpr float kCueLength = 100 * Table::kScalingFactor;
+  static constexpr float kCueWidth = 1 * Table::kScalingFactor;
+  static constexpr float kMaxPullBack = 20 * Table::kScalingFactor;
 
  private:
   /** Creates standard cushions for this Table based on its dimensions. */
@@ -91,9 +140,14 @@ class Table {
   /** Creates and places all balls for a standard game of snooker. */
   void CreateBalls();
 
+  /** Creates and places all pockets for a standard game of snooker. */
+  void CreatePockets();
+
   std::vector<TableCushionPtr> cushions_;
   ci::Rectf walls_;
   std::vector<Ball> balls_;
+  size_t red_ball_count_;
+  std::vector<Pocket> pockets_;
 };
 
 }  // namespace snooker
