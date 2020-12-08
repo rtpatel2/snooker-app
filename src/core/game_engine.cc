@@ -45,7 +45,7 @@ bool GameEngine::IsPlayer1Turn() const {
 }
 
 void GameEngine::PerformCPUStroke() {
-  if (current_player_->GetIsCPU()) {
+  if (current_player_->IsCPUControlled()) {
     if (!stroke_started_) {
       HandleStrokeStart(table_->GetBalls().back().GetPosition());
       stroke_current_position_ = stroke_start_position_;

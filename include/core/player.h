@@ -18,10 +18,10 @@ class Player {
   /**
    * Creates a new Player instance.
    *
-   * @param is_cpu true if this Player is controlled by a CPU, and false
-   * otherwise.
+   * @param is_cpu_controlled true if this Player is controlled by a CPU, and
+   * false otherwise.
    */
-  Player(bool is_cpu);
+  Player(bool is_cpu_controlled);
 
   /**
    * Determines whether or not the "ball-on" for this Player is red (i.e.,
@@ -60,13 +60,13 @@ class Player {
   void EndStroke(bool still_at_table);
 
   /**
-   * Adds the specified number of points to this Player.
+   * Adds the specified number of points to this Player's score.
    *
    * @param points_to_add number of points to add.
    */
   void AddPoints(size_t points_to_add);
 
-  bool GetIsCPU() const;
+  bool IsCPUControlled() const;
   const std::vector<Ball>& GetBallsPottedLastStroke() const;
   size_t GetStrokeNumber() const;
   size_t GetScore() const;
@@ -94,7 +94,7 @@ class Player {
                              const ci::Color& least_value_color,
                              const ci::Color& cue_first_contacted_color) const;
 
-  bool is_cpu_;
+  bool is_cpu_controlled_;
   std::vector<Ball> balls_potted_last_stroke_;
   size_t stroke_number_;
   size_t score_;

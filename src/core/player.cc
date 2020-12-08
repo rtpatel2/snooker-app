@@ -10,7 +10,8 @@
 
 namespace snooker {
 
-Player::Player(bool is_cpu) : is_cpu_(is_cpu), stroke_number_(0), score_(0) {}
+Player::Player(bool is_cpu_controlled)
+    : is_cpu_controlled_(is_cpu_controlled), stroke_number_(0), score_(0) {}
 
 bool Player::IsBallOnRed(size_t red_ball_count) const {
   if (red_ball_count > 0 && stroke_number_ % 2 == 0) {
@@ -51,8 +52,8 @@ void Player::AddPoints(size_t points_to_add) {
   score_ += points_to_add;
 }
 
-bool Player::GetIsCPU() const {
-  return is_cpu_;
+bool Player::IsCPUControlled() const {
+  return is_cpu_controlled_;
 }
 
 const std::vector<Ball>& Player::GetBallsPottedLastStroke() const {
