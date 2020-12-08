@@ -19,6 +19,39 @@ TEST_CASE("Validate creating a Player.") {
   SECTION("Calling the constructor.") {
     Player player(true);
     REQUIRE(0 == player.GetBallsPottedLastStroke().size());
+    REQUIRE(player.IsCPUControlled());
+  }
+}
+
+TEST_CASE("Validate determining if the ball-on is red.") {
+  Table table;
+  Player player(false);
+
+  SECTION("Red balls still on the table, even stroke number.") {
+    REQUIRE(player.IsBallOnRed(table.GetRedBallCount()));
+  }
+
+  SECTION("No red balls on the table, even stroke number.") {
+    for (size_t ball_count = 0; ball_count < 15; ++ball_count) {
+      table.RemoveBallFromTable(table.GetBalls().front());
+    }
+    REQUIRE_FALSE(player.IsBallOnRed(table.GetRedBallCount()));
+  }
+
+  SECTION("Red balls still on the table, odd stroke number.") {
+    for (size_t ball_count = 0; ball_count < 3; ++ball_count) {
+      table.RemoveBallFromTable(table.GetBalls().front());
+    }
+    player.EndStroke(true);
+    REQUIRE_FALSE(player.IsBallOnRed(table.GetRedBallCount()));
+  }
+
+  SECTION("No red balls on the table, odd stroke number.") {
+    for (size_t ball_count = 0; ball_count < 15; ++ball_count) {
+      table.RemoveBallFromTable(table.GetBalls().front());
+    }
+    player.EndStroke(true);
+    REQUIRE_FALSE(player.IsBallOnRed(table.GetRedBallCount()));
   }
 }
 
