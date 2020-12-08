@@ -34,6 +34,11 @@ This code was written in accordance with the
  
 ## Demo
 
+![Failed to load image!](https://i.gyazo.com/bf5dbeb29becc9c5a48dfd6d1c7475ed.png)
+![Failed to load gif!](https://i.imgur.com/gla2SZw.gif)
+![Failed to load gif!](https://i.imgur.com/2kceMnj.gif)
+![Failed to load image!](https://i.gyazo.com/d6445064d5ccd91cd0bea9936ac9e3ef.png)
+
 ## Citations
 
 The rules of snooker used to implement the logic in this program can be found
