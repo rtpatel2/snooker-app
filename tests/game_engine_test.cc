@@ -311,3 +311,19 @@ TEST_CASE("Validate computing cue dimensions.") {
             Approx(engine.ComputeCueDimensions().y2).margin(kMarginOfError));
   }
 }
+
+TEST_CASE("Validate determining if a game is over.") {
+  Table table;
+  GameEngine engine(&table);
+
+  SECTION("Identify a complete game as being over.") {
+    for (size_t ball_count = 0; ball_count < 21; ++ball_count) {
+      table.RemoveBallFromTable(table.GetBalls().front());
+    }
+    REQUIRE(engine.IsGameOver());
+  }
+
+  SECTION("Identify an incomplete game as not being over.") {
+    REQUIRE_FALSE(engine.IsGameOver());
+  }
+}
