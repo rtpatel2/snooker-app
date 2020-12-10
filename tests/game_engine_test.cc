@@ -135,6 +135,9 @@ TEST_CASE("Validate CPU performing a stroke.") {
   GameEngine engine(&table);
 
   SECTION("CPU starting a stroke.") {
+    engine.HandleStrokeStart(glm::vec2(0, 0));
+    engine.HandleStrokeEnd(glm::vec2(0, 0));
+    engine.PocketBalls();
     REQUIRE_FALSE(engine.GetStrokeStarted());
     engine.PerformCPUStroke();
     REQUIRE(engine.GetStrokeStarted());
@@ -145,6 +148,9 @@ TEST_CASE("Validate CPU performing a stroke.") {
   }
 
   SECTION("CPU pulling back cue.") {
+    engine.HandleStrokeStart(glm::vec2(0, 0));
+    engine.HandleStrokeEnd(glm::vec2(0, 0));
+    engine.PocketBalls();
     engine.PerformCPUStroke();
     REQUIRE(engine.GetStrokeStartPosition() ==
             engine.GetStrokeCurrentPosition());
@@ -166,6 +172,9 @@ TEST_CASE("Validate CPU performing a stroke.") {
   }
 
   SECTION("CPU ending a stroke.") {
+    engine.HandleStrokeStart(glm::vec2(0, 0));
+    engine.HandleStrokeEnd(glm::vec2(0, 0));
+    engine.PocketBalls();
     engine.PerformCPUStroke();
     for (size_t pull_back = 0; pull_back < 50; ++pull_back) {
       engine.PerformCPUStroke();
