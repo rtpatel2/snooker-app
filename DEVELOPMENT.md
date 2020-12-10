@@ -170,3 +170,7 @@
 - Wrote unit tests to validate score-keeping in Player class.
 
 - Wrote edge case tests and added rigor to previously written tests.
+
+#### December 9, 2020
+
+- Cleaned up documentation in preparation for final submission.
