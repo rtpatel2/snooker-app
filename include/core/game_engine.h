@@ -13,10 +13,12 @@ namespace snooker {
 class GameEngine {
  public:
   /**
-   * Creates a new GameEngine for the specified Table.
+   * Creates a new GameEngine for the specified Table with Player 1
+   * controlled by user and Player 2 as a CPU.
+   *
    * @param table Table associated with this GameEngine.
    */
-  GameEngine(Table* table);
+  explicit GameEngine(Table* table);
 
   /** Handles the logic behind pocketing Balls. */
   void PocketBalls();

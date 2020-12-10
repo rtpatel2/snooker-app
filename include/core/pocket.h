@@ -27,7 +27,7 @@ class Pocket {
    * @param ball Ball to determine whether or not will be pocketed.
    * @return true if the Ball will be pocketed, and false otherwise.
    */
-  bool DetermineIfPocketed(const Ball& ball) const;
+  bool IsPocketed(const Ball& ball) const;
 
   const glm::vec2& GetPosition() const;
   float GetRadius() const;

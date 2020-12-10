@@ -52,17 +52,17 @@ glm::vec2 CurvedCushion::ComputeVelocityAfterCollision(const Ball& ball) const {
   // Mathematically, this is identical to a collision between two Balls, but
   // the CurvedCushion has infinite mass (i.e., cannot be moved).
   glm::vec2 ball_position = ball.GetPosition();
-  glm::vec2 velocity = ball.GetVelocity();
+  glm::vec2 ball_velocity = ball.GetVelocity();
   if (glm::distance(ball_position, position_) <= (ball.GetRadius() + radius_) &&
-      glm::dot(velocity, ball_position - position_) < 0) {
+      glm::dot(ball_velocity, ball_position - position_) < 0) {
     glm::vec2 position_change = ball_position - position_;
     return Ball::kRestitutionCoefficient *
-           (velocity - 2 *
-                           (glm::dot(velocity, position_change) /
-                            pow(glm::length(position_change), 2)) *
-                           (position_change));
+           (ball_velocity - 2 *
+                                (glm::dot(ball_velocity, position_change) /
+                                 pow(glm::length(position_change), 2)) *
+                                (position_change));
   } else {
-    return velocity;
+    return ball_velocity;
   }
 }
 

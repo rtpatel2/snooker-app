@@ -83,6 +83,16 @@ class Ball {
   static const ci::Color kBlue;
   static const ci::Color kNoContactColor;
 
+  /** Ball point values. */
+  static constexpr size_t kRedBallValue = 1;
+  static constexpr size_t kYellowBallValue = 2;
+  static constexpr size_t kGreenBallValue = 3;
+  static constexpr size_t kBrownBallValue = 4;
+  static constexpr size_t kBlueBallValue = 5;
+  static constexpr size_t kPinkBallValue = 6;
+  static constexpr size_t kBlackBallValue = 7;
+  static constexpr size_t kWhiteBallValue = 99;
+
  private:
   glm::vec2 position_;
   glm::vec2 velocity_;

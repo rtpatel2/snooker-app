@@ -11,12 +11,8 @@ namespace snooker {
 Pocket::Pocket(const glm::vec2& position, float radius, const ci::Color& color)
     : position_(position), radius_(radius), color_(color) {}
 
-bool Pocket::DetermineIfPocketed(const Ball& ball) const {
-  if (glm::distance(position_, ball.GetPosition()) <= radius_) {
-    return true;
-  } else {
-    return false;
-  }
+bool Pocket::IsPocketed(const Ball& ball) const {
+  return (glm::distance(position_, ball.GetPosition()) <= radius_);
 }
 
 const glm::vec2& Pocket::GetPosition() const {

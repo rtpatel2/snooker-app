@@ -18,7 +18,7 @@ using snooker::Table;
 TEST_CASE("Validate creating a Player.") {
   SECTION("Calling the constructor.") {
     Player player(true);
-    REQUIRE(0 == player.GetBallsPottedLastStroke().size());
+    REQUIRE(0 == player.GetBallsPocketedLastStroke().size());
     REQUIRE(player.IsCPUControlled());
   }
 }
@@ -61,7 +61,7 @@ TEST_CASE("Validate determining if a stroke is legal.") {
 
   SECTION("Stroke in which no Ball is struck is illegal.") {
     REQUIRE_FALSE(player.IsStrokeLegal(
-        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetRedBallCount(), table.GetLeastPointValueColor(),
         table.GetBalls().back().GetFirstContacted()));
   }
 
@@ -71,40 +71,40 @@ TEST_CASE("Validate determining if a stroke is legal.") {
     table.SetCueBallFirstContacted(table.GetBalls()[1].GetColor());
     table.SetCueBallFirstContacted(ci::Color("orange"));
     REQUIRE_FALSE(player.IsStrokeLegal(
-        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetRedBallCount(), table.GetLeastPointValueColor(),
         table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing the cue Ball is illegal.") {
-    player.AddBallPottedLastStroke(table.GetBalls().back());
+    player.AddBallPocketedLastStroke(table.GetBalls().back());
     REQUIRE_FALSE(player.IsStrokeLegal(
-        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetRedBallCount(), table.GetLeastPointValueColor(),
         table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing any non-red Ball is illegal.") {
     table.SetCueBallFirstContacted(table.GetBalls()[20].GetColor());
-    player.AddBallPottedLastStroke(table.GetBalls()[20]);
+    player.AddBallPocketedLastStroke(table.GetBalls()[20]);
     REQUIRE_FALSE(player.IsStrokeLegal(
-        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetRedBallCount(), table.GetLeastPointValueColor(),
         table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing one red Ball is legal.") {
     table.SetCueBallFirstContacted(table.GetBalls()[1].GetColor());
-    player.AddBallPottedLastStroke(table.GetBalls()[1]);
+    player.AddBallPocketedLastStroke(table.GetBalls()[1]);
     REQUIRE(player.IsStrokeLegal(table.GetRedBallCount(),
-                                 table.FindLeastPointValueColor(),
+                                 table.GetLeastPointValueColor(),
                                  table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing multiple red Balls is legal.") {
     table.SetCueBallFirstContacted(table.GetBalls()[3].GetColor());
-    player.AddBallPottedLastStroke(table.GetBalls()[3]);
-    player.AddBallPottedLastStroke(table.GetBalls()[5]);
-    player.AddBallPottedLastStroke(table.GetBalls()[7]);
+    player.AddBallPocketedLastStroke(table.GetBalls()[3]);
+    player.AddBallPocketedLastStroke(table.GetBalls()[5]);
+    player.AddBallPocketedLastStroke(table.GetBalls()[7]);
     REQUIRE(player.IsStrokeLegal(table.GetRedBallCount(),
-                                 table.FindLeastPointValueColor(),
+                                 table.GetLeastPointValueColor(),
                                  table.GetBalls().back().GetFirstContacted()));
   }
 
@@ -113,28 +113,28 @@ TEST_CASE("Validate determining if a stroke is legal.") {
   SECTION("Pocketing multiple colors is illegal.") {
     player.EndStroke(true);
     table.SetCueBallFirstContacted(ci::Color("black"));
-    player.AddBallPottedLastStroke(table.GetBalls()[20]);
-    player.AddBallPottedLastStroke(table.GetBalls()[19]);
+    player.AddBallPocketedLastStroke(table.GetBalls()[20]);
+    player.AddBallPocketedLastStroke(table.GetBalls()[19]);
     REQUIRE_FALSE(player.IsStrokeLegal(
-        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetRedBallCount(), table.GetLeastPointValueColor(),
         table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing a color different from the first contacted is illegal.") {
     player.EndStroke(true);
     table.SetCueBallFirstContacted(ci::Color("green"));
-    player.AddBallPottedLastStroke(table.GetBalls()[18]);
+    player.AddBallPocketedLastStroke(table.GetBalls()[18]);
     REQUIRE_FALSE(player.IsStrokeLegal(
-        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetRedBallCount(), table.GetLeastPointValueColor(),
         table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing the cue ball is illegal.") {
     player.EndStroke(true);
     table.SetCueBallFirstContacted(ci::Color("brown"));
-    player.AddBallPottedLastStroke(table.GetBalls().back());
+    player.AddBallPocketedLastStroke(table.GetBalls().back());
     REQUIRE_FALSE(player.IsStrokeLegal(
-        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetRedBallCount(), table.GetLeastPointValueColor(),
         table.GetBalls().back().GetFirstContacted()));
   }
 
@@ -142,7 +142,7 @@ TEST_CASE("Validate determining if a stroke is legal.") {
     player.EndStroke(true);
     table.SetCueBallFirstContacted(ci::Color("red"));
     REQUIRE_FALSE(player.IsStrokeLegal(
-        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetRedBallCount(), table.GetLeastPointValueColor(),
         table.GetBalls().back().GetFirstContacted()));
   }
 
@@ -155,16 +155,16 @@ TEST_CASE("Validate determining if a stroke is legal.") {
     }
     table.SetCueBallFirstContacted(ci::Color("pink"));
     REQUIRE_FALSE(player.IsStrokeLegal(
-        table.GetRedBallCount(), table.FindLeastPointValueColor(),
+        table.GetRedBallCount(), table.GetLeastPointValueColor(),
         table.GetBalls().back().GetFirstContacted()));
   }
 
   SECTION("Pocketing any color is legal while reds are still on the table.") {
     player.EndStroke(true);
     table.SetCueBallFirstContacted(ci::Color("black"));
-    player.AddBallPottedLastStroke(table.GetBalls()[20]);
+    player.AddBallPocketedLastStroke(table.GetBalls()[20]);
     REQUIRE(player.IsStrokeLegal(table.GetRedBallCount(),
-                                 table.FindLeastPointValueColor(),
+                                 table.GetLeastPointValueColor(),
                                  table.GetBalls().back().GetFirstContacted()));
   }
 
@@ -175,7 +175,7 @@ TEST_CASE("Validate determining if a stroke is legal.") {
     }
     table.SetCueBallFirstContacted(ci::Color("yellow"));
     REQUIRE(player.IsStrokeLegal(table.GetRedBallCount(),
-                                 table.FindLeastPointValueColor(),
+                                 table.GetLeastPointValueColor(),
                                  table.GetBalls().back().GetFirstContacted()));
   }
 
@@ -185,9 +185,9 @@ TEST_CASE("Validate determining if a stroke is legal.") {
       table.RemoveBallFromTable(table.GetBalls().front());
     }
     table.SetCueBallFirstContacted(ci::Color("pink"));
-    player.AddBallPottedLastStroke(table.GetBalls().front());
+    player.AddBallPocketedLastStroke(table.GetBalls().front());
     REQUIRE(player.IsStrokeLegal(table.GetRedBallCount(),
-                                 table.FindLeastPointValueColor(),
+                                 table.GetLeastPointValueColor(),
                                  table.GetBalls().back().GetFirstContacted()));
   }
 }
@@ -197,27 +197,28 @@ TEST_CASE("Validate adding Balls pocketed last stroke.") {
   Table table;
 
   SECTION("Pocketing one Ball.") {
-    player.AddBallPottedLastStroke(table.GetBalls().front());
-    REQUIRE(1 == player.GetBallsPottedLastStroke().size());
-    REQUIRE(ci::Color("red") == player.GetBallsPottedLastStroke().front()
+    player.AddBallPocketedLastStroke(table.GetBalls().front());
+    REQUIRE(1 == player.GetBallsPocketedLastStroke().size());
+    REQUIRE(ci::Color("red") ==
+            player.GetBallsPocketedLastStroke().front()
                                     .GetColor());
   }
 
   SECTION("Pocketing multiple Balls.") {
-    player.AddBallPottedLastStroke(table.GetBalls().front());
+    player.AddBallPocketedLastStroke(table.GetBalls().front());
     table.RemoveBallFromTable(table.GetBalls().front());
-    player.AddBallPottedLastStroke(table.GetBalls().back());
+    player.AddBallPocketedLastStroke(table.GetBalls().back());
     table.RemoveBallFromTable(table.GetBalls().back());
-    player.AddBallPottedLastStroke(table.GetBalls().back());
+    player.AddBallPocketedLastStroke(table.GetBalls().back());
     table.RemoveBallFromTable(table.GetBalls().back());
 
-    REQUIRE(3 == player.GetBallsPottedLastStroke().size());
+    REQUIRE(3 == player.GetBallsPocketedLastStroke().size());
     REQUIRE(ci::Color("red") ==
-            player.GetBallsPottedLastStroke()[0].GetColor());
+            player.GetBallsPocketedLastStroke()[0].GetColor());
     REQUIRE(ci::Color("white") ==
-            player.GetBallsPottedLastStroke()[1].GetColor());
+            player.GetBallsPocketedLastStroke()[1].GetColor());
     REQUIRE(ci::Color("black") ==
-            player.GetBallsPottedLastStroke()[2].GetColor());
+            player.GetBallsPocketedLastStroke()[2].GetColor());
   }
 }
 
@@ -228,7 +229,7 @@ TEST_CASE("Validate ending a stroke.") {
   SECTION("Ending a stroke and leaving the table.") {
     player.EndStroke(false);
     REQUIRE(0 == player.GetStrokeNumber());
-    REQUIRE(0 == player.GetBallsPottedLastStroke().size());
+    REQUIRE(0 == player.GetBallsPocketedLastStroke().size());
   }
 
   SECTION("Ending a stroke but staying at the table.") {
@@ -236,7 +237,7 @@ TEST_CASE("Validate ending a stroke.") {
     player.EndStroke(true);
     player.EndStroke(true);
     REQUIRE(2 == player.GetStrokeNumber());
-    REQUIRE(0 == player.GetBallsPottedLastStroke().size());
+    REQUIRE(0 == player.GetBallsPocketedLastStroke().size());
   }
 }
 

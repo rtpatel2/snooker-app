@@ -10,26 +10,26 @@ namespace snooker {
 
 GameEngine::GameEngine(Table* table)
     : table_(table),
-      player1_(true),
+      player1_(false),
       player2_(true),
       current_player_(&player1_),
       stroke_started_(false),
       cue_pull_back_(0),
       stroke_completed_(false),
       prestroke_red_ball_count_(table->GetRedBallCount()),
-      prestroke_least_value_color_(table->FindLeastPointValueColor()) {}
+      prestroke_least_value_color_(table->GetLeastPointValueColor()) {}
 
 void GameEngine::PocketBalls() {
   for (const Ball& ball : table_->GetBalls()) {
     for (const Pocket& pocket : table_->GetPockets()) {
-      if (pocket.DetermineIfPocketed(ball)) {
-        current_player_->AddBallPottedLastStroke(ball);
+      if (pocket.IsPocketed(ball)) {
+        current_player_->AddBallPocketedLastStroke(ball);
         break;
       }
     }
   }
 
-  for (const Ball& ball : current_player_->GetBallsPottedLastStroke()) {
+  for (const Ball& ball : current_player_->GetBallsPocketedLastStroke()) {
     table_->RemoveBallFromTable(ball);
   }
 
@@ -53,7 +53,8 @@ void GameEngine::PerformCPUStroke() {
     } else if (glm::length(stroke_current_position_ - stroke_end_position_) >
                Ball::kMarginOfError) {
       stroke_current_position_ +=
-          (stroke_end_position_ - stroke_start_position_) / 50.0f;
+          (stroke_end_position_ - stroke_start_position_) /
+          Player::kCPUPullBackSpeed;
       HandleCuePullBack(stroke_current_position_);
     } else {
       HandleStrokeEnd(stroke_end_position_);
@@ -66,7 +67,7 @@ void GameEngine::HandleStrokeStart(const glm::vec2& start_position) {
     stroke_started_ = true;
     stroke_start_position_ = start_position;
     prestroke_red_ball_count_ = table_->GetRedBallCount();
-    prestroke_least_value_color_ = table_->FindLeastPointValueColor();
+    prestroke_least_value_color_ = table_->GetLeastPointValueColor();
   }
 }
 
@@ -154,7 +155,7 @@ void GameEngine::EndStroke() {
         prestroke_red_ball_count_, prestroke_least_value_color_,
         table_->GetBalls().back().GetFirstContacted());
 
-    for (const Ball& ball : current_player_->GetBallsPottedLastStroke()) {
+    for (const Ball& ball : current_player_->GetBallsPocketedLastStroke()) {
       if (is_stroke_legal) {
         current_player_->AddPoints(ball.GetPointValue());
       }
@@ -169,7 +170,7 @@ void GameEngine::EndStroke() {
     }
 
     if (is_stroke_legal &&
-        !current_player_->GetBallsPottedLastStroke().empty()) {
+        !current_player_->GetBallsPocketedLastStroke().empty()) {
       current_player_->EndStroke(true);
     } else {
       current_player_->EndStroke(false);

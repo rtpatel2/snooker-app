@@ -76,11 +76,12 @@ class SnookerApp : public ci::app::App {
   const ci::Color kWhite = ci::Color("white");
   const ci::Color kBlack = ci::Color("black");
   const ci::Color kGray = ci::Color(77 / 255.0f, 100 / 255.0f, 108 / 255.0f);
-  const ci::Color kTableColor = ci::Color(0.227f, 0.71f, 0.0118f);
+  const ci::Color kFeltColor = ci::Color(0.227f, 0.71f, 0.0118f);
   const ci::Color kCushionColor = ci::Color(0.0392f, 0.424f, 0.0118f);
   const ci::Color kRailColor = ci::Color(0.502f, 0.251f, 0);
+  const ci::Color kCueColor = ci::Color("brown");
 
-  /** Font used for the text displayed on this GUI. */
+  /** Fonts used for the text displayed on this GUI. */
   const ci::Font kDefaultFont = ci::Font("Century Gothic", 18);
   const ci::Font kLargeFont = ci::Font("Century Gothic", 36);
 

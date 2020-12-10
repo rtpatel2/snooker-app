@@ -21,7 +21,7 @@ class Player {
    * @param is_cpu_controlled true if this Player is controlled by a CPU, and
    * false otherwise.
    */
-  Player(bool is_cpu_controlled);
+  explicit Player(bool is_cpu_controlled);
 
   /**
    * Determines whether or not the "ball-on" for this Player is red (i.e.,
@@ -44,12 +44,12 @@ class Player {
                      const ci::Color& cue_first_contacted_color) const;
 
   /**
-   * Adds a Ball potted by this Player on his/her previous stroke to the
+   * Adds a Ball pocketed by this Player on his/her previous stroke to the
    * maintained list.
    *
    * @param ball Ball potted by this Player.
    */
-  void AddBallPottedLastStroke(const Ball& ball);
+  void AddBallPocketedLastStroke(const Ball& ball);
 
   /**
    * Ends the Player's current stroke, updating necessary fields.
@@ -67,9 +67,12 @@ class Player {
   void AddPoints(size_t points_to_add);
 
   bool IsCPUControlled() const;
-  const std::vector<Ball>& GetBallsPottedLastStroke() const;
+  const std::vector<Ball>& GetBallsPocketedLastStroke() const;
   size_t GetStrokeNumber() const;
   size_t GetScore() const;
+
+  /** Speed with which CPU pulls back the cue. */
+  static constexpr float kCPUPullBackSpeed = 50.0f;
 
  private:
   /**

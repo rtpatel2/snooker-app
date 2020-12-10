@@ -14,11 +14,7 @@ Player::Player(bool is_cpu_controlled)
     : is_cpu_controlled_(is_cpu_controlled), stroke_number_(0), score_(0) {}
 
 bool Player::IsBallOnRed(size_t red_ball_count) const {
-  if (red_ball_count > 0 && stroke_number_ % 2 == 0) {
-    return true;
-  } else {
-    return false;
-  }
+  return (red_ball_count > 0 && stroke_number_ % 2 == 0);
 }
 
 bool Player::IsStrokeLegal(size_t red_ball_count,
@@ -35,7 +31,7 @@ bool Player::IsStrokeLegal(size_t red_ball_count,
   }
 }
 
-void Player::AddBallPottedLastStroke(const Ball& ball) {
+void Player::AddBallPocketedLastStroke(const Ball& ball) {
   balls_potted_last_stroke_.push_back(ball);
 }
 
@@ -56,7 +52,7 @@ bool Player::IsCPUControlled() const {
   return is_cpu_controlled_;
 }
 
-const std::vector<Ball>& Player::GetBallsPottedLastStroke() const {
+const std::vector<Ball>& Player::GetBallsPocketedLastStroke() const {
   return balls_potted_last_stroke_;
 }
 

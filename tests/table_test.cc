@@ -288,21 +288,21 @@ TEST_CASE("Validate finding the lowest point value color.") {
   Table table;
 
   SECTION("Finding lowest point value color without removing any Balls.") {
-    REQUIRE(Ball::kRed == table.FindLeastPointValueColor());
+    REQUIRE(Ball::kRed == table.GetLeastPointValueColor());
   }
 
   SECTION("Finding lowest point value color after reds are removed.") {
     for (size_t ball = 0; ball < 15; ++ball) {
       table.RemoveBallFromTable(table.GetBalls().front());
     }
-    REQUIRE(Ball::kYellow == table.FindLeastPointValueColor());
+    REQUIRE(Ball::kYellow == table.GetLeastPointValueColor());
   }
 
   SECTION("Finding lowest point value color with only black remaining.") {
     for (size_t ball = 0; ball < 20; ++ball) {
       table.RemoveBallFromTable(table.GetBalls().front());
     }
-    REQUIRE(Ball::kBlack == table.FindLeastPointValueColor());
+    REQUIRE(Ball::kBlack == table.GetLeastPointValueColor());
   }
 }
 

@@ -9,6 +9,7 @@
 #include "cinder/gl/gl.h"
 
 #include <algorithm>
+#include <memory>
 #include <vector>
 
 namespace snooker {
@@ -84,7 +85,7 @@ void Table::RemoveBallFromTable(const Ball& ball) {
   }
 }
 
-ci::Color Table::FindLeastPointValueColor() const {
+ci::Color Table::GetLeastPointValueColor() const {
   return balls_.front().GetColor();
 }
 
@@ -273,31 +274,37 @@ void Table::CreateBalls() {
         glm::vec2(walls_.x1 + 0.75 * width + 2 * row * kBallRadius,
                   walls_.y1 + height / 2 - (row - 1) * kBallRadius);
     for (size_t ball_count = 1; ball_count <= row; ++ball_count) {
-      AddBall(Ball(ball_position, zero, Ball::kRed, kBallRadius, kBallMass, 1));
+      AddBall(Ball(ball_position, zero, Ball::kRed, kBallRadius, kBallMass,
+                   Ball::kRedBallValue));
       ball_position.y += 2 * kBallRadius;
     }
   }
 
   AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition,
                          walls_.y1 + height / 2 + kSemicircleRadius),
-               zero, Ball::kYellow, kBallRadius, kBallMass, 2));
+               zero, Ball::kYellow, kBallRadius, kBallMass,
+               Ball::kYellowBallValue));
   AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition,
                          walls_.y1 + height / 2 - kSemicircleRadius),
-               zero, Ball::kGreen, kBallRadius, kBallMass, 3));
+               zero, Ball::kGreen, kBallRadius, kBallMass,
+               Ball::kGreenBallValue));
   AddBall(
       Ball(glm::vec2(walls_.x1 + kBaulkLinePosition, walls_.y1 + height / 2),
-           zero, Ball::kBrown, kBallRadius, kBallMass, 4));
+           zero, Ball::kBrown, kBallRadius, kBallMass, Ball::kBrownBallValue));
   AddBall(Ball(glm::vec2(walls_.x1 + width / 2, walls_.y1 + height / 2), zero,
-               Ball::kBlue, kBallRadius, kBallMass, 5));
+               Ball::kBlue, kBallRadius, kBallMass, Ball::kBlueBallValue));
   AddBall(Ball(glm::vec2(walls_.x1 + 0.75 * width, walls_.y1 + height / 2),
-               zero, Ball::kPink, kBallRadius, kBallMass, 6));
+               zero, Ball::kPink, kBallRadius, kBallMass,
+               Ball::kPinkBallValue));
   AddBall(Ball(glm::vec2(walls_.x1 + kTableWidth - kBlackBallGap,
                          walls_.y1 + height / 2),
-               zero, Ball::kBlack, kBallRadius, kBallMass, 7));
+               zero, Ball::kBlack, kBallRadius, kBallMass,
+               Ball::kBlackBallValue));
 
   AddBall(Ball(glm::vec2(walls_.x1 + kBaulkLinePosition - kSemicircleRadius / 2,
                          walls_.y1 + height / 2 + kSemicircleRadius / 2),
-               glm::vec2(0,0), Ball::kWhite, kBallRadius, kBallMass, 99));
+               glm::vec2(0, 0), Ball::kWhite, kBallRadius, kBallMass,
+               Ball::kWhiteBallValue));
 }
 
 void Table::CreatePockets() {

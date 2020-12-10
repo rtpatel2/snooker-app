@@ -59,7 +59,7 @@ void SnookerApp::mouseDrag(ci::app::MouseEvent event) {
 }
 
 void SnookerApp::DrawTableFelt() const {
-  ci::gl::color(kTableColor);
+  ci::gl::color(kFeltColor);
   ci::gl::drawSolidRect(table_.GetWalls());
 }
 
@@ -108,8 +108,7 @@ void SnookerApp::DrawCue() const {
     }
 
     ci::gl::rotate(engine_.ComputeCueAngle(mouse_position));
-    ci::gl::color(ci::Color("brown"));
-
+    ci::gl::color(kCueColor);
     ci::gl::drawSolidRect(engine_.ComputeCueDimensions());
   }
 }
@@ -134,13 +133,13 @@ void SnookerApp::DrawCurrentPlayer() const {
 void SnookerApp::DrawPlayerScores() const {
   ci::gl::drawStringCentered(
       "PLAYER 1 SCORE: " + std::to_string(engine_.GetPlayer1().GetScore()),
-      glm::vec2(Table::kHorizontalMargin + Table::kTableWidth / 4,
+      glm::vec2(Table::kHorizontalMargin + Table::kTableWidth * 0.25,
                 Table::kVerticalMargin / 2),
       kWhite, kDefaultFont);
 
   ci::gl::drawStringCentered(
       "PLAYER 2 SCORE: " + std::to_string(engine_.GetPlayer2().GetScore()),
-      glm::vec2(Table::kHorizontalMargin + Table::kTableWidth * 3 / 4,
+      glm::vec2(Table::kHorizontalMargin + Table::kTableWidth * 0.75,
                 Table::kVerticalMargin / 2),
       kWhite, kDefaultFont);
 }

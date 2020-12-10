@@ -30,10 +30,10 @@ TEST_CASE("Validate determining whether or not a Ball is pocketed.") {
   Ball ball2(glm::vec2(496.5, 500), glm::vec2(3, 3), ci::Color(), 7, 34, 1);
 
   SECTION("Identify a Ball outside of the Pocket as not pocketed.") {
-    REQUIRE_FALSE(pocket.DetermineIfPocketed(ball1));
+    REQUIRE_FALSE(pocket.IsPocketed(ball1));
   }
 
   SECTION("Identify a Ball inside the Pocket as pocketed.") {
-    REQUIRE(pocket.DetermineIfPocketed(ball2));
+    REQUIRE(pocket.IsPocketed(ball2));
   }
 }
