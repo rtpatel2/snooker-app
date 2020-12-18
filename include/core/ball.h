@@ -35,13 +35,13 @@ class Ball {
    * @param other Ball with which this Ball is colliding.
    * @return velocity of this Ball after collision.
    */
-  glm::vec2 ComputeVelocityAfterCollision(Ball& other);
+  glm::vec2 ComputeVelocityAfterCollision(const Ball& other);
 
   /**
    * Compares this Ball for equality with the given Ball, determined by
    * whether or not the two Balls have the same initial position.
    *
-   * @param other Ball to compare to.
+   * @param other Ball to which to compare this Ball for equality.
    * @return true if the Balls are equal, and false otherwise.
    */
   bool operator==(const Ball& other) const;
@@ -57,8 +57,8 @@ class Ball {
 
   const glm::vec2& GetPosition() const;
   const glm::vec2& GetVelocity() const;
-  const glm::vec2& GetInitialPosition() const;
   void SetVelocity(const glm::vec2& velocity);
+  const glm::vec2& GetInitialPosition() const;
   const ci::Color& GetColor() const;
   float GetRadius() const;
   float GetMass() const;
@@ -82,6 +82,16 @@ class Ball {
   static const ci::Color kBrown;
   static const ci::Color kBlue;
   static const ci::Color kNoContactColor;
+
+  /** Ball point values. */
+  static constexpr size_t kRedBallValue = 1;
+  static constexpr size_t kYellowBallValue = 2;
+  static constexpr size_t kGreenBallValue = 3;
+  static constexpr size_t kBrownBallValue = 4;
+  static constexpr size_t kBlueBallValue = 5;
+  static constexpr size_t kPinkBallValue = 6;
+  static constexpr size_t kBlackBallValue = 7;
+  static constexpr size_t kWhiteBallValue = 99;
 
  private:
   glm::vec2 position_;

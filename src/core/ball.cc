@@ -46,7 +46,7 @@ void Ball::UpdatePosition() {
   }
 }
 
-glm::vec2 Ball::ComputeVelocityAfterCollision(Ball& other) {
+glm::vec2 Ball::ComputeVelocityAfterCollision(const Ball& other) {
   // Formula sourced from:
   // https://wikimedia.org/api/rest_v1/media/math/render/svg
   // /14d5feb68844edae9e31c9cb4a2197ee922e409c.
@@ -70,9 +70,8 @@ bool Ball::operator==(const Ball& other) const {
   if (glm::length(initial_position_ - other.initial_position_) <
       kMarginOfError) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 bool Ball::operator<(const Ball& other) const {
@@ -87,12 +86,12 @@ const glm::vec2& Ball::GetVelocity() const {
   return velocity_;
 }
 
-const glm::vec2& Ball::GetInitialPosition() const {
-  return initial_position_;
-}
-
 void Ball::SetVelocity(const glm::vec2& velocity) {
   velocity_ = velocity;
+}
+
+const glm::vec2& Ball::GetInitialPosition() const {
+  return initial_position_;
 }
 
 const ci::Color& Ball::GetColor() const {

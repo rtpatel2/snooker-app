@@ -64,11 +64,11 @@ class Table {
   void RemoveBallFromTable(const Ball& ball);
 
   /**
-   * Finds the color with lowest point value still on the Table.
+   * Gets the color with lowest point value still on the Table.
    *
    * @return color of the lowest point value Ball.
    */
-  ci::Color FindLeastPointValueColor() const;
+  ci::Color GetLeastPointValueColor() const;
 
   /**
    * Sets the velocity of the cue Ball to the specified velocity.
@@ -83,8 +83,6 @@ class Table {
    * @param color color to set as first contacted.
    */
   void SetCueBallFirstContacted(const ci::Color& color);
-
-  //TODO: Some sort of function that spots any Ball that goes out of bounds.
 
   const std::vector<TableCushionPtr>& GetCushions() const;
   const ci::Rectf& GetWalls() const;

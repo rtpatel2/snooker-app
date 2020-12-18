@@ -130,6 +130,65 @@ TEST_CASE("Validate checking if Player 1 is currently at the Table.") {
   }
 }
 
+TEST_CASE("Validate CPU performing a stroke.") {
+  Table table;
+  GameEngine engine(&table);
+
+  SECTION("CPU starting a stroke.") {
+    engine.HandleStrokeStart(glm::vec2(0, 0));
+    engine.HandleStrokeEnd(glm::vec2(0, 0));
+    engine.PocketBalls();
+    REQUIRE_FALSE(engine.GetStrokeStarted());
+    engine.PerformCPUStroke();
+    REQUIRE(engine.GetStrokeStarted());
+    REQUIRE(198.838 ==
+            Approx(engine.GetStrokeEndPosition().x).margin(kMarginOfError));
+    REQUIRE(361.469 ==
+            Approx(engine.GetStrokeEndPosition().y).margin(kMarginOfError));
+  }
+
+  SECTION("CPU pulling back cue.") {
+    engine.HandleStrokeStart(glm::vec2(0, 0));
+    engine.HandleStrokeEnd(glm::vec2(0, 0));
+    engine.PocketBalls();
+    engine.PerformCPUStroke();
+    REQUIRE(engine.GetStrokeStartPosition() ==
+            engine.GetStrokeCurrentPosition());
+    for (size_t pull_back = 0; pull_back < 25; ++pull_back) {
+      engine.PerformCPUStroke();
+    }
+    REQUIRE(223.794 ==
+            Approx(engine.GetStrokeCurrentPosition().x).margin(kMarginOfError));
+    REQUIRE(359.985 ==
+            Approx(engine.GetStrokeCurrentPosition().y).margin(kMarginOfError));
+
+    for (size_t pull_back = 0; pull_back < 25; ++pull_back) {
+      engine.PerformCPUStroke();
+    }
+    REQUIRE(engine.GetStrokeEndPosition().x ==
+            Approx(engine.GetStrokeCurrentPosition().x).margin(kMarginOfError));
+    REQUIRE(engine.GetStrokeEndPosition().y ==
+            Approx(engine.GetStrokeCurrentPosition().y).margin(kMarginOfError));
+  }
+
+  SECTION("CPU ending a stroke.") {
+    engine.HandleStrokeStart(glm::vec2(0, 0));
+    engine.HandleStrokeEnd(glm::vec2(0, 0));
+    engine.PocketBalls();
+    engine.PerformCPUStroke();
+    for (size_t pull_back = 0; pull_back < 50; ++pull_back) {
+      engine.PerformCPUStroke();
+    }
+
+    REQUIRE(engine.GetStrokeStarted());
+    REQUIRE_FALSE(engine.GetStrokeCompleted());
+    engine.PerformCPUStroke();
+    REQUIRE_FALSE(engine.GetStrokeStarted());
+    REQUIRE(0 == engine.GetCuePullBack());
+    REQUIRE(engine.GetStrokeCompleted());
+  }
+}
+
 TEST_CASE("Validate starting a stroke.") {
   Table table;
   GameEngine engine(&table);
@@ -259,5 +318,21 @@ TEST_CASE("Validate computing cue dimensions.") {
             Approx(engine.ComputeCueDimensions().x2).margin(kMarginOfError));
     REQUIRE(2.5 ==
             Approx(engine.ComputeCueDimensions().y2).margin(kMarginOfError));
+  }
+}
+
+TEST_CASE("Validate determining if a game is over.") {
+  Table table;
+  GameEngine engine(&table);
+
+  SECTION("Identify a complete game as being over.") {
+    for (size_t ball_count = 0; ball_count < 21; ++ball_count) {
+      table.RemoveBallFromTable(table.GetBalls().front());
+    }
+    REQUIRE(engine.IsGameOver());
+  }
+
+  SECTION("Identify an incomplete game as not being over.") {
+    REQUIRE_FALSE(engine.IsGameOver());
   }
 }

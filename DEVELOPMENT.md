@@ -66,7 +66,7 @@
 #### November 19, 2020
 
 - Implemented code to initially spot all standard snooker balls onto the
- table at the beginning of the game.
+  table at the beginning of the game.
     - Currently, all balls are stationary except the cue ball, which moves
       towards the pyramid of reds upon running the SnookerApp for
       demonstration purposes.
@@ -74,3 +74,103 @@
       cue ball so long as it stays behind the baulk line. The cue ball
       in the SnookerApp currently cannot be moved (or stroked with varying
       strength/angle), but these are features slated for week 2. 
+      
+      
+#### November 27, 2020
+
+- Implemented elementary cue movement functionality.
+    - Player can interact with the cue by pressing down the left mouse button
+      and dragging, and then releasing the LMB to stroke the cue.
+
+    - Cue applies velocity to cue ball proportional to the amount it is
+      pulled back.
+      
+#### November 28, 2020
+ 
+- Integrated cue functionality with front-end visualizer.
+    - Cue follows player's mouse on visualizer, allowing the user to modify
+       the angle of his/her shot.
+    - Imposed maximum cue pull back to prevent unrealistically powerful shots.
+      
+#### November 29, 2020
+
+- Designed GameEngine class to maintain snooker rules.
+    - Governs game flow and imposes rules of snooker upon the Players.
+    
+- Designed Player class to maintain any player-specific fields to be used in
+  a game of snooker.
+    - Player can determine if the next ball to strike/pocket is red or
+      colored, can determine whether or not a shot is legal, and handles the
+      implementation of either passing the cue to the other player or
+      stroking again.
+      
+- Designed Pocket class to handle functionality of snooker pockets.
+    - A Ball will be pocketed in a given pocket if the Ball's center of mass
+      is within the pocket. The GameEngine and Table handle the logic behind
+      removing a Ball from the Table, and respotting it when necessary.
+      
+- Integrated new back-end functionality with front-end visualization.
+    - Implemented drawing of Pockets onto visualizer.
+    - Implemented deletion/redrawing of Balls as they are pocketed/respotted
+      , respectively.
+      
+#### November 30, 2020
+
+- Resolved bugs relating to pocketing and respotting Balls by modifying
+  risky use of pointers.
+
+- Rearranged code to improve modularity and OOP design.
+
+#### December 1, 2020
+
+- Refactored code to delete obsolete code artifacts.
+
+- Wrote formal unit tests to rigorously validate functionality implemented in
+  GameEngine, Player, and Pocket classes, as well as any new functionality in
+  existing classes.
+  
+#### December 2 & 3, 2020
+
+- Wrote additional edge case unit tests for GameEngine, Player, and Pocket
+  classes.
+
+#### December 5, 2020
+
+- Implemented elementary CPU strategy, in which the CPU attempts to pocket
+  the nearest legal Ball in the Pocket nearest the object Ball.
+    - CPU determines the position to strike on the object Ball such that the
+      object Ball will follow a path from its current position to the center
+      of the chosen Pocket. This specific shot-making technique allows the
+      CPU to make relatively straight shots, while still keeping an element
+      of randomness in its handling of difficult/non-obvious shots. 
+      
+#### December 6, 2020
+
+- Modified Player classes to maintain their scores, which are updated by the
+  GameEngine as appropriate.
+ 
+- Modified visualizer to display Player scores and the Player whose turn it
+  currently is.
+  
+#### December 7, 2020
+
+- Designed endscreen to be displayed on the visualizer once a game has ended.
+
+- Resolved issue in determining if a stroke is legal.
+    - When determining the legality of a stroke, certain Table parameters (i
+      .e., number of red Balls on the Table, least value color on the Table
+      ) must be taken before the stroke is performed, not after. Doing so after
+      the stroke will produce invalid results.
+      
+- Wrote elementary unit tests to validate CPU functionality in
+  GameEngine class.
+  
+#### December 8, 2020
+
+- Wrote unit tests to validate score-keeping in Player class.
+
+- Wrote edge case tests and added rigor to previously written tests.
+
+#### December 9, 2020
+
+- Cleaned up documentation in preparation for final submission.

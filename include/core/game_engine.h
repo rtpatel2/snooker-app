@@ -13,10 +13,12 @@ namespace snooker {
 class GameEngine {
  public:
   /**
-   * Creates a new GameEngine for the specified Table.
+   * Creates a new GameEngine for the specified Table with Player 1
+   * controlled by user and Player 2 as a CPU.
+   *
    * @param table Table associated with this GameEngine.
    */
-  GameEngine(Table* table);
+  explicit GameEngine(Table* table);
 
   /** Handles the logic behind pocketing Balls. */
   void PocketBalls();
@@ -29,10 +31,16 @@ class GameEngine {
   bool IsPlayer1Turn() const;
 
   /**
- * Handles logic pertaining to the start of a stroke.
- *
- * @param start_position the position of the stroke start.
- */
+   * Performs an automated stroke for the CPU, striking the nearest object
+   * Ball of the correct color and attempting to pocket it optimally.
+   */
+  void PerformCPUStroke();
+
+  /**
+   * Handles logic pertaining to the start of a stroke.
+   *
+   * @param start_position the position of the stroke start.
+   */
   void HandleStrokeStart(const glm::vec2& start_position);
 
   /**
@@ -64,17 +72,29 @@ class GameEngine {
    */
   ci::Rectf ComputeCueDimensions() const;
 
+  /**
+   * Determines whether or not this game is over.
+   *
+   * @return true if the game is over, and false otherwise.
+   */
+  bool IsGameOver() const;
+
   const Player& GetPlayer1() const;
   const Player& GetPlayer2() const;
   const Player* GetCurrentPlayer() const;
   bool GetStrokeStarted() const;
   const glm::vec2& GetStrokeStartPosition() const;
+  const glm::vec2& GetStrokeCurrentPosition() const;
+  const glm::vec2& GetStrokeEndPosition() const;
   float GetCuePullBack() const;
   bool GetStrokeCompleted() const;
 
  private:
   /** Handles the logic behind ending a Player's stroke. */
   void EndStroke();
+
+  /** Computes the best stroke for the CPU to perform. */
+  void ComputeBestStroke();
 
   Table* table_;
   Player player1_;
@@ -83,8 +103,13 @@ class GameEngine {
 
   bool stroke_started_;
   glm::vec2 stroke_start_position_;
+  glm::vec2 stroke_current_position_;
+  glm::vec2 stroke_end_position_;
   float cue_pull_back_;
   bool stroke_completed_;
+
+  size_t prestroke_red_ball_count_;
+  ci::Color prestroke_least_value_color_;
 };
 
 }  // namespace snooker
